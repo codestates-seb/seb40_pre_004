@@ -6,8 +6,9 @@ import com.codestates.preproject.domain.member.dto.MemberResponseDto;
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.mapper.MemberMapper;
 import com.codestates.preproject.domain.member.service.MemberService;
-import com.codestates.preproject.page.PageInfo;
-import com.codestates.preproject.page.PageResponseDto;
+import com.codestates.preproject.dto.PageInfo;
+import com.codestates.preproject.dto.MultiResponseDto;
+import com.codestates.preproject.dto.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -43,7 +44,7 @@ public class MemberController {
         Member createdMember = memberService.createMember(member);
         MemberResponseDto responseDto = mapper.memberToMemberResponseDto(createdMember);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}")
@@ -55,7 +56,7 @@ public class MemberController {
         Member updatedMember = memberService.updateMember(member);
         MemberResponseDto responseDto = mapper.memberToMemberResponseDto(updatedMember);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
 
     @GetMapping("/{member-id}")
@@ -64,7 +65,7 @@ public class MemberController {
         Member foundMember = memberService.findMember(memberId);
         MemberResponseDto responseDto = mapper.memberToMemberResponseDto(foundMember);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
 
     @GetMapping
@@ -75,9 +76,8 @@ public class MemberController {
         Page<Member> memberPage = memberService.findMembers(pageRequest);
         List<MemberResponseDto> responseDtos = mapper.membersToMemberResponseDtos(memberPage.getContent());
         PageInfo pageInfo = new PageInfo(memberPage.getNumber() + 1, memberPage.getSize(), memberPage.getTotalElements(), memberPage.getTotalPages());
-        PageResponseDto pageResponseDto = new PageResponseDto<>(responseDtos, pageInfo);
 
-        return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(responseDtos, pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{member-id}")

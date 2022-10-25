@@ -6,8 +6,9 @@ import com.codestates.preproject.domain.comment.dto.CommentResponseDto;
 import com.codestates.preproject.domain.comment.entity.Comment;
 import com.codestates.preproject.domain.comment.mapper.CommentMapper;
 import com.codestates.preproject.domain.comment.service.CommentService;
-import com.codestates.preproject.page.PageInfo;
-import com.codestates.preproject.page.PageResponseDto;
+import com.codestates.preproject.dto.PageInfo;
+import com.codestates.preproject.dto.MultiResponseDto;
+import com.codestates.preproject.dto.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -43,7 +44,7 @@ public class CommentController {
         Comment createdComment = commentService.createComment(comment);
         CommentResponseDto responseDto = mapper.commentToCommentResponseDto(createdComment);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{comment-id}")
@@ -55,7 +56,7 @@ public class CommentController {
         Comment updatedComment = commentService.updateComment(comment);
         CommentResponseDto responseDto = mapper.commentToCommentResponseDto(updatedComment);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
 
     @GetMapping("/{comment-id}")
@@ -64,7 +65,7 @@ public class CommentController {
         Comment foundComment = commentService.findComment(commentId);
         CommentResponseDto responseDto = mapper.commentToCommentResponseDto(foundComment);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
 
     @GetMapping
@@ -75,9 +76,8 @@ public class CommentController {
         Page<Comment> commentPage = commentService.findComments(pageRequest);
         List<CommentResponseDto> responseDtos = mapper.commentsToCommentResponseDtos(commentPage.getContent());
         PageInfo pageInfo = new PageInfo(commentPage.getNumber() + 1, commentPage.getSize(), commentPage.getTotalElements(), commentPage.getTotalPages());
-        PageResponseDto pageResponseDto = new PageResponseDto<>(responseDtos, pageInfo);
 
-        return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(responseDtos, pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{comment-id}")

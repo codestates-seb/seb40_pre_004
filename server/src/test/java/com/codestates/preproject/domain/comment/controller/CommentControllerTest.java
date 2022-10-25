@@ -1,3 +1,4 @@
+/*
 package com.codestates.preproject.domain.comment.controller;
 
 import com.codestates.preproject.domain.comment.controller.CommentController;
@@ -31,4 +32,4 @@ class CommentControllerTest {
     @Test
     void deleteComment() {
     }
-}
+}*/

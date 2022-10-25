@@ -6,8 +6,9 @@ import com.codestates.preproject.domain.hashtag.dto.HashtagResponseDto;
 import com.codestates.preproject.domain.hashtag.entity.Hashtag;
 import com.codestates.preproject.domain.hashtag.mapper.HashtagMapper;
 import com.codestates.preproject.domain.hashtag.service.HashtagService;
-import com.codestates.preproject.page.PageInfo;
-import com.codestates.preproject.page.PageResponseDto;
+import com.codestates.preproject.dto.PageInfo;
+import com.codestates.preproject.dto.MultiResponseDto;
+import com.codestates.preproject.dto.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -43,7 +44,7 @@ public class HashtagController {
         Hashtag createdHashtag = hashtagService.createHashtag(hashtag);
         HashtagResponseDto responseDto = mapper.hashtagToHashtagResponseDto(createdHashtag);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{hashtag-id}")
@@ -55,7 +56,7 @@ public class HashtagController {
         Hashtag updatedHashtag = hashtagService.updateHashtag(hashtag);
         HashtagResponseDto responseDto = mapper.hashtagToHashtagResponseDto(updatedHashtag);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
 
     @GetMapping("/{hashtag-id}")
@@ -64,7 +65,7 @@ public class HashtagController {
         Hashtag foundHashtag = hashtagService.findHashtag(hashtagId);
         HashtagResponseDto responseDto = mapper.hashtagToHashtagResponseDto(foundHashtag);
 
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
 
     @GetMapping
@@ -75,9 +76,8 @@ public class HashtagController {
         Page<Hashtag> hashtagPage = hashtagService.findHashtags(pageRequest);
         List<HashtagResponseDto> responseDtos = mapper.hashtagsToHashtagResponseDtos(hashtagPage.getContent());
         PageInfo pageInfo = new PageInfo(hashtagPage.getNumber() + 1, hashtagPage.getSize(), hashtagPage.getTotalElements(), hashtagPage.getTotalPages());
-        PageResponseDto pageResponseDto = new PageResponseDto<>(responseDtos, pageInfo);
 
-        return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(responseDtos, pageInfo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{hashtag-id}")

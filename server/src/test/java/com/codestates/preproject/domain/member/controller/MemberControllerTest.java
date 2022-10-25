@@ -76,33 +76,31 @@ class MemberControllerTest {
                 );
 
         //then
-        MvcResult result = actions
+        actions
                 .andExpect(status().isCreated())
-                .andReturn();
-        System.out.println(result);
-//                .andExpect(jsonPath("$.responseDto.displayName").value(postDto.getDisplayName()))
-//                .andExpect(jsonPath("$.responseDto.email").value(postDto.getEmail()))
-//                .andExpect(jsonPath("$.responseDto.password").value(postDto.getPassword()))
-//                .andDo(document("post-member",
-//                        preprocessRequest(prettyPrint()),
-//                        preprocessResponse(prettyPrint()),
-//                        requestFields(
-//                                List.of(
-//                                        fieldWithPath("displayName").type(JsonFieldType.STRING).description("회원 이름"),
-//                                        fieldWithPath("email").type(JsonFieldType.STRING).description("회원 이메일"),
-//                                        fieldWithPath("password").type(JsonFieldType.STRING).description("회원 비밀번호")
-//                                )
-//                        ),
-//                        responseFields(
-//                                List.of(
-//                                        fieldWithPath("responseDto").type(JsonFieldType.OBJECT).description("결과 데이터"),
-//                                        fieldWithPath("responseDto.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
-//                                        fieldWithPath("responseDto.displayName").type(JsonFieldType.STRING).description("회원 이름"),
-//                                        fieldWithPath("responseDto.email").type(JsonFieldType.STRING).description("회원 이메일"),
-//                                        fieldWithPath("responseDto.password").type(JsonFieldType.STRING).description("회원 비밀번호")
-//                                )
-//                        )
-//                ));
+                .andExpect(jsonPath("$.data.displayName").value(postDto.getDisplayName()))
+                .andExpect(jsonPath("$.data.email").value(postDto.getEmail()))
+                .andExpect(jsonPath("$.data.password").value(postDto.getPassword()))
+                .andDo(document("post-member",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        requestFields(
+                                List.of(
+                                        fieldWithPath("displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("email").type(JsonFieldType.STRING).description("회원 이메일"),
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("회원 비밀번호")
+                                )
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
+                                        fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
+                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호")
+                                )
+                        )
+                ));
     }
 
     @Test

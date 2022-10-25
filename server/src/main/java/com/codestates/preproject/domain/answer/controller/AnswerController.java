@@ -6,8 +6,9 @@ import com.codestates.preproject.domain.answer.dto.AnswerResponseDto;
 import com.codestates.preproject.domain.answer.entity.Answer;
 import com.codestates.preproject.domain.answer.mapper.AnswerMapper;
 import com.codestates.preproject.domain.answer.service.AnswerService;
-import com.codestates.preproject.page.PageResponseDto;
-import com.codestates.preproject.page.PageInfo;
+import com.codestates.preproject.dto.MultiResponseDto;
+import com.codestates.preproject.dto.PageInfo;
+import com.codestates.preproject.dto.SingleResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -43,7 +44,7 @@ public class AnswerController {
                 Answer createdAnswer = answerService.createAnswer(answer);
                 AnswerResponseDto responseDto = mapper.answerToAnswerResponseDto(createdAnswer);
 
-                return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+                return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.CREATED);
         }
 
         @PatchMapping("/{answer-id}")
@@ -55,7 +56,7 @@ public class AnswerController {
                 Answer updatedAnswer = answerService.updateAnswer(answer);
                 AnswerResponseDto responseDto = mapper.answerToAnswerResponseDto(updatedAnswer);
 
-                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+                return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
         }
 
         @GetMapping("/{answer-id}")
@@ -64,7 +65,7 @@ public class AnswerController {
                 Answer foundAnswer = answerService.findAnswer(answerId);
                 AnswerResponseDto responseDto = mapper.answerToAnswerResponseDto(foundAnswer);
 
-                return new ResponseEntity<>(responseDto, HttpStatus.OK);
+                return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
         }
 
         @GetMapping
@@ -75,9 +76,8 @@ public class AnswerController {
                 Page<Answer> answerPage = answerService.findAnswers(pageRequest);
                 List<AnswerResponseDto> responseDtos = mapper.answersToAnswerResponseDtos(answerPage.getContent());
                 PageInfo pageInfo = new PageInfo(answerPage.getNumber() + 1, answerPage.getSize(), answerPage.getTotalElements(), answerPage.getTotalPages());
-                PageResponseDto pageResponseDto = new PageResponseDto<>(responseDtos, pageInfo);
 
-                return new ResponseEntity<>(pageResponseDto, HttpStatus.OK);
+                return new ResponseEntity<>(new MultiResponseDto<>(responseDtos, pageInfo), HttpStatus.OK);
         }
 
         @DeleteMapping("/{answer-id}")

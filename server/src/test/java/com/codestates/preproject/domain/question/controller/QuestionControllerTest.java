@@ -1,3 +1,4 @@
+/*
 package com.codestates.preproject.domain.question.controller;
 
 import com.codestates.preproject.domain.question.controller.QuestionController;
@@ -31,4 +32,4 @@ class QuestionControllerTest {
     @Test
     void deleteQuestion() {
     }
-}
+}*/

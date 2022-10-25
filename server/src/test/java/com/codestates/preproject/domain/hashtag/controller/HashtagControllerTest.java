@@ -1,3 +1,4 @@
+/*
 package com.codestates.preproject.domain.hashtag.controller;
 
 import com.codestates.preproject.domain.hashtag.controller.HashtagController;
@@ -31,4 +32,4 @@ class HashtagControllerTest {
     @Test
     void deleteHashtag() {
     }
-}
+}*/
