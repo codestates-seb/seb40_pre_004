@@ -1,5 +1,6 @@
 package com.codestates.preproject.domain.member.dto;
 
+import com.codestates.preproject.validator.NotSpace;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,4 +8,11 @@ import lombok.Setter;
 @Setter
 public class MemberPatchDto {
     private long memberId;
+
+    @NotSpace
+    private String displayName;
+
+    @NotSpace
+    private String password;
+
 }

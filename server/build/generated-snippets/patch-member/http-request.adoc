@@ -1,0 +1,14 @@
+[source,http,options="nowrap"]
+----
+PATCH /v1/members/1 HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Accept: application/json
+Content-Length: 75
+Host: localhost:8080
+
+{
+  "memberId" : 0,
+  "displayName" : "김길동",
+  "password" : "1234#"
+}
+----

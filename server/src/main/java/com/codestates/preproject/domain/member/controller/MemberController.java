@@ -71,9 +71,8 @@ public class MemberController {
     @GetMapping
     public ResponseEntity getMembers(@RequestParam("page") @Positive int page,
                                      @RequestParam("size") @Positive int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("memberId").descending());
 
-        Page<Member> memberPage = memberService.findMembers(pageRequest);
+        Page<Member> memberPage = memberService.findMembers(page, size);
         List<MemberResponseDto> responseDtos = mapper.membersToMemberResponseDtos(memberPage.getContent());
         PageInfo pageInfo = new PageInfo(memberPage.getNumber() + 1, memberPage.getSize(), memberPage.getTotalElements(), memberPage.getTotalPages());
 

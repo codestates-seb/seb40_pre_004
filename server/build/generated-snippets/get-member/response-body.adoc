@@ -1,0 +1,11 @@
+[source,options="nowrap"]
+----
+{
+  "data" : {
+    "memberId" : 1,
+    "displayName" : "홍길동",
+    "email" : "hgd@gmail.com",
+    "password" : "hgd1234#"
+  }
+}
+----
