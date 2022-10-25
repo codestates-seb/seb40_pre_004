@@ -21,7 +21,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/hashtags")
+@RequestMapping("/v1/hashtags")
 @Validated
 public class HashtagController {
     private final HashtagService hashtagService;

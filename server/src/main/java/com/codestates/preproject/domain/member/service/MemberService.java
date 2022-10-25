@@ -17,7 +17,7 @@ public class MemberService {
     }
 
     public Member createMember(Member member) {
-        return null;
+        return memberRepository.save(member);
     }
 
     public Member updateMember(Member member) {
