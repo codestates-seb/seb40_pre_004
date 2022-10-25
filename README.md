@@ -74,3 +74,7 @@
 해결: #123
 참고: #456, #789
 ```
+
+
+### DB테이블 설계 (변경될 수 있음)!
+[DB 테이블](https://user-images.githubusercontent.com/105726931/197666306-de8f6d80-e353-4ff5-bbac-de1fc9f2c0ec.svg)
