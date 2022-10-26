@@ -12,14 +12,10 @@ const GlobalStyle = createGlobalStyle`
     color: #222;
     text-decoration: none;
   }
-  a:hover {
-    color: #2698cb;
-  }
 
   /* 폰트 초기화 */
   body, input, textarea, select, button, table {
     font-family: 'Noto Sans KR', 'AppleSDGothicNeo-Regular', 'Malgun Gothic', '맑은 고딕', 'dotum', '돋움', sans-serif;
-    color: #222;
     font-size: 13px;
     line-height: 1.5;
   }
