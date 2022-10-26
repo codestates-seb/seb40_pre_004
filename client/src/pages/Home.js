@@ -1,11 +1,26 @@
+import styled from 'styled-components';
 import Footer from '../components/Footer';
+import Nav from '../components/Nav';
+
+const S_Container = styled.div`
+  max-width: 1264px;
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  position: relative;
+  flex: 1 0 auto;
+`;
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <>
+      <S_Container>
+        <Nav />
+      </S_Container>
       <Footer />
-    </div>
+    </>
   );
 };
 
