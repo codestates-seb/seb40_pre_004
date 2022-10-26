@@ -3,6 +3,7 @@
 {
   "displayName" : "홍길동",
   "email" : "hgd@gmail.com",
-  "password" : "hgd1234#"
+  "password" : "hgd1234#",
+  "optIn" : false
 }
 ----

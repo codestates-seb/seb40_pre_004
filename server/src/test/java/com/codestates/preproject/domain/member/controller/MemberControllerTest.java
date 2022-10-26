@@ -57,10 +57,10 @@ class MemberControllerTest {
     @Test
     void postMember() throws Exception {
         //given
-        MemberPostDto postDto = new MemberPostDto("홍길동", "hgd@gmail.com", "hgd1234#");
+        MemberPostDto postDto = new MemberPostDto("홍길동", "hgd@gmail.com", "hgd1234#", false);
         String content = gson.toJson(postDto);
 
-        MemberResponseDto responseDto = new MemberResponseDto(1L, "홍길동", "hgd@gmail.com", "hgd1234#");
+        MemberResponseDto responseDto = new MemberResponseDto(1L, "홍길동", "hgd@gmail.com", "hgd1234#", false);
 
         given(mapper.memberPostDtoToMember(Mockito.any(MemberPostDto.class)))
                 .willReturn(new Member());
@@ -86,6 +86,7 @@ class MemberControllerTest {
                 .andExpect(jsonPath("$.data.displayName").value(postDto.getDisplayName()))
                 .andExpect(jsonPath("$.data.email").value(postDto.getEmail()))
                 .andExpect(jsonPath("$.data.password").value(postDto.getPassword()))
+                .andExpect(jsonPath("$.data.optIn").value(postDto.getOptIn()))
                 .andDo(document("post-member",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -93,7 +94,8 @@ class MemberControllerTest {
                                 List.of(
                                         fieldWithPath("displayName").type(JsonFieldType.STRING).description("회원 이름"),
                                         fieldWithPath("email").type(JsonFieldType.STRING).description("회원 이메일"),
-                                        fieldWithPath("password").type(JsonFieldType.STRING).description("회원 비밀번호")
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("회원 비밀번호"),
+                                        fieldWithPath("optIn").type(JsonFieldType.BOOLEAN).description("회원 알림 여부")
                                 )
                         ),
                         responseFields(
@@ -102,7 +104,8 @@ class MemberControllerTest {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("회원 이름"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호")
+                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
+                                        fieldWithPath("data.optIn").type(JsonFieldType.BOOLEAN).description("회원 알림 여부")
                                 )
                         )
                 ));
@@ -115,10 +118,11 @@ class MemberControllerTest {
         MemberPatchDto patchDto = new MemberPatchDto();
         patchDto.setPassword("1234#");
         patchDto.setDisplayName("김길동");
+        patchDto.setOptIn(true);
 
         String content = gson.toJson(patchDto);
 
-        MemberResponseDto responseDto = new MemberResponseDto(1L, "김길동", "hgd@gmail.com", "1234#");
+        MemberResponseDto responseDto = new MemberResponseDto(1L, "김길동", "hgd@gmail.com", "1234#", true);
 
         given(mapper.memberPatchDtoToMember(Mockito.any(MemberPatchDto.class)))
                 .willReturn(new Member());
@@ -144,6 +148,7 @@ class MemberControllerTest {
                 .andExpect(jsonPath("$.data.memberId").value(memberId))
                 .andExpect(jsonPath("$.data.displayName").value(patchDto.getDisplayName()))
                 .andExpect(jsonPath("$.data.password").value(patchDto.getPassword()))
+                .andExpect(jsonPath("$.data.optIn").value(patchDto.getOptIn()))
                 .andDo(document("patch-member",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -154,7 +159,8 @@ class MemberControllerTest {
                                 List.of(
                                         fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자").ignored(),
                                         fieldWithPath("displayName").type(JsonFieldType.STRING).description("회원 이름").optional(),
-                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호").optional()
+                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호").optional(),
+                                        fieldWithPath("optIn").type(JsonFieldType.BOOLEAN).description("회원 알림 여부")
                                 )
                         ),
                         responseFields(
@@ -163,7 +169,8 @@ class MemberControllerTest {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("회원 이름"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호")
+                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
+                                        fieldWithPath("data.optIn").type(JsonFieldType.BOOLEAN).description("회원 알림 여부")
                                 )
                         )
                 ));
@@ -174,7 +181,7 @@ class MemberControllerTest {
         //given
         long memberId = 1;
 
-        MemberResponseDto response = new MemberResponseDto(memberId, "홍길동", "hgd@gmail.com", "hgd1234#");
+        MemberResponseDto response = new MemberResponseDto(memberId, "홍길동", "hgd@gmail.com", "hgd1234#", false);
 
         given(memberService.findMember(Mockito.anyLong()))
                 .willReturn(new Member());
@@ -202,7 +209,8 @@ class MemberControllerTest {
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("회원 이름"),
                                         fieldWithPath("data.email").type(JsonFieldType.STRING).description("회원 이메일"),
-                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호")
+                                        fieldWithPath("data.password").type(JsonFieldType.STRING).description("회원 비밀번호"),
+                                        fieldWithPath("data.optIn").type(JsonFieldType.BOOLEAN).description("회원 알림 여부")
                                 )
                         )
                 ));
@@ -221,9 +229,9 @@ class MemberControllerTest {
 
         given(mapper.membersToMemberResponseDtos(Mockito.anyList()))
                 .willReturn(List.of(
-                        new MemberResponseDto(3L, "홍길동3", "hgd3@gmail.com", "a3333#"),
-                        new MemberResponseDto(2L, "홍길동2", "hgd2@gmail.com", "a2222#"),
-                        new MemberResponseDto(1L, "홍길동1", "hgd1@gmail.com", "a1111#")
+                        new MemberResponseDto(3L, "홍길동3", "hgd3@gmail.com", "a3333#", false),
+                        new MemberResponseDto(2L, "홍길동2", "hgd2@gmail.com", "a2222#", true),
+                        new MemberResponseDto(1L, "홍길동1", "hgd1@gmail.com", "a1111#", false)
                         )
                 );
 
@@ -240,7 +248,7 @@ class MemberControllerTest {
                 .andExpect(jsonPath("$.data").isArray())
                 .andDo(document("get-members",
                         preprocessResponse(prettyPrint()),
-                        requestParameters(List.of(parameterWithName("page").description("페이지 숫자"),
+                        requestParameters(List.of(parameterWithName("page").description("페이지 번호"),
                                 parameterWithName("size").description("페이지 크기"))),
                         responseFields(
                                 List.of(
@@ -249,9 +257,10 @@ class MemberControllerTest {
                                         fieldWithPath("data[].displayName").type(JsonFieldType.STRING).description("회원 이름"),
                                         fieldWithPath("data[].email").type(JsonFieldType.STRING).description("회원 이메일"),
                                         fieldWithPath("data[].password").type(JsonFieldType.STRING).description("회원 비밀번호"),
+                                        fieldWithPath("data[].optIn").type(JsonFieldType.BOOLEAN).description("회원 알림 여부"),
 
                                         fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
-                                        fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 숫자"),
+                                        fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 번호"),
                                         fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
                                         fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("총 갯수"),
                                         fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("총 페이지 수")

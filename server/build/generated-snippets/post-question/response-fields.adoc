@@ -1,0 +1,24 @@
+|===
+|Path|Type|Description
+
+|`+data+`
+|`+Object+`
+|결과 데이터
+
+|`+data.questionId+`
+|`+Number+`
+|질문 식별자
+
+|`+data.title+`
+|`+String+`
+|질문 제목
+
+|`+data.body+`
+|`+String+`
+|질문 본문
+
+|`+data.memberId+`
+|`+Number+`
+|회원 식별자
+
+|===

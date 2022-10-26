@@ -1,0 +1,11 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/v1/questions/1' -i -X PATCH \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{
+  "questionId" : 0,
+  "title" : "제목 수정",
+  "body" : "본문 수정"
+}'
+----
