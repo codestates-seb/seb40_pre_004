@@ -221,9 +221,10 @@ class MemberControllerTest {
 
         given(mapper.membersToMemberResponseDtos(Mockito.anyList()))
                 .willReturn(List.of(
-                        new MemberResponseDto(1L, "홍길동1", "hgd1@gmail.com", "a1111#"),
+                        new MemberResponseDto(3L, "홍길동3", "hgd3@gmail.com", "a3333#"),
                         new MemberResponseDto(2L, "홍길동2", "hgd2@gmail.com", "a2222#"),
-                        new MemberResponseDto(3L, "홍길동3", "hgd3@gmail.com", "a3333#"))
+                        new MemberResponseDto(1L, "홍길동1", "hgd1@gmail.com", "a1111#")
+                        )
                 );
 
         //when

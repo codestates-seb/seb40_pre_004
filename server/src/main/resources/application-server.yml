@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/testDB?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    url: jdbc:mysql://ec2-3-36-122-119.ap-northeast-2.compute.amazonaws.com:3306/testDB?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
     username: test
     password: test1234
     driver-class-name: com.mysql.cj.jdbc.Driver
