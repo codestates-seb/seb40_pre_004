@@ -1,0 +1,44 @@
+|===
+|Path|Type|Description
+
+|`+data+`
+|`+Array+`
+|결과 데이터
+
+|`+data[].questionId+`
+|`+Number+`
+|질문 식별자
+
+|`+data[].title+`
+|`+String+`
+|질문 제목
+
+|`+data[].body+`
+|`+String+`
+|질문 본문
+
+|`+data[].memberId+`
+|`+Number+`
+|회원 식별자
+
+|`+pageInfo+`
+|`+Object+`
+|페이지 정보
+
+|`+pageInfo.page+`
+|`+Number+`
+|페이지 번호
+
+|`+pageInfo.size+`
+|`+Number+`
+|페이지 크기
+
+|`+pageInfo.totalElements+`
+|`+Number+`
+|총 갯수
+
+|`+pageInfo.totalPages+`
+|`+Number+`
+|총 페이지 수
+
+|===
