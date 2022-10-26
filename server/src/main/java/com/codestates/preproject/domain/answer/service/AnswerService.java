@@ -4,8 +4,12 @@ import com.codestates.preproject.domain.answer.entity.Answer;
 import com.codestates.preproject.domain.answer.repository.AnswerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -17,22 +21,43 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
-        return null;
+        verifiedAnswer(answer.getAnswerId());
+
+        return answerRepository.save(answer);
     }
 
     public Answer updateAnswer(Answer answer) {
-        return null;
+        Answer findAnswer = findByAnswer(answer.getAnswerId());
+
+        Optional.ofNullable(answer.getBody())
+                .ifPresent(body -> findAnswer.setBody(body));
+
+        return answerRepository.save(findAnswer);
     }
 
     public Answer findAnswer(long answerId) {
-        return null;
+        return findByAnswer(answerId);
     }
 
-    public Page<Answer> findAnswers(Pageable pageable) {
-        return null;
+    public List<Answer> findAnswers() {
+        return answerRepository.findAll();
     }
 
     public void deleteAnswer(long answerId) {
+        answerRepository.deleteById(answerId);
+    }
 
+    public Answer findByAnswer(long answerId){
+        Answer answer = answerRepository.findById(answerId)
+                .orElseThrow(() -> new RuntimeException("질문이 등록되지 않았습니다."));
+        return answer;
+    }
+
+    private void verifiedAnswer(long answerId){
+        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
+
+        if(optionalAnswer.isPresent()){
+            throw new RuntimeException("중복된 질문입니다.");
+        }
     }
 }
