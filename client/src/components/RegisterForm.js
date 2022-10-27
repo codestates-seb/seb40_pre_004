@@ -135,6 +135,7 @@ const S_OptInContainer = styled.div`
   & > label {
     font-size: 12px;
     width: 233px;
+    margin-left: 4px;
   }
 `;
 
