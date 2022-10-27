@@ -48,6 +48,34 @@ const S_FormInputWrapper = styled.div`
 
   & > input {
     padding: 7.8px 9.1px;
+    padding-right: ${(props) =>
+      props.validationResult !== null && props.validationResult !== 'valid'
+        ? '32px'
+        : ''};
+    border: ${(props) =>
+      props.validationResult !== null && props.validationResult !== 'valid'
+        ? '1px solid #d0393e'
+        : ''};
+  }
+
+  & > svg {
+    position: relative;
+    top: -28px;
+    right: -242px;
+  }
+
+  & > span {
+    margin-top: -16px;
+    color: #d0393e;
+  }
+
+  & > ul {
+    color: #d0393e;
+    padding-left: 30px;
+
+    & > li {
+      list-style-type: disc;
+    }
   }
 
   & > p {
@@ -91,6 +119,12 @@ const S_RecaptchaContainer = styled.div`
       }
     }
   }
+
+  & > span {
+    width: 57px;
+    color: #d0393e;
+    margin-left: 3px;
+  }
 `;
 
 const S_OptInContainer = styled.div`
@@ -113,6 +147,18 @@ const RegisterForm = () => {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isHuman, setIsHuman] = useState(false);
+  // displayName 유효성 검사 결과
+  const [displayNameValidationResult, setDisplayNameValidationResult] =
+    useState(null);
+  // email 유효성 검사 결과
+  const [emailValidationResult, setEmailValidationResult] = useState(null);
+  // password 유효성 검사 결과
+  const [passwordValidationResult, setPasswordValidationResult] =
+    useState(null);
+  // isHuman 유효성 검사 결과
+  const [isHumanValidationResult, setIsHumanValidationResult] = useState(null);
+  const [isOptIn, setIsOptIn] = useState(false);
 
   const handleDisplayName = (e) => {
     setDisplayName(e.target.value);
@@ -124,12 +170,91 @@ const RegisterForm = () => {
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
+    setPasswordValidationResult(null);
+  };
+
+  const handleRecaptcha = (e) => {
+    setIsHuman(e.target.checked);
+  };
+
+  const handleOptIn = (e) => {
+    setIsOptIn(e.target.checked);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const validateString = (string, regex) => {
+      return regex.test(string);
+    };
+
+    const validateDisplayName = (displayName, email) => {
+      if (displayName === email) return 'sameWithEmail';
+
+      return 'valid';
+    };
+
+    const validateEmail = (email) => {
+      const emailRegex =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+      if (email.length === 0) return 'empty';
+      if (!validateString(email, emailRegex)) return 'invalid';
+
+      return 'valid';
+    };
+
+    const validatePassword = (password) => {
+      const hasNumberRegex = /(?=.*[0-9])/;
+      const hasLetterRegex = /(?=.*[a-zA-Z])/;
+      const atLeastEightLettersRegex = /[a-zA-Z0-9`~!@#$%^&*()\-_=+]{8,}/;
+
+      if (password.length === 0) return 'empty';
+      if (
+        !validateString(password, hasNumberRegex) &&
+        !validateString(password, hasLetterRegex)
+      )
+        return 'missingNumberAndLetter';
+      if (!validateString(password, hasNumberRegex)) return 'missingNumber';
+      if (!validateString(password, hasLetterRegex)) return 'missingLetter';
+      if (!validateString(password, atLeastEightLettersRegex)) return 'short';
+
+      return 'valid';
+    };
+
+    const validateIsHuman = (isHuman) => {
+      if (isHuman) return 'valid';
+
+      return 'invalid';
+    };
+
+    setDisplayNameValidationResult(validateDisplayName(displayName, email));
+    setEmailValidationResult(validateEmail(email));
+    setPasswordValidationResult(validatePassword(password));
+    setIsHumanValidationResult(validateIsHuman(isHuman));
+
+    const body = {
+      displayName,
+      email,
+      password,
+      isOptIn,
+    };
+    console.log(body);
+
+    if (
+      validateDisplayName(displayName, email) === 'valid' &&
+      validateEmail(email) === 'valid' &&
+      validatePassword(password) === 'valid' &&
+      validateIsHuman(isHuman) === 'valid'
+    ) {
+      console.log('passed');
+    }
   };
 
   return (
     <S_FormContainer>
-      <S_Form>
-        <S_FormInputWrapper>
+      <S_Form onSubmit={handleSubmit}>
+        <S_FormInputWrapper validationResult={displayNameValidationResult}>
           <label htmlFor="display-name">Display name</label>
           <input
             type="text"
@@ -137,19 +262,100 @@ const RegisterForm = () => {
             value={displayName}
             onChange={handleDisplayName}
           />
+          {displayNameValidationResult === null ||
+          displayNameValidationResult === 'valid' ? null : (
+            <S_Svg size="18">
+              <path
+                d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"
+                fill="#d0393e"
+              />
+            </S_Svg>
+          )}
+          {displayNameValidationResult === 'sameWithEmail' ? (
+            <span>
+              Name and email address must be different. If you don&apos;t want
+              to enter a name, just leave it blank.
+            </span>
+          ) : null}
         </S_FormInputWrapper>
-        <S_FormInputWrapper>
+        <S_FormInputWrapper validationResult={emailValidationResult}>
           <label htmlFor="email">Email</label>
           <input type="text" id="email" value={email} onChange={handleEmail} />
+          {emailValidationResult === 'empty' ? (
+            <span>Email cannot be empty.</span>
+          ) : null}
+          {emailValidationResult === null ||
+          emailValidationResult === 'valid' ? null : (
+            <S_Svg size="18">
+              <path
+                d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"
+                fill="#d0393e"
+              />
+            </S_Svg>
+          )}
+          {emailValidationResult === 'invalid' ? (
+            <span>{email} is not a valid email address.</span>
+          ) : null}
         </S_FormInputWrapper>
-        <S_FormInputWrapper>
+        <S_FormInputWrapper validationResult={passwordValidationResult}>
           <label htmlFor="password">Password</label>
           <input
-            type="text"
+            type="password"
             id="password"
             value={password}
             onChange={handlePassword}
           />
+          {passwordValidationResult === null ||
+          passwordValidationResult === 'valid' ? null : (
+            <S_Svg size="18">
+              <path
+                d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"
+                fill="#d0393e"
+              />
+            </S_Svg>
+          )}
+          {passwordValidationResult === 'empty' ? (
+            <span>Password cannot be empty.</span>
+          ) : null}
+          {passwordValidationResult === 'missingNumberAndLetter' ? (
+            <>
+              <span>
+                Please add one of the following things to make your password
+                stronger:
+              </span>
+              <ul>
+                <li>letters</li>
+                <li>numbers</li>
+              </ul>
+            </>
+          ) : null}
+          {passwordValidationResult === 'missingNumber' ? (
+            <>
+              <span>
+                Please add one of the following things to make your password
+                stronger:
+              </span>
+              <ul>
+                <li>letters</li>
+              </ul>
+            </>
+          ) : null}
+          {passwordValidationResult === 'missingLetter' ? (
+            <>
+              <span>
+                Please add one of the following things to make your password
+                stronger:
+              </span>
+              <ul>
+                <li>letters</li>
+              </ul>
+            </>
+          ) : null}
+          {passwordValidationResult === 'short' ? (
+            <span>
+              Must contain at least {8 - password.length} more characters.
+            </span>
+          ) : null}
           <p>
             Passwords must contain at least eight characters, including at least
             1 letter and 1 number.
@@ -158,13 +364,16 @@ const RegisterForm = () => {
         <S_RecaptchaContainer>
           <div>
             <div>
-              <input type="checkbox" id="recaptcha" />
+              <input type="checkbox" id="recaptcha" onClick={handleRecaptcha} />
               <label htmlFor="recaptcha">I&apos;m not a robot</label>
             </div>
           </div>
+          {isHumanValidationResult === 'invalid' ? (
+            <span>CAPTCHA response required.</span>
+          ) : null}
         </S_RecaptchaContainer>
         <S_OptInContainer>
-          <input type="checkbox" id="opt-in" />
+          <input type="checkbox" id="opt-in" onClick={handleOptIn} />
           <label htmlFor="opt-in">
             Opt-in to receive occasional product updates, user research
             invitations, company announcements, and digests.
