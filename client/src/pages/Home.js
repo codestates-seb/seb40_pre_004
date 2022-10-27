@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Footer from '../components/Footer';
+import Main from '../components/Main';
 import Nav from '../components/Nav';
 
 const S_Container = styled.div`
@@ -18,6 +19,7 @@ const Home = () => {
     <>
       <S_Container>
         <Nav />
+        <Main />
       </S_Container>
       <Footer />
     </>
