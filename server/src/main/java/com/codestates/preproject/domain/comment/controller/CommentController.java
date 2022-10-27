@@ -6,12 +6,7 @@ import com.codestates.preproject.domain.comment.dto.CommentResponseDto;
 import com.codestates.preproject.domain.comment.entity.Comment;
 import com.codestates.preproject.domain.comment.mapper.CommentMapper;
 import com.codestates.preproject.domain.comment.service.CommentService;
-import com.codestates.preproject.dto.PageInfo;
-import com.codestates.preproject.dto.MultiResponseDto;
 import com.codestates.preproject.dto.SingleResponseDto;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,10 +27,6 @@ public class CommentController {
         this.commentService = commentService;
         this.mapper = mapper;
     }
-
-    /*
-        CommentController 전체 흐름 구현(dto 클래스, 비즈니스 계층 미구현)
-    */
 
     @PostMapping
     public ResponseEntity postComment(@Valid @RequestBody CommentPostDto postDto) {
@@ -69,15 +60,10 @@ public class CommentController {
     }
 
     @GetMapping
-    public ResponseEntity getComments(@RequestParam("page") @Positive int page,
-                                      @RequestParam("size") @Positive int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("commentId").descending());
+    public ResponseEntity getComments() {
+        List<CommentResponseDto> responseDtos = mapper.commentsToCommentResponseDtos(commentService.findComments());
 
-        Page<Comment> commentPage = commentService.findComments(pageRequest);
-        List<CommentResponseDto> responseDtos = mapper.commentsToCommentResponseDtos(commentPage.getContent());
-        PageInfo pageInfo = new PageInfo(commentPage.getNumber() + 1, commentPage.getSize(), commentPage.getTotalElements(), commentPage.getTotalPages());
-
-        return new ResponseEntity<>(new MultiResponseDto<>(responseDtos, pageInfo), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(responseDtos), HttpStatus.OK);
     }
 
     @DeleteMapping("/{comment-id}")

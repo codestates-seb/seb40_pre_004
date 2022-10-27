@@ -37,4 +37,8 @@ public class Answer extends Auditable {
 
     @OneToMany(mappedBy = "answer")
     private List<Comment> comments = new ArrayList<>();
+
+    public void addComment(Comment comment){
+        comments.add(comment);
+    }
 }
