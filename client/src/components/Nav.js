@@ -19,7 +19,6 @@ const S_SidebarContainer = styled.div`
   padding-top: 24px;
   max-height: 100vh;
   overflow-y: auto;
-  top: 50px;
   max-height: calc(100vh - var(50px));
 
   width: 164px;
