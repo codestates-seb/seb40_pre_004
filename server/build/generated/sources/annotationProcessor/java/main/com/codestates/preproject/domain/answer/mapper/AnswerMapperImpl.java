@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-27T14:40:05+0900",
+    date = "2022-10-27T17:27:04+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -25,6 +25,8 @@ public class AnswerMapperImpl implements AnswerMapper {
 
         Answer answer = new Answer();
 
+        answer.setBody( answerPostDto.getBody() );
+
         return answer;
     }
 
@@ -37,6 +39,7 @@ public class AnswerMapperImpl implements AnswerMapper {
         Answer answer = new Answer();
 
         answer.setAnswerId( answerPatchDto.getAnswerId() );
+        answer.setBody( answerPatchDto.getBody() );
 
         return answer;
     }
@@ -48,6 +51,9 @@ public class AnswerMapperImpl implements AnswerMapper {
         }
 
         AnswerResponseDto answerResponseDto = new AnswerResponseDto();
+
+        answerResponseDto.setAnswerId( answer.getAnswerId() );
+        answerResponseDto.setBody( answer.getBody() );
 
         return answerResponseDto;
     }
