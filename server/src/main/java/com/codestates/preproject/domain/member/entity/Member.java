@@ -33,6 +33,9 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private Boolean optIn;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>(); // 사용자 권한 등록 테이블
+
     @OneToMany(mappedBy = "member")
     private List<Question> questions = new ArrayList<>();
 
