@@ -1,5 +1,13 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useInput from '../hooks/useInput';
+import useCheckbox from '../hooks/useCheckbox';
+import {
+  validateDisplayName,
+  validateEmail,
+  validatePassword,
+  validateIsHuman,
+} from '../api/validate';
 
 const S_FormContainer = styled.section`
   width: 268px;
@@ -145,10 +153,13 @@ const S_Svg = styled.svg`
 `;
 
 const RegisterForm = () => {
-  const [displayName, setDisplayName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isHuman, setIsHuman] = useState(false);
+  const [displayName, displayNameBind] = useInput('');
+  const [email, emailBind] = useInput('');
+  const [password, passwordBind] = useInput('');
+
+  const [isHuman, isHumanBind] = useCheckbox(false);
+  const [optIn, optInBind] = useCheckbox(false);
+
   // displayName 유효성 검사 결과
   const [displayNameValidationResult, setDisplayNameValidationResult] =
     useState(null);
@@ -159,75 +170,15 @@ const RegisterForm = () => {
     useState(null);
   // isHuman 유효성 검사 결과
   const [isHumanValidationResult, setIsHumanValidationResult] = useState(null);
-  const [isOptIn, setIsOptIn] = useState(false);
 
-  const handleDisplayName = (e) => {
-    setDisplayName(e.target.value);
-  };
-
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-    setPasswordValidationResult(null);
-  };
-
-  const handleRecaptcha = (e) => {
-    setIsHuman(e.target.checked);
-  };
-
-  const handleOptIn = (e) => {
-    setIsOptIn(e.target.checked);
-  };
+  useEffect(() => {
+    if (password.length >= 8) {
+      setPasswordValidationResult(null);
+    }
+  }, [password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const validateString = (string, regex) => {
-      return regex.test(string);
-    };
-
-    const validateDisplayName = (displayName, email) => {
-      if (displayName === email) return 'sameWithEmail';
-
-      return 'valid';
-    };
-
-    const validateEmail = (email) => {
-      const emailRegex =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-      if (email.length === 0) return 'empty';
-      if (!validateString(email, emailRegex)) return 'invalid';
-
-      return 'valid';
-    };
-
-    const validatePassword = (password) => {
-      const hasNumberRegex = /(?=.*[0-9])/;
-      const hasLetterRegex = /(?=.*[a-zA-Z])/;
-      const atLeastEightLettersRegex = /[a-zA-Z0-9`~!@#$%^&*()\-_=+]{8,}/;
-
-      if (password.length === 0) return 'empty';
-      if (
-        !validateString(password, hasNumberRegex) &&
-        !validateString(password, hasLetterRegex)
-      )
-        return 'missingNumberAndLetter';
-      if (!validateString(password, hasNumberRegex)) return 'missingNumber';
-      if (!validateString(password, hasLetterRegex)) return 'missingLetter';
-      if (!validateString(password, atLeastEightLettersRegex)) return 'short';
-
-      return 'valid';
-    };
-
-    const validateIsHuman = (isHuman) => {
-      if (isHuman) return 'valid';
-
-      return 'invalid';
-    };
 
     setDisplayNameValidationResult(validateDisplayName(displayName, email));
     setEmailValidationResult(validateEmail(email));
@@ -238,7 +189,7 @@ const RegisterForm = () => {
       displayName,
       email,
       password,
-      isOptIn,
+      optIn,
     };
     console.log(body);
 
@@ -257,12 +208,7 @@ const RegisterForm = () => {
       <S_Form onSubmit={handleSubmit}>
         <S_FormInputWrapper validationResult={displayNameValidationResult}>
           <label htmlFor="display-name">Display name</label>
-          <input
-            type="text"
-            id="display-name"
-            value={displayName}
-            onChange={handleDisplayName}
-          />
+          <input type="text" id="display-name" {...displayNameBind} />
           {displayNameValidationResult === null ||
           displayNameValidationResult === 'valid' ? null : (
             <S_Svg size="18">
@@ -281,7 +227,7 @@ const RegisterForm = () => {
         </S_FormInputWrapper>
         <S_FormInputWrapper validationResult={emailValidationResult}>
           <label htmlFor="email">Email</label>
-          <input type="text" id="email" value={email} onChange={handleEmail} />
+          <input type="text" id="email" {...emailBind} />
           {emailValidationResult === 'empty' ? (
             <span>Email cannot be empty.</span>
           ) : null}
@@ -300,12 +246,7 @@ const RegisterForm = () => {
         </S_FormInputWrapper>
         <S_FormInputWrapper validationResult={passwordValidationResult}>
           <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={handlePassword}
-          />
+          <input type="password" id="password" {...passwordBind} />
           {passwordValidationResult === null ||
           passwordValidationResult === 'valid' ? null : (
             <S_Svg size="18">
@@ -365,7 +306,7 @@ const RegisterForm = () => {
         <S_RecaptchaContainer>
           <div>
             <div>
-              <input type="checkbox" id="recaptcha" onClick={handleRecaptcha} />
+              <input type="checkbox" id="recaptcha" {...isHumanBind} />
               <label htmlFor="recaptcha">I&apos;m not a robot</label>
             </div>
           </div>
@@ -374,7 +315,7 @@ const RegisterForm = () => {
           ) : null}
         </S_RecaptchaContainer>
         <S_OptInContainer>
-          <input type="checkbox" id="opt-in" onClick={handleOptIn} />
+          <input type="checkbox" id="opt-in" {...optInBind} />
           <label htmlFor="opt-in">
             Opt-in to receive occasional product updates, user research
             invitations, company announcements, and digests.
