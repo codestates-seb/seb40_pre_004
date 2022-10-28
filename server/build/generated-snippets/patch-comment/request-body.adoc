@@ -1,0 +1,7 @@
+[source,options="nowrap"]
+----
+{
+  "commentId" : 0,
+  "body" : "댓글2"
+}
+----

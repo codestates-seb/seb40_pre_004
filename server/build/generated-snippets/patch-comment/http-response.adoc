@@ -1,0 +1,16 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 195
+
+{
+  "data" : {
+    "commentId" : 1,
+    "body" : "댓글2",
+    "displayName" : "홍길동1",
+    "createdAt" : "2022-10-29T00:12:54.412822",
+    "modifiedAt" : "2022-10-29T00:12:54.412998"
+  }
+}
+----

@@ -1,0 +1,8 @@
+[source,options="nowrap"]
+----
+{
+  "answerId" : 0,
+  "body" : "답변1",
+  "answerCheck" : true
+}
+----

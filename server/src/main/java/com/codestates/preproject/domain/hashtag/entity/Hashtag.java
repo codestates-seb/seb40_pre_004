@@ -22,6 +22,6 @@ public class Hashtag extends Auditable {
     @Column(nullable = false)
     private String tagName;
 
-    @OneToMany(mappedBy = "hashtag")
+    @OneToMany(mappedBy = "hashtag", cascade = CascadeType.ALL)
     private List<QuestionHashtag> questionHashtags = new ArrayList<>();
 }

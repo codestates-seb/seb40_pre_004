@@ -28,6 +28,8 @@ public class QuestionService {
         Member member = verifyExistsMember(question.getMember());
         question.setMember(member);
 
+        member.addQuestion(question);
+
         return questionRepository.save(question);
     }
 

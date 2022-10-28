@@ -1,0 +1,64 @@
+|===
+|Path|Type|Description
+
+|`+data+`
+|`+Array+`
+|결과 데이터
+
+|`+data[].answerId+`
+|`+Number+`
+|답변 식별자
+
+|`+data[].body+`
+|`+String+`
+|답변 내용
+
+|`+data[].answerCheck+`
+|`+Boolean+`
+|답변 채택 여부
+
+|`+data[].memberDisplayName+`
+|`+String+`
+|답변 회원 이름
+
+|`+data[].memberId+`
+|`+Number+`
+|답변 회원 식별자
+
+|`+data[].createdAt+`
+|`+String+`
+|답변 생성 날짜
+
+|`+data[].modifiedAt+`
+|`+String+`
+|답변 수정 날짜
+
+|`+data[].questionId+`
+|`+Number+`
+|질문 식별자
+
+|`+data[].comments+`
+|`+Array+`
+|답변 댓글 정보
+
+|`+data[].comments[].commentId+`
+|`+Number+`
+|댓글 식별자
+
+|`+data[].comments[].body+`
+|`+String+`
+|댓글 내용
+
+|`+data[].comments[].displayName+`
+|`+String+`
+|댓글 작성 회원 이름
+
+|`+data[].comments[].createdAt+`
+|`+String+`
+|댓글 생성 시간
+
+|`+data[].comments[].modifiedAt+`
+|`+String+`
+|댓글 수정 시간
+
+|===
