@@ -5,7 +5,39 @@
     "questionId" : 1,
     "title" : "제목 수정",
     "body" : "본문 수정",
-    "memberId" : 1
+    "memberId" : 1,
+    "displayName" : "회원 이름1",
+    "createdAt" : "2022-10-29T01:18:41.440861",
+    "modifiedAt" : "2022-10-29T01:18:41.441028",
+    "answers" : [ {
+      "answerId" : 1,
+      "body" : "답변 내용",
+      "answerCheck" : false,
+      "memberDisplayName" : "홍길동1",
+      "memberId" : 1,
+      "createdAt" : "2022-10-29T01:18:41.441032",
+      "modifiedAt" : "2022-10-29T01:18:41.441034",
+      "questionId" : 1,
+      "comments" : [ {
+        "commentId" : 1,
+        "body" : "댓글1",
+        "displayName" : "홍길동1",
+        "createdAt" : "2022-10-29T01:18:41.441036",
+        "modifiedAt" : "2022-10-29T01:18:41.441038"
+      }, {
+        "commentId" : 2,
+        "body" : "댓글2",
+        "displayName" : "홍길동1",
+        "createdAt" : "2022-10-29T01:18:41.44104",
+        "modifiedAt" : "2022-10-29T01:18:41.441042"
+      }, {
+        "commentId" : 3,
+        "body" : "댓글3",
+        "displayName" : "홍길동2",
+        "createdAt" : "2022-10-29T01:18:41.441043",
+        "modifiedAt" : "2022-10-29T01:18:41.441045"
+      } ]
+    } ]
   }
 }
 ----
