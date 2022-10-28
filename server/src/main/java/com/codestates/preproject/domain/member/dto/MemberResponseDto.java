@@ -12,4 +12,5 @@ public class MemberResponseDto {
     private String displayName;
     private String email;
     private String password;
+    private Boolean optIn;
 }

@@ -6,6 +6,7 @@ $ curl 'http://localhost:8080/v1/members/1' -i -X PATCH \
     -d '{
   "memberId" : 0,
   "displayName" : "김길동",
-  "password" : "1234#"
+  "password" : "1234#",
+  "optIn" : true
 }'
 ----

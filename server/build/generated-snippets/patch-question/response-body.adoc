@@ -1,0 +1,11 @@
+[source,options="nowrap"]
+----
+{
+  "data" : {
+    "questionId" : 1,
+    "title" : "제목 수정",
+    "body" : "본문 수정",
+    "memberId" : 1
+  }
+}
+----

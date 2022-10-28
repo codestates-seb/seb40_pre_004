@@ -34,6 +34,8 @@ public class MemberService {
                 .ifPresent(displayName -> findMember.setDisplayName(displayName));
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
+        Optional.ofNullable(member.getOptIn())
+                .ifPresent(optIn -> findMember.setOptIn(optIn));
 
         return memberRepository.save(findMember);
     }

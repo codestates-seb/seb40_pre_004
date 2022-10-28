@@ -1,0 +1,11 @@
+[source,options="nowrap"]
+----
+{
+  "data" : {
+    "questionId" : 1,
+    "title" : "제목1",
+    "body" : "본문1",
+    "memberId" : 1
+  }
+}
+----

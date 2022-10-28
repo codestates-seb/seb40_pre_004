@@ -31,6 +31,9 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private Boolean optIn;
+
     @OneToMany(mappedBy = "member")
     private List<Question> questions = new ArrayList<>();
 

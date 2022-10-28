@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 public class AnswerPatchDto {
     private long answerId;
+    private String body;
 }

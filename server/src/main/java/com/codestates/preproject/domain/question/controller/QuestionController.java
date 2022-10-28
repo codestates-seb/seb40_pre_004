@@ -71,9 +71,7 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity getQuestions(@RequestParam("page") @Positive int page,
                                        @RequestParam("size") @Positive int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("questionId").descending());
-
-        Page<Question> questionPage = questionService.findQuestions(pageRequest);
+        Page<Question> questionPage = questionService.findQuestions(page, size);
         List<QuestionResponseDto> responseDtos = mapper.questionsToQuestionResponseDtos(questionPage.getContent());
         PageInfo pageInfo = new PageInfo(questionPage.getNumber() + 1, questionPage.getSize(), questionPage.getTotalElements(), questionPage.getTotalPages());
 

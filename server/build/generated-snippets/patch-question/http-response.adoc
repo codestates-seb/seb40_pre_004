@@ -1,0 +1,15 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 122
+
+{
+  "data" : {
+    "questionId" : 1,
+    "title" : "제목 수정",
+    "body" : "본문 수정",
+    "memberId" : 1
+  }
+}
+----

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-26T11:55:57+0900",
+    date = "2022-10-27T17:27:04+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -28,6 +28,7 @@ public class MemberMapperImpl implements MemberMapper {
         member.setDisplayName( memberPostDto.getDisplayName() );
         member.setEmail( memberPostDto.getEmail() );
         member.setPassword( memberPostDto.getPassword() );
+        member.setOptIn( memberPostDto.getOptIn() );
 
         return member;
     }
@@ -43,6 +44,7 @@ public class MemberMapperImpl implements MemberMapper {
         member.setMemberId( memberPatchDto.getMemberId() );
         member.setDisplayName( memberPatchDto.getDisplayName() );
         member.setPassword( memberPatchDto.getPassword() );
+        member.setOptIn( memberPatchDto.getOptIn() );
 
         return member;
     }
@@ -57,13 +59,15 @@ public class MemberMapperImpl implements MemberMapper {
         String displayName = null;
         String email = null;
         String password = null;
+        Boolean optIn = null;
 
         memberId = member.getMemberId();
         displayName = member.getDisplayName();
         email = member.getEmail();
         password = member.getPassword();
+        optIn = member.getOptIn();
 
-        MemberResponseDto memberResponseDto = new MemberResponseDto( memberId, displayName, email, password );
+        MemberResponseDto memberResponseDto = new MemberResponseDto( memberId, displayName, email, password, optIn );
 
         return memberResponseDto;
     }
