@@ -1,6 +1,8 @@
 package com.codestates.preproject.config;
 
 import com.codestates.preproject.auth.filter.JwtAuthenticationFilter;
+import com.codestates.preproject.auth.handler.MemberAuthenticationFailureHandler;
+import com.codestates.preproject.auth.handler.MemberAuthenticationSuccessHandler;
 import com.codestates.preproject.auth.jwt.JwtTokenizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -73,7 +75,8 @@ public class SecutiryConfiguration {
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/v1/auth/login");
-
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
             builder.addFilter(jwtAuthenticationFilter);
         }
     }
