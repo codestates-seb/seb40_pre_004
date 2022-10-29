@@ -3,6 +3,8 @@ package com.codestates.preproject.auth.userdetails;
 import com.codestates.preproject.auth.utils.CustomAuthorityUtils;
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.repository.MemberRepository;
+import com.codestates.preproject.exception.BusinessLogicException;
+import com.codestates.preproject.exception.ExceptionCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +28,7 @@ public class MemberDetailsService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member findMember = memberRepository.findByEmail(username)
-                .orElseThrow(() -> new RuntimeException("MEMBER_NOT_FOUND"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return new MemberDetails(findMember);
     }
