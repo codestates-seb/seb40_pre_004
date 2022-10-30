@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
+import Header from '../components/Header';
 
 const S_Svg = styled.svg`
   width: ${(props) => props.size}px;
@@ -251,6 +252,7 @@ const S_SignUpContainer = styled.div`
 const Register = () => {
   return (
     <S_Container>
+      <Header />
       <S_Main>
         <Description />
         <S_SignUpContainer>
