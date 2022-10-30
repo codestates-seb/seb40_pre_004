@@ -1,0 +1,11 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/v1/answers/1' -i -X PATCH \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{
+  "answerId" : 0,
+  "body" : "답변1",
+  "answerCheck" : true
+}'
+----

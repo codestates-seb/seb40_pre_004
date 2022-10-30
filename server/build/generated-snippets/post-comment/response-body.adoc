@@ -1,0 +1,12 @@
+[source,options="nowrap"]
+----
+{
+  "data" : {
+    "commentId" : 1,
+    "body" : "댓글1",
+    "displayName" : "홍길동1",
+    "createdAt" : "2022-10-29T00:12:54.444235",
+    "modifiedAt" : "2022-10-29T00:12:54.444246"
+  }
+}
+----

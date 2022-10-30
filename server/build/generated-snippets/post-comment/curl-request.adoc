@@ -1,0 +1,11 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/v1/comments' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{
+  "memberId" : 1,
+  "answerId" : 1,
+  "body" : "댓글1"
+}'
+----

@@ -1,0 +1,90 @@
+[source,options="nowrap"]
+----
+{
+  "data" : [ {
+    "answerId" : 1,
+    "body" : "답변1",
+    "answerCheck" : true,
+    "memberDisplayName" : "홍길동2",
+    "memberId" : 2,
+    "createdAt" : "2022-10-29T00:12:54.162432",
+    "modifiedAt" : "2022-10-29T00:12:54.162441",
+    "questionId" : 1,
+    "comments" : [ {
+      "commentId" : 1,
+      "body" : "댓글1",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.162444",
+      "modifiedAt" : "2022-10-29T00:12:54.162446"
+    }, {
+      "commentId" : 2,
+      "body" : "댓글2",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.162448",
+      "modifiedAt" : "2022-10-29T00:12:54.16245"
+    }, {
+      "commentId" : 3,
+      "body" : "댓글3",
+      "displayName" : "홍길동2",
+      "createdAt" : "2022-10-29T00:12:54.162452",
+      "modifiedAt" : "2022-10-29T00:12:54.162454"
+    } ]
+  }, {
+    "answerId" : 2,
+    "body" : "답변2",
+    "answerCheck" : false,
+    "memberDisplayName" : "홍길동3",
+    "memberId" : 3,
+    "createdAt" : "2022-10-29T00:12:54.16246",
+    "modifiedAt" : "2022-10-29T00:12:54.162462",
+    "questionId" : 1,
+    "comments" : [ {
+      "commentId" : 4,
+      "body" : "댓글4",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.162465",
+      "modifiedAt" : "2022-10-29T00:12:54.162467"
+    }, {
+      "commentId" : 5,
+      "body" : "댓글5",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.162469",
+      "modifiedAt" : "2022-10-29T00:12:54.162471"
+    }, {
+      "commentId" : 6,
+      "body" : "댓글6",
+      "displayName" : "홍길동2",
+      "createdAt" : "2022-10-29T00:12:54.162474",
+      "modifiedAt" : "2022-10-29T00:12:54.162476"
+    } ]
+  }, {
+    "answerId" : 3,
+    "body" : "답변3",
+    "answerCheck" : false,
+    "memberDisplayName" : "홍길동3",
+    "memberId" : 3,
+    "createdAt" : "2022-10-29T00:12:54.162482",
+    "modifiedAt" : "2022-10-29T00:12:54.162484",
+    "questionId" : 2,
+    "comments" : [ {
+      "commentId" : 7,
+      "body" : "댓글7",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.162487",
+      "modifiedAt" : "2022-10-29T00:12:54.162489"
+    }, {
+      "commentId" : 8,
+      "body" : "댓글8",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.162491",
+      "modifiedAt" : "2022-10-29T00:12:54.162493"
+    }, {
+      "commentId" : 9,
+      "body" : "댓글9",
+      "displayName" : "홍길동2",
+      "createdAt" : "2022-10-29T00:12:54.162495",
+      "modifiedAt" : "2022-10-29T00:12:54.162497"
+    } ]
+  } ]
+}
+----

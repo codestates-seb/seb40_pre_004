@@ -1,0 +1,38 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 869
+
+{
+  "data" : {
+    "answerId" : 1,
+    "body" : "답변1",
+    "answerCheck" : true,
+    "memberDisplayName" : "홍길동2",
+    "memberId" : 2,
+    "createdAt" : "2022-10-29T00:12:54.179259",
+    "modifiedAt" : "2022-10-29T00:12:54.17927",
+    "questionId" : 1,
+    "comments" : [ {
+      "commentId" : 1,
+      "body" : "댓글1",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.179273",
+      "modifiedAt" : "2022-10-29T00:12:54.179275"
+    }, {
+      "commentId" : 2,
+      "body" : "댓글2",
+      "displayName" : "홍길동1",
+      "createdAt" : "2022-10-29T00:12:54.179278",
+      "modifiedAt" : "2022-10-29T00:12:54.17928"
+    }, {
+      "commentId" : 3,
+      "body" : "댓글3",
+      "displayName" : "홍길동2",
+      "createdAt" : "2022-10-29T00:12:54.179281",
+      "modifiedAt" : "2022-10-29T00:12:54.179283"
+    } ]
+  }
+}
+----

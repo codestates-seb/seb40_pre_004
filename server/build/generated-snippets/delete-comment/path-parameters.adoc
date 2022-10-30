@@ -1,0 +1,8 @@
+.+/v1/comments/{comment-id}+
+|===
+|Parameter|Description
+
+|`+comment-id+`
+|댓글 식별자
+
+|===

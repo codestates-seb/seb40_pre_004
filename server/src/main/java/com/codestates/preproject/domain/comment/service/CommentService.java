@@ -1,7 +1,11 @@
 package com.codestates.preproject.domain.comment.service;
 
+import com.codestates.preproject.domain.answer.entity.Answer;
+import com.codestates.preproject.domain.answer.service.AnswerService;
 import com.codestates.preproject.domain.comment.entity.Comment;
 import com.codestates.preproject.domain.comment.repository.CommentRepository;
+import com.codestates.preproject.domain.member.entity.Member;
+import com.codestates.preproject.domain.member.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,24 +16,39 @@ import java.util.Optional;
 @Transactional
 public class CommentService {
     private final CommentRepository commentRepository;
+    private final MemberService memberService;
+    private AnswerService answerService;
 
-    public CommentService(CommentRepository commentRepository) { this.commentRepository = commentRepository; }
+    public CommentService(CommentRepository commentRepository, MemberService memberService, AnswerService answerService) {
+        this.commentRepository = commentRepository;
+        this.memberService = memberService;
+        this.answerService = answerService;
+    }
 
     public Comment createComment(Comment comment) {
-        //answerService.findByAnswer(comment.getAnswer().getAnswerId());
-        return saveComment(comment);
+        Answer answer = verifyExistAnswer(comment.getAnswer());
+        Member member = verifyExistsMember(comment.getMember());
+
+        comment.setAnswer(answer);
+        comment.setMember(member);
+
+        answer.addComment(comment);
+        member.addComment(comment);
+
+        return commentRepository.save(comment);
     }
 
     public Comment updateComment(Comment comment) {
-        Comment findComment = findByComment(comment.getCommentId());
+        Comment findComment = findVerifiedComment(comment.getCommentId());
 
         Optional.ofNullable(comment.getBody())
-                .ifPresent(findComment::setBody);
-        return saveComment(findComment);
+                .ifPresent(body -> findComment.setBody(body));
+
+        return commentRepository.save(findComment);
     }
 
     public Comment findComment(long commentId) {
-        return findByComment(commentId);
+        return findVerifiedComment(commentId);
     }
 
     public List<Comment> findComments() {
@@ -40,13 +59,17 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
-    private Comment findByComment(long commentId) {
+    private Comment findVerifiedComment(long commentId) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new RuntimeException("코멘트가 등록되지 않았습니다."));
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 댓글입니다."));
         return comment;
     }
 
-    private Comment saveComment(Comment comment){
-        return commentRepository.save(comment);
+    private Member verifyExistsMember(Member member) {
+        return memberService.findVerifiedMember(member.getMemberId());
+    }
+
+    private Answer verifyExistAnswer(Answer answer) {
+        return answerService.findVerifiedAnswer(answer.getAnswerId());
     }
 }
