@@ -4,9 +4,10 @@ import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.service.MemberService;
 import com.codestates.preproject.domain.question.entity.Question;
 import com.codestates.preproject.domain.question.repository.QuestionRepository;
+import com.codestates.preproject.exception.BusinessLogicException;
+import com.codestates.preproject.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,7 +63,7 @@ public class QuestionService {
 
     public Question findVerifiedQuestion(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
-        Question question = optionalQuestion.orElseThrow(() -> new RuntimeException("존재하지 않는 질문입니다."));
+        Question question = optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return question;
     }

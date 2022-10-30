@@ -6,6 +6,8 @@ import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.service.MemberService;
 import com.codestates.preproject.domain.question.entity.Question;
 import com.codestates.preproject.domain.question.service.QuestionService;
+import com.codestates.preproject.exception.BusinessLogicException;
+import com.codestates.preproject.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,7 +65,7 @@ public class AnswerService {
 
     public Answer findVerifiedAnswer(long answerId){
         Answer answer = answerRepository.findById(answerId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 답변입니다."));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
         return answer;
     }
 

@@ -6,6 +6,8 @@ import com.codestates.preproject.domain.comment.entity.Comment;
 import com.codestates.preproject.domain.comment.repository.CommentRepository;
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.service.MemberService;
+import com.codestates.preproject.exception.BusinessLogicException;
+import com.codestates.preproject.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,7 +63,7 @@ public class CommentService {
 
     private Comment findVerifiedComment(long commentId) {
         Comment comment = commentRepository.findById(commentId)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 댓글입니다."));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
         return comment;
     }
 
