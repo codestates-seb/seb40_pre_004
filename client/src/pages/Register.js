@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import RegisterForm from '../components/RegisterForm';
+import Header from '../components/Header';
 
 const S_Svg = styled.svg`
   width: ${(props) => props.size}px;
@@ -101,7 +102,7 @@ const Description = () => {
 const S_OAuthContainer = styled.section`
   margin: -8px 0px 20px 0px;
   width: 100%;
-
+  padding-top: 80px;
   & > button:nth-child(1) {
     background-color: #ffffff;
 
@@ -251,6 +252,7 @@ const S_SignUpContainer = styled.div`
 const Register = () => {
   return (
     <S_Container>
+      <Header />
       <S_Main>
         <Description />
         <S_SignUpContainer>
