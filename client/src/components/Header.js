@@ -15,7 +15,7 @@ const S_Header = styled.header`
   z-index: 9999;
 `;
 
-const S_Topbar_Container = styled.div`
+const S_TopbarContainer = styled.div`
   height: 40px;
   display: flex;
   margin: auto;
@@ -23,7 +23,7 @@ const S_Topbar_Container = styled.div`
   padding: 3px;
 `;
 
-const S_Topbar_Logo = styled.div`
+const S_TopbarLogo = styled.div`
   display: block;
   text-indent: -9999em;
   height: 30px;
@@ -57,7 +57,7 @@ const S_Navigation = styled.ol`
   }
 `;
 
-const S_Navigation_Dropdown = styled.li`
+const S_NavigationDropdown = styled.li`
   a:hover {
     border-radius: 1000px;
     color: white;
@@ -65,7 +65,7 @@ const S_Navigation_Dropdown = styled.li`
   }
 `;
 
-const S_Navigation_Dropdown_Box = styled.div`
+const S_NavigationDropdownBox = styled.div`
   position: absolute;
   z-index: 99999;
   background-color: white;
@@ -76,7 +76,7 @@ const S_Navigation_Dropdown_Box = styled.div`
   box-shadow: 0 3px 3px rgb(0 0 0 / 10%);
 `;
 
-const S_Navigation_Dropdown_item = styled.li`
+const S_NavigationDropdownitem = styled.li`
   box-sizing: border-box;
   line-height: 17px;
   margin: 6px;
@@ -87,7 +87,7 @@ const S_Navigation_Dropdown_item = styled.li`
     border-radius: 4px;
   }
 `;
-const S_Navigation_Dropdown_item2 = styled(S_Navigation_Dropdown_item)`
+const S_NavigationDropdownitem2 = styled(S_NavigationDropdownitem)`
   border-top: 1px solid rgb(186, 191, 196);
   margin: 0px;
   padding: 14px;
@@ -100,17 +100,17 @@ const S_Navigation_Dropdown_item2 = styled(S_Navigation_Dropdown_item)`
     color: #0c0c0c;
   }
 `;
-const S_Navigation_Dropdown_word = styled.span`
+const S_NavigationDropdownword = styled.span`
   color: #0c0c0c;
   display: block;
 `;
 
-const S_Navigation_Dropdown_word2 = styled.span`
+const S_NavigationDropdownword2 = styled.span`
   color: #6a737c;
   font-size: 12px;
 `;
 
-const S_Topbar_Arrow = styled.div`
+const S_TopbarArrow = styled.div`
   position: absolute;
   top: 35px;
   right: 145px;
@@ -122,7 +122,7 @@ const S_Topbar_Arrow = styled.div`
   filter: drop-shadow(2px -5px 10px rgb(186, 191, 196));
 `;
 
-const S_Topbar_Search_Label = styled.label`
+const S_TopbarSearchLabel = styled.label`
   display: flex;
   z-index: 1;
   position: relative;
@@ -143,7 +143,7 @@ const S_Topbar_Search_Label = styled.label`
   }
 `;
 
-const S_Topbar_Search_Input = styled.input`
+const S_TopbarSearchInput = styled.input`
   display: inline-block;
   box-sizing: border-box;
   padding: 10px 30px;
@@ -158,23 +158,23 @@ const S_Topbar_Search_Input = styled.input`
     border-radius: 3px;
   }
 `;
-const S_Topbar_Input_Dropdown = styled.div`
+const S_TopbarInputDropdown = styled.div`
   position: absolute;
   top: 60px;
   box-shadow: 0 3px 3px rgb(0 0 0 / 10%);
   border-radius: 4px;
   background-color: white;
 `;
-const S_Topbar_Input_Dropdown_Box = styled.div`
+const S_TopbarInputDropdownBox = styled.div`
   display: flex;
   width: 690px;
   height: 150px;
-  padding: 9px 9px 10px 9px;
+  padding: 9px 9px 0px 9px;
   font-size: 13px;
   z-index: 99999;
 `;
 
-const S_Topbar_Input_Dropdown_item = styled.div`
+const S_TopbarInputDropdownitem = styled.div`
   width: 400px;
   display: flex;
   margin-bottom: 10px;
@@ -182,7 +182,7 @@ const S_Topbar_Input_Dropdown_item = styled.div`
   box-sizing: border-box;
 `;
 
-const S_Topbar_Input_Dropdown_Box2 = styled.div`
+const S_TopbarInputDropdownBox2 = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -191,7 +191,7 @@ const S_Topbar_Input_Dropdown_Box2 = styled.div`
   padding: 10px;
 `;
 
-const S_Topbar_Input_Dropdown_btn = styled.a`
+const S_TopbarInputDropdownbtn = styled.a`
   background-color: rgb(225, 236, 244);
   border: 1px solid rgb(122, 167, 199);
   padding: 4px;
@@ -200,7 +200,7 @@ const S_Topbar_Input_Dropdown_btn = styled.a`
   cursor: pointer;
 `;
 
-const S_Topbar_Input_Dropdown_word = styled.span`
+const S_TopbarInputDropdownword = styled.span`
   cursor: pointer;
   color: hsl(206, 100%, 40%);
 
@@ -209,12 +209,12 @@ const S_Topbar_Input_Dropdown_word = styled.span`
   }
 `;
 
-const S_Topbar_Input_Arrow = styled(S_Topbar_Arrow)`
+const S_TopbarInputArrow = styled(S_TopbarArrow)`
   top: 45px;
   right: 700px;
 `;
 
-const S_Topbar_Bnt1 = styled.a`
+const S_TopbarBnt1 = styled.a`
   background-color: rgb(225, 236, 244);
   border: 1px solid rgb(122, 167, 199);
   display: inline-block;
@@ -234,7 +234,7 @@ const S_Topbar_Bnt1 = styled.a`
   }
 `;
 
-const S_Topbar_Bnt2 = styled.a`
+const S_TopbarBnt2 = styled.a`
   background-color: rgb(10, 149, 255);
   border: 1px solid white;
   display: inline-block;
@@ -260,15 +260,15 @@ function Header() {
 
   return (
     <S_Header>
-      <S_Topbar_Container>
+      <S_TopbarContainer>
         <Link to="/">
-          <S_Topbar_Logo>스택오버플로우</S_Topbar_Logo>
+          <S_TopbarLogo>스택오버플로우</S_TopbarLogo>
         </Link>
         <S_Navigation>
           <li>
             <a href="#;">About</a>
           </li>
-          <S_Navigation_Dropdown>
+          <S_NavigationDropdown>
             <a
               href="#;"
               onClick={() => {
@@ -278,20 +278,20 @@ function Header() {
               Products
             </a>
             {view && <Dropdown />}
-          </S_Navigation_Dropdown>
+          </S_NavigationDropdown>
           <li>
             <a href="#;">For Teams</a>
           </li>
         </S_Navigation>
         <div>
-          <S_Topbar_Search_Label>
+          <S_TopbarSearchLabel>
             <svg aria-hidden="true" viewBox="0 0 18 18">
               <path
                 d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"
                 fill="rgba(59, 64, 69)"
               ></path>
             </svg>
-            <S_Topbar_Search_Input
+            <S_TopbarSearchInput
               type="text"
               placeholder="Search..."
               maxLength="240"
@@ -299,17 +299,17 @@ function Header() {
               onClick={() => {
                 setDown(!down);
               }}
-            ></S_Topbar_Search_Input>
-          </S_Topbar_Search_Label>
+            ></S_TopbarSearchInput>
+          </S_TopbarSearchLabel>
           {down && <Dropdown2 />}
         </div>
         <Link to="/login">
-          <S_Topbar_Bnt1>Log in</S_Topbar_Bnt1>
+          <S_TopbarBnt1>Log in</S_TopbarBnt1>
         </Link>
         <Link to="/register">
-          <S_Topbar_Bnt2>Sign up</S_Topbar_Bnt2>{' '}
+          <S_TopbarBnt2>Sign up</S_TopbarBnt2>{' '}
         </Link>
-      </S_Topbar_Container>
+      </S_TopbarContainer>
     </S_Header>
   );
 }
@@ -333,28 +333,26 @@ function Dropdown() {
 
   return (
     <div>
-      <S_Topbar_Arrow />
-      <S_Navigation_Dropdown_Box>
+      <S_TopbarArrow />
+      <S_NavigationDropdownBox>
         <ol>
           {obj.data.map((item, index) => {
             return (
-              <S_Navigation_Dropdown_item key={index}>
-                <S_Navigation_Dropdown_word>
-                  {item.word}
-                </S_Navigation_Dropdown_word>
-                <S_Navigation_Dropdown_word2>
+              <S_NavigationDropdownitem key={index}>
+                <S_NavigationDropdownword>{item.word}</S_NavigationDropdownword>
+                <S_NavigationDropdownword2>
                   {item.word2}
-                </S_Navigation_Dropdown_word2>
-              </S_Navigation_Dropdown_item>
+                </S_NavigationDropdownword2>
+              </S_NavigationDropdownitem>
             );
           })}
-          <S_Navigation_Dropdown_item2>
-            <S_Navigation_Dropdown_word2>
+          <S_NavigationDropdownitem2>
+            <S_NavigationDropdownword2>
               About the company
-            </S_Navigation_Dropdown_word2>
-          </S_Navigation_Dropdown_item2>
+            </S_NavigationDropdownword2>
+          </S_NavigationDropdownitem2>
         </ol>
-      </S_Navigation_Dropdown_Box>
+      </S_NavigationDropdownBox>
     </div>
   );
 }
@@ -391,47 +389,43 @@ function Dropdown2() {
 
   return (
     <div>
-      <S_Topbar_Input_Arrow />
-      <S_Topbar_Input_Dropdown>
-        <S_Topbar_Input_Dropdown_Box>
+      <S_TopbarInputArrow />
+      <S_TopbarInputDropdown>
+        <S_TopbarInputDropdownBox>
           <div>
             {obj1.data.map((item, index) => {
               return (
-                <S_Topbar_Input_Dropdown_item key={index}>
-                  <S_Navigation_Dropdown_word>
+                <S_TopbarInputDropdownitem key={index}>
+                  <S_NavigationDropdownword>
                     {item.word}&nbsp;
-                  </S_Navigation_Dropdown_word>
-                  <S_Navigation_Dropdown_word2>
+                  </S_NavigationDropdownword>
+                  <S_NavigationDropdownword2>
                     {item.word2}
-                  </S_Navigation_Dropdown_word2>
-                </S_Topbar_Input_Dropdown_item>
+                  </S_NavigationDropdownword2>
+                </S_TopbarInputDropdownitem>
               );
             })}
           </div>
           <div>
             {obj2.data.map((item, index) => {
               return (
-                <S_Topbar_Input_Dropdown_item key={index}>
-                  <S_Navigation_Dropdown_word>
+                <S_TopbarInputDropdownitem key={index}>
+                  <S_NavigationDropdownword>
                     {item.word}&nbsp;
-                  </S_Navigation_Dropdown_word>
-                  <S_Navigation_Dropdown_word2>
+                  </S_NavigationDropdownword>
+                  <S_NavigationDropdownword2>
                     {item.word2}
-                  </S_Navigation_Dropdown_word2>
-                </S_Topbar_Input_Dropdown_item>
+                  </S_NavigationDropdownword2>
+                </S_TopbarInputDropdownitem>
               );
             })}
           </div>
-        </S_Topbar_Input_Dropdown_Box>
-        <S_Topbar_Input_Dropdown_Box2>
-          <S_Topbar_Input_Dropdown_btn>
-            Ask a question
-          </S_Topbar_Input_Dropdown_btn>
-          <S_Topbar_Input_Dropdown_word>
-            Search help
-          </S_Topbar_Input_Dropdown_word>
-        </S_Topbar_Input_Dropdown_Box2>
-      </S_Topbar_Input_Dropdown>
+        </S_TopbarInputDropdownBox>
+        <S_TopbarInputDropdownBox2>
+          <S_TopbarInputDropdownbtn>Ask a question</S_TopbarInputDropdownbtn>
+          <S_TopbarInputDropdownword>Search help</S_TopbarInputDropdownword>
+        </S_TopbarInputDropdownBox2>
+      </S_TopbarInputDropdown>
     </div>
   );
 }
