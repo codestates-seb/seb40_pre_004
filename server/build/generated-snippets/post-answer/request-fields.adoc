@@ -1,0 +1,16 @@
+|===
+|Path|Type|Description
+
+|`+body+`
+|`+String+`
+|답변 내용
+
+|`+questionId+`
+|`+Number+`
+|질문 식별자
+
+|`+memberId+`
+|`+Number+`
+|회원 식별자
+
+|===

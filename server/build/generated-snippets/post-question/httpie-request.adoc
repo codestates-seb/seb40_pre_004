@@ -1,0 +1,11 @@
+[source,bash]
+----
+$ echo '{
+  "title" : "제목1",
+  "body" : "본문1",
+  "tags" : [ "자바", "스프링", "mysql" ],
+  "memberId" : 1
+}' | http POST 'http://localhost:8080/v1/questions' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json'
+----

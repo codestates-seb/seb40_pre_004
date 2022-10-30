@@ -1,0 +1,40 @@
+|===
+|Path|Type|Description
+
+|`+data+`
+|`+Object+`
+|결과 데이터
+
+|`+data.questionId+`
+|`+Number+`
+|질문 식별자
+
+|`+data.title+`
+|`+String+`
+|질문 제목
+
+|`+data.body+`
+|`+String+`
+|질문 본문
+
+|`+data.memberId+`
+|`+Number+`
+|회원 식별자
+
+|`+data.displayName+`
+|`+String+`
+|회원 이름
+
+|`+data.tags+`
+|`+Array+`
+|질문 태그
+
+|`+data.createdAt+`
+|`+String+`
+|생성 날짜
+
+|`+data.modifiedAt+`
+|`+String+`
+|수정 날짜
+
+|===

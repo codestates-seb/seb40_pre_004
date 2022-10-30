@@ -1,0 +1,9 @@
+[source,options="nowrap"]
+----
+{
+  "title" : "제목1",
+  "body" : "본문1",
+  "tags" : [ "자바", "스프링", "mysql" ],
+  "memberId" : 1
+}
+----

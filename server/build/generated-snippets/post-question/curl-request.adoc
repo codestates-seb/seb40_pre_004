@@ -1,0 +1,12 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/v1/questions' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -d '{
+  "title" : "제목1",
+  "body" : "본문1",
+  "tags" : [ "자바", "스프링", "mysql" ],
+  "memberId" : 1
+}'
+----

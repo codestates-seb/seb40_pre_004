@@ -1,0 +1,39 @@
+[source,options="nowrap"]
+----
+{
+  "data" : [ {
+    "questionId" : 3,
+    "title" : "제목3",
+    "body" : "본문3",
+    "memberId" : 2,
+    "displayName" : "회원 이름2",
+    "tags" : [ "java", "spring", "mysql" ],
+    "createdAt" : "2022-10-30T19:33:35.847871",
+    "modifiedAt" : "2022-10-30T19:33:35.847881"
+  }, {
+    "questionId" : 2,
+    "title" : "제목2",
+    "body" : "본문2",
+    "memberId" : 1,
+    "displayName" : "회원 이름1",
+    "tags" : [ "jpa", "orm" ],
+    "createdAt" : "2022-10-30T19:33:35.847895",
+    "modifiedAt" : "2022-10-30T19:33:35.847896"
+  }, {
+    "questionId" : 1,
+    "title" : "제목1",
+    "body" : "본문1",
+    "memberId" : 1,
+    "displayName" : "회원 이름1",
+    "tags" : [ "html", "css", "js" ],
+    "createdAt" : "2022-10-30T19:33:35.847902",
+    "modifiedAt" : "2022-10-30T19:33:35.847904"
+  } ],
+  "pageInfo" : {
+    "page" : 1,
+    "size" : 5,
+    "totalElements" : 3,
+    "totalPages" : 1
+  }
+}
+----

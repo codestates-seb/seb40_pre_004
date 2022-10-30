@@ -1,0 +1,8 @@
+.+/v1/answers/{answer-id}+
+|===
+|Parameter|Description
+
+|`+answer-id+`
+|답변 식별자
+
+|===

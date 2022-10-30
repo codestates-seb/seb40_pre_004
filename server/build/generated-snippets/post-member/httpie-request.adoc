@@ -1,0 +1,11 @@
+[source,bash]
+----
+$ echo '{
+  "displayName" : "홍길동",
+  "email" : "hgd@gmail.com",
+  "password" : "hgd1234#",
+  "optIn" : false
+}' | http POST 'http://localhost:8080/v1/members' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json'
+----

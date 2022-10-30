@@ -1,0 +1,15 @@
+[source,options="nowrap"]
+----
+{
+  "data" : {
+    "questionId" : 1,
+    "title" : "제목1",
+    "body" : "본문1",
+    "memberId" : 1,
+    "displayName" : "회원 이름1",
+    "tags" : [ "자바", "스프링", "mysql" ],
+    "createdAt" : "2022-10-30T19:33:35.866682",
+    "modifiedAt" : "2022-10-30T19:33:35.866714"
+  }
+}
+----

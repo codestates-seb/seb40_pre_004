@@ -1,0 +1,19 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 287
+
+{
+  "data" : {
+    "questionId" : 1,
+    "title" : "제목 수정",
+    "body" : "본문 수정",
+    "memberId" : 1,
+    "displayName" : "회원 이름1",
+    "tags" : [ "jpa", "orm" ],
+    "createdAt" : "2022-10-30T19:33:35.878277",
+    "modifiedAt" : "2022-10-30T19:33:35.87849"
+  }
+}
+----
