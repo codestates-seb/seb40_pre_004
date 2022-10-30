@@ -25,6 +25,10 @@
 |`+String+`
 |회원 이름
 
+|`+data.tags+`
+|`+Array+`
+|질문 태그
+
 |`+data.createdAt+`
 |`+String+`
 |생성 날짜
@@ -92,5 +96,9 @@
 |`+data.answers[].comments[].modifiedAt+`
 |`+String+`
 |댓글 수정 시간
+
+|`+data.answers[].comments[].answerId+`
+|`+Number+`
+|답변 식별자
 
 |===

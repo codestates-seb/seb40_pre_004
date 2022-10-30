@@ -1,5 +1,6 @@
 package com.codestates.preproject.domain.question.entity;
 
+import com.codestates.preproject.converter.StringListConverter;
 import com.codestates.preproject.domain.answer.dto.AnswerResponseDto;
 import com.codestates.preproject.domain.answer.entity.Answer;
 import com.codestates.preproject.audit.Auditable;
@@ -29,6 +30,10 @@ public class Question extends Auditable {
     @Column(nullable = false, length = 10000)
     private String body;
 
+    @Convert(converter = StringListConverter.class)
+    @Column(nullable = false)
+    private List<String> tags = new ArrayList<>();
+
     @ManyToOne()
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -43,14 +48,6 @@ public class Question extends Auditable {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
-
-//    public List<AnswerResponseDto> getAnswer() {
-//        return answers.stream()
-//                .map(answer -> new AnswerResponseDto(answer.getAnswerId(), answer.getBody(), answer.getAnswerCheck(),
-//                        answer.getMemberDisplayName(), answer.getMemberId(), answer.getCreatedAt(), answer.getModifiedAt(),
-//                        answer.getQuestionId(), answer.getComments()))
-//                .collect(Collectors.toList());
-//    }
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<QuestionHashtag> questionHashtags = new ArrayList<>();

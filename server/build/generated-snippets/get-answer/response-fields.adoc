@@ -61,4 +61,8 @@
 |`+String+`
 |댓글 수정 시간
 
+|`+data.comments[].answerId+`
+|`+Number+`
+|답변 식별자
+
 |===

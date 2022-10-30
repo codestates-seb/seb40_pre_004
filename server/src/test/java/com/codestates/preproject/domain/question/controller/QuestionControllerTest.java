@@ -3,6 +3,7 @@ package com.codestates.preproject.domain.question.controller;
 import com.codestates.preproject.domain.answer.dto.AnswerResponseDto;
 import com.codestates.preproject.domain.comment.dto.CommentResponseDto;
 import com.codestates.preproject.domain.question.controller.QuestionController;
+import com.codestates.preproject.domain.question.dto.QuestionDetailsResponseDto;
 import com.codestates.preproject.domain.question.dto.QuestionPatchDto;
 import com.codestates.preproject.domain.question.dto.QuestionPostDto;
 import com.codestates.preproject.domain.question.dto.QuestionResponseDto;
@@ -28,8 +29,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -61,16 +64,11 @@ class QuestionControllerTest {
     @Test
     void postQuestion() throws Exception {
         //given
-        QuestionPostDto postDto = new QuestionPostDto("제목1", "본문1", 1L);
+        QuestionPostDto postDto = new QuestionPostDto("제목1", "본문1", new ArrayList<>(Arrays.asList("자바", "스프링", "mysql")),1L);
         String content = gson.toJson(postDto);
 
         QuestionResponseDto responseDto = new QuestionResponseDto(1L, "제목1", "본문1",
-                1L, "회원 이름1", LocalDateTime.now(), LocalDateTime.now(),
-                List.of(new AnswerResponseDto(1L, "답변 내용", false,
-                        "홍길동1", 1L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now())))));
+                1L, "회원 이름1", Arrays.asList("자바", "스프링", "mysql"), LocalDateTime.now(), LocalDateTime.now());
 
         given(mapper.questionPostDtoToQuestion(Mockito.any(QuestionPostDto.class)))
                 .willReturn(new Question());
@@ -94,6 +92,7 @@ class QuestionControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.title").value(postDto.getTitle()))
                 .andExpect(jsonPath("$.data.body").value(postDto.getBody()))
+                .andExpect(jsonPath("$.data.tags").value(postDto.getTags()))
                 .andExpect(jsonPath("$.data.memberId").value(postDto.getMemberId()))
                 .andDo(document("post-question",
                         preprocessRequest(prettyPrint()),
@@ -102,6 +101,7 @@ class QuestionControllerTest {
                                 List.of(
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목"),
                                         fieldWithPath("body").type(JsonFieldType.STRING).description("질문 본문"),
+                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("질문 태그").optional(),
                                         fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자")
                                 )
                         ),
@@ -113,25 +113,9 @@ class QuestionControllerTest {
                                         fieldWithPath("data.body").type(JsonFieldType.STRING).description("질문 본문"),
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("질문 태그"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
-                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
-
-                                        fieldWithPath("data.answers").type(JsonFieldType.ARRAY).description("질문 답변 정보"),
-                                        fieldWithPath("data.answers[].answerId").type(JsonFieldType.NUMBER).description("질문 식별자"),
-                                        fieldWithPath("data.answers[].body").type(JsonFieldType.STRING).description("답변 내용"),
-                                        fieldWithPath("data.answers[].answerCheck").type(JsonFieldType.BOOLEAN).description("답변 채택 여부"),
-                                        fieldWithPath("data.answers[].memberDisplayName").type(JsonFieldType.STRING).description("답변 작성 회원"),
-                                        fieldWithPath("data.answers[].memberId").type(JsonFieldType.NUMBER).description("답변 작성 회원 식별자"),
-                                        fieldWithPath("data.answers[].createdAt").type(JsonFieldType.STRING).description("답변 생성 시간"),
-                                        fieldWithPath("data.answers[].modifiedAt").type(JsonFieldType.STRING).description("답변 수정 시간"),
-                                        fieldWithPath("data.answers[].questionId").type(JsonFieldType.NUMBER).description("질문 식별자"),
-
-                                        fieldWithPath("data.answers[].comments").type(JsonFieldType.ARRAY).description("답변 댓글 정보"),
-                                        fieldWithPath("data.answers[].comments[].commentId").type(JsonFieldType.NUMBER).description("댓글 식별자"),
-                                        fieldWithPath("data.answers[].comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
-                                        fieldWithPath("data.answers[].comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
-                                        fieldWithPath("data.answers[].comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data.answers[].comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간")
+                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜")
                                 )
                         )
                 ));
@@ -147,16 +131,12 @@ class QuestionControllerTest {
         QuestionPatchDto patchDto = new QuestionPatchDto();
         patchDto.setTitle("제목 수정");
         patchDto.setBody("본문 수정");
+        patchDto.setTags(new ArrayList<>(Arrays.asList("jpa", "orm")));
 
         String content = gson.toJson(patchDto);
 
         QuestionResponseDto responseDto = new QuestionResponseDto(1L, "제목 수정", "본문 수정",
-                1L, "회원 이름1", time, LocalDateTime.now(),
-                List.of(new AnswerResponseDto(1L, "답변 내용", false,
-                        "홍길동1", 1L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now())))));
+                1L, "회원 이름1", Arrays.asList("jpa", "orm"),time, LocalDateTime.now());
 
         given(mapper.questionPatchDtoToQuestion(Mockito.any(QuestionPatchDto.class)))
                 .willReturn(new Question());
@@ -181,6 +161,7 @@ class QuestionControllerTest {
                 .andExpect(jsonPath("$.data.questionId").value(questionId))
                 .andExpect(jsonPath("$.data.title").value(patchDto.getTitle()))
                 .andExpect(jsonPath("$.data.body").value(patchDto.getBody()))
+                .andExpect(jsonPath("$.data.tags").value(patchDto.getTags()))
                 .andDo(document("patch-question",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
@@ -189,7 +170,8 @@ class QuestionControllerTest {
                                 List.of(
                                         fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("질문 식별자").ignored(),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목").optional(),
-                                        fieldWithPath("body").type(JsonFieldType.STRING).description("질문 본문").optional()
+                                        fieldWithPath("body").type(JsonFieldType.STRING).description("질문 본문").optional(),
+                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("질문 태그").optional()
                                 )
                         ),
                         responseFields(
@@ -200,25 +182,9 @@ class QuestionControllerTest {
                                         fieldWithPath("data.body").type(JsonFieldType.STRING).description("질문 본문"),
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("질문 태그"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
-                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
-
-                                        fieldWithPath("data.answers").type(JsonFieldType.ARRAY).description("질문 답변 정보"),
-                                        fieldWithPath("data.answers[].answerId").type(JsonFieldType.NUMBER).description("질문 식별자"),
-                                        fieldWithPath("data.answers[].body").type(JsonFieldType.STRING).description("답변 내용"),
-                                        fieldWithPath("data.answers[].answerCheck").type(JsonFieldType.BOOLEAN).description("답변 채택 여부"),
-                                        fieldWithPath("data.answers[].memberDisplayName").type(JsonFieldType.STRING).description("답변 작성 회원"),
-                                        fieldWithPath("data.answers[].memberId").type(JsonFieldType.NUMBER).description("답변 작성 회원 식별자"),
-                                        fieldWithPath("data.answers[].createdAt").type(JsonFieldType.STRING).description("답변 생성 시간"),
-                                        fieldWithPath("data.answers[].modifiedAt").type(JsonFieldType.STRING).description("답변 수정 시간"),
-                                        fieldWithPath("data.answers[].questionId").type(JsonFieldType.NUMBER).description("질문 식별자"),
-
-                                        fieldWithPath("data.answers[].comments").type(JsonFieldType.ARRAY).description("답변 댓글 정보"),
-                                        fieldWithPath("data.answers[].comments[].commentId").type(JsonFieldType.NUMBER).description("댓글 식별자"),
-                                        fieldWithPath("data.answers[].comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
-                                        fieldWithPath("data.answers[].comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
-                                        fieldWithPath("data.answers[].comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data.answers[].comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간")
+                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜")
                                 )
                         )
                 ));
@@ -229,18 +195,18 @@ class QuestionControllerTest {
         //given
         long questionId = 1L;
 
-        QuestionResponseDto responseDto = new QuestionResponseDto(1L, "제목1", "본문1",
-                1L, "회원 이름1", LocalDateTime.now(), LocalDateTime.now(),
+        QuestionDetailsResponseDto responseDto = new QuestionDetailsResponseDto(1L, "제목1", "본문1",
+                1L, "회원 이름1", Arrays.asList("jpa", "orm"),LocalDateTime.now(), LocalDateTime.now(),
                 List.of(new AnswerResponseDto(1L, "답변 내용", false,
                         "홍길동1", 1L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now())))));
+                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),1L),
+                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now(), 2L)))));
 
         given(questionService.findQuestion(Mockito.anyLong()))
                 .willReturn(new Question());
 
-        given(mapper.questionToQuestionResponseDto(Mockito.any(Question.class)))
+        given(mapper.questionToQuestionDetailsResponseDto(Mockito.any(Question.class)))
                 .willReturn(responseDto);
 
         //when
@@ -264,6 +230,7 @@ class QuestionControllerTest {
                                         fieldWithPath("data.body").type(JsonFieldType.STRING).description("질문 본문"),
                                         fieldWithPath("data.memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("질문 태그"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
 
@@ -282,7 +249,8 @@ class QuestionControllerTest {
                                         fieldWithPath("data.answers[].comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data.answers[].comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data.answers[].comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data.answers[].comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간")
+                                        fieldWithPath("data.answers[].comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간"),
+                                        fieldWithPath("data.answers[].comments[].answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         )
                 ));
@@ -297,24 +265,9 @@ class QuestionControllerTest {
         List<Question> questions = List.of(new Question(), new Question(), new Question());
 
         List<QuestionResponseDto> responseDtos = List.of(
-                new QuestionResponseDto(3L, "제목3", "본문3", 2L, "회원 이름2", LocalDateTime.now(), LocalDateTime.now(),
-                        List.of(new AnswerResponseDto(1L, "답변 내용", false,
-                                "홍길동1", 1L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                                List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now()))))),
-                new QuestionResponseDto(2L, "제목2", "본문2", 1L, "회원 이름1", LocalDateTime.now(), LocalDateTime.now(),
-                        List.of(new AnswerResponseDto(2L, "답변 내용", false,
-                                "홍길동1", 1L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                                List.of(new CommentResponseDto(4L, "댓글4", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(5L, "댓글5", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(6L, "댓글6", "홍길동2", LocalDateTime.now(), LocalDateTime.now()))))),
-                new QuestionResponseDto(1L, "제목1", "본문1", 1L, "회원 이름1", LocalDateTime.now(), LocalDateTime.now(),
-                        List.of(new AnswerResponseDto(3L, "답변 내용", false,
-                                "홍길동1", 1L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                                List.of(new CommentResponseDto(7L, "댓글7", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(8L, "댓글8", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(9L, "댓글9", "홍길동2", LocalDateTime.now(), LocalDateTime.now())))))
+                new QuestionResponseDto(3L, "제목3", "본문3", 2L, "회원 이름2", Arrays.asList("java", "spring", "mysql"),LocalDateTime.now(), LocalDateTime.now()),
+                new QuestionResponseDto(2L, "제목2", "본문2", 1L, "회원 이름1", Arrays.asList("jpa", "orm"),LocalDateTime.now(), LocalDateTime.now()),
+                new QuestionResponseDto(1L, "제목1", "본문1", 1L, "회원 이름1", Arrays.asList("html", "css", "js"),LocalDateTime.now(), LocalDateTime.now())
         );
 
         given(questionService.findQuestions(Mockito.anyInt(), Mockito.anyInt()))
@@ -346,25 +299,9 @@ class QuestionControllerTest {
                                         fieldWithPath("data[].body").type(JsonFieldType.STRING).description("질문 본문"),
                                         fieldWithPath("data[].memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("data[].displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("data[].tags").type(JsonFieldType.ARRAY).description("질문 태그"),
                                         fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
-
-                                        fieldWithPath("data[].answers").type(JsonFieldType.ARRAY).description("질문 답변 정보"),
-                                        fieldWithPath("data[].answers[].answerId").type(JsonFieldType.NUMBER).description("질문 식별자"),
-                                        fieldWithPath("data[].answers[].body").type(JsonFieldType.STRING).description("답변 내용"),
-                                        fieldWithPath("data[].answers[].answerCheck").type(JsonFieldType.BOOLEAN).description("답변 채택 여부"),
-                                        fieldWithPath("data[].answers[].memberDisplayName").type(JsonFieldType.STRING).description("답변 작성 회원"),
-                                        fieldWithPath("data[].answers[].memberId").type(JsonFieldType.NUMBER).description("답변 작성 회원 식별자"),
-                                        fieldWithPath("data[].answers[].createdAt").type(JsonFieldType.STRING).description("답변 생성 시간"),
-                                        fieldWithPath("data[].answers[].modifiedAt").type(JsonFieldType.STRING).description("답변 수정 시간"),
-                                        fieldWithPath("data[].answers[].questionId").type(JsonFieldType.NUMBER).description("질문 식별자"),
-
-                                        fieldWithPath("data[].answers[].comments").type(JsonFieldType.ARRAY).description("답변 댓글 정보"),
-                                        fieldWithPath("data[].answers[].comments[].commentId").type(JsonFieldType.NUMBER).description("댓글 식별자"),
-                                        fieldWithPath("data[].answers[].comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
-                                        fieldWithPath("data[].answers[].comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
-                                        fieldWithPath("data[].answers[].comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data[].answers[].comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간"),
 
                                         fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
                                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 번호"),

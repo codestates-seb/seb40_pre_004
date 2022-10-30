@@ -30,6 +30,10 @@ public class Comment extends Auditable {
     @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
 
+    public long getAnswerId() {
+        return answer.getAnswerId();
+    }
+
     @Column(nullable = false, length = 10000)
     private String body;
 

@@ -25,4 +25,8 @@
 |`+String+`
 |댓글 수정 날짜
 
+|`+data.answerId+`
+|`+Number+`
+|답변 식별자
+
 |===

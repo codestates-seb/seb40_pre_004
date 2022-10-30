@@ -65,9 +65,9 @@ class AnswerControllerTest {
         AnswerResponseDto answerResponseDto =
                 new AnswerResponseDto(1L, "답변1", false, "홍길동2", 2L,
                         LocalDateTime.now(), LocalDateTime.now(), 1L,
-                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now())));
+                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now(), 2L)));
 
         given(mapper.answerPostDtoToAnswer(Mockito.any(AnswerPostDto.class)))
                 .willReturn(new Answer());
@@ -117,7 +117,8 @@ class AnswerControllerTest {
                                         fieldWithPath("data.comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data.comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data.comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data.comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간")
+                                        fieldWithPath("data.comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간"),
+                                        fieldWithPath("data.comments[].answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         )
                 ));
@@ -137,9 +138,9 @@ class AnswerControllerTest {
         AnswerResponseDto responseDto =
                 new AnswerResponseDto(1L, "답변1", true, "홍길동2", 2L,
                         LocalDateTime.now(), LocalDateTime.now(), 1L,
-                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now())));
+                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now(), 2L)));
 
         given(mapper.answerPatchDtoToAnswer(Mockito.any(AnswerPatchDto.class)))
                 .willReturn(new Answer());
@@ -192,7 +193,8 @@ class AnswerControllerTest {
                                         fieldWithPath("data.comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data.comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data.comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data.comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간")
+                                        fieldWithPath("data.comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간"),
+                                        fieldWithPath("data.comments[].answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         )
                 ));
@@ -206,9 +208,9 @@ class AnswerControllerTest {
         AnswerResponseDto responseDto =
                 new AnswerResponseDto(1L, "답변1", true, "홍길동2", 2L,
                         LocalDateTime.now(), LocalDateTime.now(), 1L,
-                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now())));
+                        List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),1L),
+                                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                                new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now(), 2L)));
 
         given(answerService.findAnswer(Mockito.anyLong()))
                 .willReturn(new Answer());
@@ -246,7 +248,8 @@ class AnswerControllerTest {
                                         fieldWithPath("data.comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data.comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data.comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data.comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간")
+                                        fieldWithPath("data.comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간"),
+                                        fieldWithPath("data.comments[].answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         )
                 ));
@@ -263,17 +266,17 @@ class AnswerControllerTest {
         given(mapper.answersToAnswerResponseDtos(Mockito.anyList()))
                 .willReturn(List.of(
                         new AnswerResponseDto(1L, "답변1", true, "홍길동2", 2L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                                List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now()))),
+                                List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),1L),
+                                        new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),1L),
+                                        new CommentResponseDto(3L, "댓글3", "홍길동2", LocalDateTime.now(), LocalDateTime.now(), 2L))),
                         new AnswerResponseDto(2L, "답변2", false, "홍길동3", 3L, LocalDateTime.now(), LocalDateTime.now(), 1L,
-                                List.of(new CommentResponseDto(4L, "댓글4", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(5L, "댓글5", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(6L, "댓글6", "홍길동2", LocalDateTime.now(), LocalDateTime.now()))),
+                                List.of(new CommentResponseDto(4L, "댓글4", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),2L),
+                                        new CommentResponseDto(5L, "댓글5", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),3L),
+                                        new CommentResponseDto(6L, "댓글6", "홍길동2", LocalDateTime.now(), LocalDateTime.now(),3L))),
                         new AnswerResponseDto(3L, "답변3", false, "홍길동3", 3L, LocalDateTime.now(), LocalDateTime.now(), 2L,
-                                List.of(new CommentResponseDto(7L, "댓글7", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(8L, "댓글8", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                                        new CommentResponseDto(9L, "댓글9", "홍길동2", LocalDateTime.now(), LocalDateTime.now())))
+                                List.of(new CommentResponseDto(7L, "댓글7", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),1L),
+                                        new CommentResponseDto(8L, "댓글8", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),1L),
+                                        new CommentResponseDto(9L, "댓글9", "홍길동2", LocalDateTime.now(), LocalDateTime.now(),2L)))
                 ));
 
         //when
@@ -305,7 +308,8 @@ class AnswerControllerTest {
                                         fieldWithPath("data[].comments[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data[].comments[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data[].comments[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 시간"),
-                                        fieldWithPath("data[].comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간")
+                                        fieldWithPath("data[].comments[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 시간"),
+                                        fieldWithPath("data[].comments[].answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         )
                 ));

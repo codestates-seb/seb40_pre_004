@@ -9,6 +9,10 @@
 |`+String+`
 |질문 본문
 
+|`+tags+`
+|`+Array+`
+|질문 태그
+
 |`+memberId+`
 |`+Number+`
 |회원 식별자

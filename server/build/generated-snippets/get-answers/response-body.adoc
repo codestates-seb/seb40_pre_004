@@ -7,27 +7,30 @@
     "answerCheck" : true,
     "memberDisplayName" : "홍길동2",
     "memberId" : 2,
-    "createdAt" : "2022-10-29T00:12:54.162432",
-    "modifiedAt" : "2022-10-29T00:12:54.162441",
+    "createdAt" : "2022-10-30T19:33:35.105542",
+    "modifiedAt" : "2022-10-30T19:33:35.105552",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 1,
       "body" : "댓글1",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.162444",
-      "modifiedAt" : "2022-10-29T00:12:54.162446"
+      "createdAt" : "2022-10-30T19:33:35.105555",
+      "modifiedAt" : "2022-10-30T19:33:35.105557",
+      "answerId" : 1
     }, {
       "commentId" : 2,
       "body" : "댓글2",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.162448",
-      "modifiedAt" : "2022-10-29T00:12:54.16245"
+      "createdAt" : "2022-10-30T19:33:35.10556",
+      "modifiedAt" : "2022-10-30T19:33:35.105562",
+      "answerId" : 1
     }, {
       "commentId" : 3,
       "body" : "댓글3",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-10-29T00:12:54.162452",
-      "modifiedAt" : "2022-10-29T00:12:54.162454"
+      "createdAt" : "2022-10-30T19:33:35.105564",
+      "modifiedAt" : "2022-10-30T19:33:35.105565",
+      "answerId" : 2
     } ]
   }, {
     "answerId" : 2,
@@ -35,27 +38,30 @@
     "answerCheck" : false,
     "memberDisplayName" : "홍길동3",
     "memberId" : 3,
-    "createdAt" : "2022-10-29T00:12:54.16246",
-    "modifiedAt" : "2022-10-29T00:12:54.162462",
+    "createdAt" : "2022-10-30T19:33:35.105571",
+    "modifiedAt" : "2022-10-30T19:33:35.105573",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 4,
       "body" : "댓글4",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.162465",
-      "modifiedAt" : "2022-10-29T00:12:54.162467"
+      "createdAt" : "2022-10-30T19:33:35.105576",
+      "modifiedAt" : "2022-10-30T19:33:35.105578",
+      "answerId" : 2
     }, {
       "commentId" : 5,
       "body" : "댓글5",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.162469",
-      "modifiedAt" : "2022-10-29T00:12:54.162471"
+      "createdAt" : "2022-10-30T19:33:35.10558",
+      "modifiedAt" : "2022-10-30T19:33:35.105585",
+      "answerId" : 3
     }, {
       "commentId" : 6,
       "body" : "댓글6",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-10-29T00:12:54.162474",
-      "modifiedAt" : "2022-10-29T00:12:54.162476"
+      "createdAt" : "2022-10-30T19:33:35.105588",
+      "modifiedAt" : "2022-10-30T19:33:35.10559",
+      "answerId" : 3
     } ]
   }, {
     "answerId" : 3,
@@ -63,27 +69,30 @@
     "answerCheck" : false,
     "memberDisplayName" : "홍길동3",
     "memberId" : 3,
-    "createdAt" : "2022-10-29T00:12:54.162482",
-    "modifiedAt" : "2022-10-29T00:12:54.162484",
+    "createdAt" : "2022-10-30T19:33:35.105595",
+    "modifiedAt" : "2022-10-30T19:33:35.105597",
     "questionId" : 2,
     "comments" : [ {
       "commentId" : 7,
       "body" : "댓글7",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.162487",
-      "modifiedAt" : "2022-10-29T00:12:54.162489"
+      "createdAt" : "2022-10-30T19:33:35.1056",
+      "modifiedAt" : "2022-10-30T19:33:35.105602",
+      "answerId" : 1
     }, {
       "commentId" : 8,
       "body" : "댓글8",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.162491",
-      "modifiedAt" : "2022-10-29T00:12:54.162493"
+      "createdAt" : "2022-10-30T19:33:35.105604",
+      "modifiedAt" : "2022-10-30T19:33:35.105606",
+      "answerId" : 1
     }, {
       "commentId" : 9,
       "body" : "댓글9",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-10-29T00:12:54.162495",
-      "modifiedAt" : "2022-10-29T00:12:54.162497"
+      "createdAt" : "2022-10-30T19:33:35.105608",
+      "modifiedAt" : "2022-10-30T19:33:35.10561",
+      "answerId" : 2
     } ]
   } ]
 }

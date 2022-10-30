@@ -59,7 +59,7 @@ class CommentControllerTest {
         CommentPostDto postDto = new CommentPostDto(1L, 1L, "댓글1");
         String content = gson.toJson(postDto);
 
-        CommentResponseDto responseDto = new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now());
+        CommentResponseDto responseDto = new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L);
 
         given(mapper.commentPostDtoToComment(Mockito.any(CommentPostDto.class)))
                 .willReturn(new Comment());
@@ -100,7 +100,8 @@ class CommentControllerTest {
                                         fieldWithPath("data.body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("댓글 생성 날짜"),
-                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜")
+                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜"),
+                                        fieldWithPath("data.answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         )
                 ));
@@ -118,7 +119,7 @@ class CommentControllerTest {
 
         String content = gson.toJson(patchDto);
 
-        CommentResponseDto responseDto = new CommentResponseDto(1L, "댓글2", "홍길동1", time, LocalDateTime.now());
+        CommentResponseDto responseDto = new CommentResponseDto(1L, "댓글2", "홍길동1", time, LocalDateTime.now(), 1L);
 
         given(mapper.commentPatchDtoToComment(Mockito.any(CommentPatchDto.class)))
                 .willReturn(new Comment());
@@ -159,7 +160,8 @@ class CommentControllerTest {
                                         fieldWithPath("data.body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("댓글 생성 날짜"),
-                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜")
+                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜"),
+                                        fieldWithPath("data.answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         ))
                 );
@@ -170,7 +172,7 @@ class CommentControllerTest {
         //given
         long commentId = 1L;
 
-        CommentResponseDto responseDto = new CommentResponseDto(1L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now());
+        CommentResponseDto responseDto = new CommentResponseDto(1L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L);
 
         given(commentService.findComment(Mockito.anyLong()))
                 .willReturn(new Comment());
@@ -198,7 +200,8 @@ class CommentControllerTest {
                                         fieldWithPath("data.body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data.displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("댓글 생성 날짜"),
-                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜")
+                                        fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜"),
+                                        fieldWithPath("data.answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         ))
                 );
@@ -209,9 +212,9 @@ class CommentControllerTest {
     void getComments() throws Exception {
         //given
         List<CommentResponseDto> responseDtos = new ArrayList<>(List.of(
-                new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now()),
-                new CommentResponseDto(3L, "댓글3", "홍길동3", LocalDateTime.now(), LocalDateTime.now())
+                new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                new CommentResponseDto(2L, "댓글2", "홍길동1", LocalDateTime.now(), LocalDateTime.now(), 1L),
+                new CommentResponseDto(3L, "댓글3", "홍길동3", LocalDateTime.now(), LocalDateTime.now(), 2L)
         ));
 
         given(commentService.findComments())
@@ -239,7 +242,8 @@ class CommentControllerTest {
                                         fieldWithPath("data[].body").type(JsonFieldType.STRING).description("댓글 내용"),
                                         fieldWithPath("data[].displayName").type(JsonFieldType.STRING).description("댓글 작성 회원 이름"),
                                         fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("댓글 생성 날짜"),
-                                        fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜")
+                                        fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("댓글 수정 날짜"),
+                                        fieldWithPath("data[].answerId").type(JsonFieldType.NUMBER).description("답변 식별자")
                                 )
                         ))
                 );

@@ -6,6 +6,7 @@ $ curl 'http://localhost:8080/v1/questions/1' -i -X PATCH \
     -d '{
   "questionId" : 0,
   "title" : "제목 수정",
-  "body" : "본문 수정"
+  "body" : "본문 수정",
+  "tags" : [ "jpa", "orm" ]
 }'
 ----

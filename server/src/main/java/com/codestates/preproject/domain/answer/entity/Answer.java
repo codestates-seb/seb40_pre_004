@@ -54,9 +54,12 @@ public class Answer extends Auditable {
     private List<Comment> comments = new ArrayList<>();
 
     public List<CommentResponseDto> getComments() {
+        if (comments == null) {
+            return null;
+        }
         return comments.stream()
                 .map(comment -> new CommentResponseDto(comment.getCommentId(), comment.getBody(), comment.getDisplayName(),
-                        comment.getCreatedAt(), comment.getModifiedAt()))
+                        comment.getCreatedAt(), comment.getModifiedAt(), comment.getAnswerId()))
                 .collect(Collectors.toList());
     }
 

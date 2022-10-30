@@ -7,37 +7,9 @@
     "body" : "본문1",
     "memberId" : 1,
     "displayName" : "회원 이름1",
-    "createdAt" : "2022-10-29T00:12:54.96264",
-    "modifiedAt" : "2022-10-29T00:12:54.96265",
-    "answers" : [ {
-      "answerId" : 1,
-      "body" : "답변 내용",
-      "answerCheck" : false,
-      "memberDisplayName" : "홍길동1",
-      "memberId" : 1,
-      "createdAt" : "2022-10-29T00:12:54.962653",
-      "modifiedAt" : "2022-10-29T00:12:54.962655",
-      "questionId" : 1,
-      "comments" : [ {
-        "commentId" : 1,
-        "body" : "댓글1",
-        "displayName" : "홍길동1",
-        "createdAt" : "2022-10-29T00:12:54.962657",
-        "modifiedAt" : "2022-10-29T00:12:54.962658"
-      }, {
-        "commentId" : 2,
-        "body" : "댓글2",
-        "displayName" : "홍길동1",
-        "createdAt" : "2022-10-29T00:12:54.962661",
-        "modifiedAt" : "2022-10-29T00:12:54.962662"
-      }, {
-        "commentId" : 3,
-        "body" : "댓글3",
-        "displayName" : "홍길동2",
-        "createdAt" : "2022-10-29T00:12:54.962664",
-        "modifiedAt" : "2022-10-29T00:12:54.962666"
-      } ]
-    } ]
+    "tags" : [ "자바", "스프링", "mysql" ],
+    "createdAt" : "2022-10-30T19:33:35.866682",
+    "modifiedAt" : "2022-10-30T19:33:35.866714"
   }
 }
 ----

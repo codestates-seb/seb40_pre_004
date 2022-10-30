@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -40,6 +41,12 @@ public class QuestionService {
                 .ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getBody())
                 .ifPresent(body -> findQuestion.setBody(body));
+        Optional.ofNullable(question.getTags())
+                .ifPresent(tags -> {
+                    if (!tags.equals(new ArrayList<>())) {
+                        findQuestion.setTags(tags);
+                    }
+                });
 
         return questionRepository.save(findQuestion);
     }

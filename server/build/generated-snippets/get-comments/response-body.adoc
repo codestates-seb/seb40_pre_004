@@ -5,20 +5,23 @@
     "commentId" : 1,
     "body" : "댓글1",
     "displayName" : "홍길동1",
-    "createdAt" : "2022-10-29T00:12:54.436149",
-    "modifiedAt" : "2022-10-29T00:12:54.436159"
+    "createdAt" : "2022-10-30T19:33:35.387295",
+    "modifiedAt" : "2022-10-30T19:33:35.387306",
+    "answerId" : 1
   }, {
     "commentId" : 2,
     "body" : "댓글2",
     "displayName" : "홍길동1",
-    "createdAt" : "2022-10-29T00:12:54.436165",
-    "modifiedAt" : "2022-10-29T00:12:54.436166"
+    "createdAt" : "2022-10-30T19:33:35.38731",
+    "modifiedAt" : "2022-10-30T19:33:35.387312",
+    "answerId" : 1
   }, {
     "commentId" : 3,
     "body" : "댓글3",
     "displayName" : "홍길동3",
-    "createdAt" : "2022-10-29T00:12:54.436169",
-    "modifiedAt" : "2022-10-29T00:12:54.436171"
+    "createdAt" : "2022-10-30T19:33:35.387315",
+    "modifiedAt" : "2022-10-30T19:33:35.387316",
+    "answerId" : 2
   } ]
 }
 ----

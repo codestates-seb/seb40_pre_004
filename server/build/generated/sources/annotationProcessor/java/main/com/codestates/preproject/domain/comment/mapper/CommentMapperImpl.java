@@ -4,7 +4,6 @@ import com.codestates.preproject.domain.comment.dto.CommentPatchDto;
 import com.codestates.preproject.domain.comment.dto.CommentPostDto;
 import com.codestates.preproject.domain.comment.dto.CommentResponseDto;
 import com.codestates.preproject.domain.comment.entity.Comment;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-29T00:12:49+0900",
+    date = "2022-10-30T19:33:30+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -53,19 +52,14 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        long commentId = 0L;
-        String body = null;
-        String displayName = null;
-        LocalDateTime createdAt = null;
-        LocalDateTime modifiedAt = null;
+        CommentResponseDto commentResponseDto = new CommentResponseDto();
 
-        commentId = comment.getCommentId();
-        body = comment.getBody();
-        displayName = comment.getDisplayName();
-        createdAt = comment.getCreatedAt();
-        modifiedAt = comment.getModifiedAt();
-
-        CommentResponseDto commentResponseDto = new CommentResponseDto( commentId, body, displayName, createdAt, modifiedAt );
+        commentResponseDto.setCommentId( comment.getCommentId() );
+        commentResponseDto.setBody( comment.getBody() );
+        commentResponseDto.setDisplayName( comment.getDisplayName() );
+        commentResponseDto.setCreatedAt( comment.getCreatedAt() );
+        commentResponseDto.setModifiedAt( comment.getModifiedAt() );
+        commentResponseDto.setAnswerId( comment.getAnswerId() );
 
         return commentResponseDto;
     }

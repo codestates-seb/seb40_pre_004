@@ -10,10 +10,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CommentResponseDto {
     private long commentId;
     private String body;
     private String displayName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private long answerId;
 }

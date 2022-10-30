@@ -7,27 +7,30 @@
     "answerCheck" : false,
     "memberDisplayName" : "홍길동2",
     "memberId" : 2,
-    "createdAt" : "2022-10-29T00:12:54.192991",
-    "modifiedAt" : "2022-10-29T00:12:54.193001",
+    "createdAt" : "2022-10-30T19:33:35.145062",
+    "modifiedAt" : "2022-10-30T19:33:35.145072",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 1,
       "body" : "댓글1",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.193004",
-      "modifiedAt" : "2022-10-29T00:12:54.193006"
+      "createdAt" : "2022-10-30T19:33:35.145074",
+      "modifiedAt" : "2022-10-30T19:33:35.145076",
+      "answerId" : 1
     }, {
       "commentId" : 2,
       "body" : "댓글2",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-10-29T00:12:54.19301",
-      "modifiedAt" : "2022-10-29T00:12:54.193012"
+      "createdAt" : "2022-10-30T19:33:35.145081",
+      "modifiedAt" : "2022-10-30T19:33:35.145083",
+      "answerId" : 1
     }, {
       "commentId" : 3,
       "body" : "댓글3",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-10-29T00:12:54.193014",
-      "modifiedAt" : "2022-10-29T00:12:54.193016"
+      "createdAt" : "2022-10-30T19:33:35.145084",
+      "modifiedAt" : "2022-10-30T19:33:35.145086",
+      "answerId" : 2
     } ]
   }
 }

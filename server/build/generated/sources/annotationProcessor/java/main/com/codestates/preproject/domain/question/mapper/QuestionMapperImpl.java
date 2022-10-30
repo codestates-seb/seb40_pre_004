@@ -3,11 +3,11 @@ package com.codestates.preproject.domain.question.mapper;
 import com.codestates.preproject.domain.answer.dto.AnswerResponseDto;
 import com.codestates.preproject.domain.answer.entity.Answer;
 import com.codestates.preproject.domain.comment.dto.CommentResponseDto;
+import com.codestates.preproject.domain.question.dto.QuestionDetailsResponseDto;
 import com.codestates.preproject.domain.question.dto.QuestionPatchDto;
 import com.codestates.preproject.domain.question.dto.QuestionPostDto;
 import com.codestates.preproject.domain.question.dto.QuestionResponseDto;
 import com.codestates.preproject.domain.question.entity.Question;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-29T00:12:49+0900",
+    date = "2022-10-30T19:33:30+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -31,6 +31,10 @@ public class QuestionMapperImpl implements QuestionMapper {
 
         question.setTitle( questionPostDto.getTitle() );
         question.setBody( questionPostDto.getBody() );
+        List<String> list = questionPostDto.getTags();
+        if ( list != null ) {
+            question.setTags( new ArrayList<String>( list ) );
+        }
         question.setMember( questionPostDto.getMember() );
 
         return question;
@@ -47,6 +51,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.setQuestionId( questionPatchDto.getQuestionId() );
         question.setTitle( questionPatchDto.getTitle() );
         question.setBody( questionPatchDto.getBody() );
+        List<String> list = questionPatchDto.getTags();
+        if ( list != null ) {
+            question.setTags( new ArrayList<String>( list ) );
+        }
 
         return question;
     }
@@ -57,27 +65,45 @@ public class QuestionMapperImpl implements QuestionMapper {
             return null;
         }
 
-        long questionId = 0L;
-        String title = null;
-        String body = null;
-        long memberId = 0L;
-        String displayName = null;
-        LocalDateTime createdAt = null;
-        LocalDateTime modifiedAt = null;
-        List<AnswerResponseDto> answers = null;
+        QuestionResponseDto questionResponseDto = new QuestionResponseDto();
 
-        questionId = question.getQuestionId();
-        title = question.getTitle();
-        body = question.getBody();
-        memberId = question.getMemberId();
-        displayName = question.getDisplayName();
-        createdAt = question.getCreatedAt();
-        modifiedAt = question.getModifiedAt();
-        answers = answerListToAnswerResponseDtoList( question.getAnswers() );
-
-        QuestionResponseDto questionResponseDto = new QuestionResponseDto( questionId, title, body, memberId, displayName, createdAt, modifiedAt, answers );
+        questionResponseDto.setQuestionId( question.getQuestionId() );
+        questionResponseDto.setTitle( question.getTitle() );
+        questionResponseDto.setBody( question.getBody() );
+        questionResponseDto.setMemberId( question.getMemberId() );
+        questionResponseDto.setDisplayName( question.getDisplayName() );
+        List<String> list = question.getTags();
+        if ( list != null ) {
+            questionResponseDto.setTags( new ArrayList<String>( list ) );
+        }
+        questionResponseDto.setCreatedAt( question.getCreatedAt() );
+        questionResponseDto.setModifiedAt( question.getModifiedAt() );
 
         return questionResponseDto;
+    }
+
+    @Override
+    public QuestionDetailsResponseDto questionToQuestionDetailsResponseDto(Question question) {
+        if ( question == null ) {
+            return null;
+        }
+
+        QuestionDetailsResponseDto questionDetailsResponseDto = new QuestionDetailsResponseDto();
+
+        questionDetailsResponseDto.setQuestionId( question.getQuestionId() );
+        questionDetailsResponseDto.setTitle( question.getTitle() );
+        questionDetailsResponseDto.setBody( question.getBody() );
+        questionDetailsResponseDto.setMemberId( question.getMemberId() );
+        questionDetailsResponseDto.setDisplayName( question.getDisplayName() );
+        List<String> list = question.getTags();
+        if ( list != null ) {
+            questionDetailsResponseDto.setTags( new ArrayList<String>( list ) );
+        }
+        questionDetailsResponseDto.setCreatedAt( question.getCreatedAt() );
+        questionDetailsResponseDto.setModifiedAt( question.getModifiedAt() );
+        questionDetailsResponseDto.setAnswers( answerListToAnswerResponseDtoList( question.getAnswers() ) );
+
+        return questionDetailsResponseDto;
     }
 
     @Override

@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.048s</div>
+<div class="counter">0.045s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">deleteComment()</td>
-<td class="success">0.006s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -89,7 +89,7 @@
 </tr>
 <tr>
 <td class="success">getComments()</td>
-<td class="success">0.008s</td>
+<td class="success">0.007s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -99,7 +99,7 @@
 </tr>
 <tr>
 <td class="success">postComment()</td>
-<td class="success">0.011s</td>
+<td class="success">0.010s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -107,12 +107,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2022-10-29 00:12:54.209  INFO 41825 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.codestates.preproject.domain.comment.controller.CommentControllerTest], using SpringBootContextLoader
-2022-10-29 00:12:54.210  INFO 41825 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.codestates.preproject.domain.comment.controller.CommentControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2022-10-29 00:12:54.210  INFO 41825 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.codestates.preproject.domain.comment.controller.CommentControllerTest]: CommentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2022-10-29 00:12:54.215  INFO 41825 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.codestates.preproject.PreProjectApplication for test class com.codestates.preproject.domain.comment.controller.CommentControllerTest
-2022-10-29 00:12:54.215  INFO 41825 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2022-10-29 00:12:54.215  INFO 41825 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@6ac9742e, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@411b75b4, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@21298c3a, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4f63219e, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6eaa5458, org.springframework.test.context.support.DirtiesContextTestExecutionListener@74863aec, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1923301a, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4f9a8d71, org.springframework.test.context.event.EventPublishingTestExecutionListener@73ae084e, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@363a1d8d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@369958b0, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2d73aa17, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2e1c3b8f, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@482c8db4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@348c00d9]
+<pre>2022-10-30 19:33:35.161  INFO 65474 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.codestates.preproject.domain.comment.controller.CommentControllerTest], using SpringBootContextLoader
+2022-10-30 19:33:35.162  INFO 65474 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.codestates.preproject.domain.comment.controller.CommentControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-10-30 19:33:35.162  INFO 65474 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.codestates.preproject.domain.comment.controller.CommentControllerTest]: CommentControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-10-30 19:33:35.166  INFO 65474 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.codestates.preproject.PreProjectApplication for test class com.codestates.preproject.domain.comment.controller.CommentControllerTest
+2022-10-30 19:33:35.167  INFO 65474 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-10-30 19:33:35.167  INFO 65474 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@19dc9dda, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@72e9c0a0, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@494c452b, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7e9b68c5, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3d41881, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3f04349b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@14ca4b4d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@31b2c451, org.springframework.test.context.event.EventPublishingTestExecutionListener@1201c2f6, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@cbf9cc1, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@4ae93e38, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6ddeeb78, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@71549247, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@17d5138, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@266b7d1]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -122,12 +122,12 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.7.5)
 
-2022-10-29 00:12:54.230  INFO 41825 --- [    Test worker] c.c.p.d.c.c.CommentControllerTest        : Starting CommentControllerTest using Java 11.0.16.1 on bag-yeong-giui-MacBookAir.local with PID 41825 (started by bag-yeong-gi in /Users/bag-yeong-gi/IdeaProjects/seb40_pre_004/server)
-2022-10-29 00:12:54.230  INFO 41825 --- [    Test worker] c.c.p.d.c.c.CommentControllerTest        : The following 1 profile is active: &quot;local&quot;
-2022-10-29 00:12:54.406  INFO 41825 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2022-10-29 00:12:54.406  INFO 41825 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2022-10-29 00:12:54.406  INFO 41825 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2022-10-29 00:12:54.410  INFO 41825 --- [    Test worker] c.c.p.d.c.c.CommentControllerTest        : Started CommentControllerTest in 0.193 seconds (JVM running for 4.124)
+2022-10-30 19:33:35.176  INFO 65474 --- [    Test worker] c.c.p.d.c.c.CommentControllerTest        : Starting CommentControllerTest using Java 11.0.16.1 on bag-yeong-giui-MacBookAir.local with PID 65474 (started by bag-yeong-gi in /Users/bag-yeong-gi/IdeaProjects/preproject)
+2022-10-30 19:33:35.177  INFO 65474 --- [    Test worker] c.c.p.d.c.c.CommentControllerTest        : The following 1 profile is active: &quot;local&quot;
+2022-10-30 19:33:35.353  INFO 65474 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2022-10-30 19:33:35.354  INFO 65474 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2022-10-30 19:33:35.354  INFO 65474 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2022-10-30 19:33:35.362  INFO 65474 --- [    Test worker] c.c.p.d.c.c.CommentControllerTest        : Started CommentControllerTest in 0.194 seconds (JVM running for 4.097)
 </pre>
 </span>
 </div>
@@ -139,7 +139,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 10. 29. 오전 12:12:55</p>
+<a href="http://www.gradle.org">Gradle 7.5.1</a> at 2022. 10. 30. 오후 7:33:35</p>
 </div>
 </div>
 </body>
