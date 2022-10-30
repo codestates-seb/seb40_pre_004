@@ -5,7 +5,7 @@ import useCheckbox from '../hooks/useCheckbox';
 import {
   validateDisplayName,
   validateEmail,
-  validatePassword,
+  validatePasswordForRegister,
   validateIsHuman,
 } from '../api/validate';
 
@@ -182,7 +182,7 @@ const RegisterForm = () => {
 
     setDisplayNameValidationResult(validateDisplayName(displayName, email));
     setEmailValidationResult(validateEmail(email));
-    setPasswordValidationResult(validatePassword(password));
+    setPasswordValidationResult(validatePasswordForRegister(password));
     setIsHumanValidationResult(validateIsHuman(isHuman));
 
     const body = {
@@ -196,7 +196,7 @@ const RegisterForm = () => {
     if (
       validateDisplayName(displayName, email) === 'valid' &&
       validateEmail(email) === 'valid' &&
-      validatePassword(password) === 'valid' &&
+      validatePasswordForRegister(password) === 'valid' &&
       validateIsHuman(isHuman) === 'valid'
     ) {
       console.log('passed');
@@ -228,9 +228,6 @@ const RegisterForm = () => {
         <S_FormInputWrapper validationResult={emailValidationResult}>
           <label htmlFor="email">Email</label>
           <input type="text" id="email" {...emailBind} />
-          {emailValidationResult === 'empty' ? (
-            <span>Email cannot be empty.</span>
-          ) : null}
           {emailValidationResult === null ||
           emailValidationResult === 'valid' ? null : (
             <S_Svg size="18">
@@ -240,6 +237,9 @@ const RegisterForm = () => {
               />
             </S_Svg>
           )}
+          {emailValidationResult === 'empty' ? (
+            <span>Email cannot be empty.</span>
+          ) : null}
           {emailValidationResult === 'invalid' ? (
             <span>{email} is not a valid email address.</span>
           ) : null}

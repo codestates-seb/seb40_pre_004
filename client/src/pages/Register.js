@@ -105,11 +105,12 @@ const S_Container = styled.div`
     'Segoe UI', 'Liberation Sans', sans-serif;
   color: #232629;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   background-color: #f1f2f3;
   box-sizing: border-box;
+  padding-top: 80px;
 `;
 
 const S_Link = styled(Link)`
