@@ -2,14 +2,46 @@
 ----
 HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 122
+Content-Length: 1198
 
 {
   "data" : {
     "questionId" : 1,
     "title" : "제목 수정",
     "body" : "본문 수정",
-    "memberId" : 1
+    "memberId" : 1,
+    "displayName" : "회원 이름1",
+    "createdAt" : "2022-10-29T00:12:54.976643",
+    "modifiedAt" : "2022-10-29T00:12:54.976851",
+    "answers" : [ {
+      "answerId" : 1,
+      "body" : "답변 내용",
+      "answerCheck" : false,
+      "memberDisplayName" : "홍길동1",
+      "memberId" : 1,
+      "createdAt" : "2022-10-29T00:12:54.976855",
+      "modifiedAt" : "2022-10-29T00:12:54.976857",
+      "questionId" : 1,
+      "comments" : [ {
+        "commentId" : 1,
+        "body" : "댓글1",
+        "displayName" : "홍길동1",
+        "createdAt" : "2022-10-29T00:12:54.976859",
+        "modifiedAt" : "2022-10-29T00:12:54.976861"
+      }, {
+        "commentId" : 2,
+        "body" : "댓글2",
+        "displayName" : "홍길동1",
+        "createdAt" : "2022-10-29T00:12:54.976863",
+        "modifiedAt" : "2022-10-29T00:12:54.976865"
+      }, {
+        "commentId" : 3,
+        "body" : "댓글3",
+        "displayName" : "홍길동2",
+        "createdAt" : "2022-10-29T00:12:54.976866",
+        "modifiedAt" : "2022-10-29T00:12:54.976868"
+      } ]
+    } ]
   }
 }
 ----

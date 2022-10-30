@@ -1,0 +1,28 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 563
+
+{
+  "data" : [ {
+    "commentId" : 1,
+    "body" : "댓글1",
+    "displayName" : "홍길동1",
+    "createdAt" : "2022-10-29T00:12:54.436149",
+    "modifiedAt" : "2022-10-29T00:12:54.436159"
+  }, {
+    "commentId" : 2,
+    "body" : "댓글2",
+    "displayName" : "홍길동1",
+    "createdAt" : "2022-10-29T00:12:54.436165",
+    "modifiedAt" : "2022-10-29T00:12:54.436166"
+  }, {
+    "commentId" : 3,
+    "body" : "댓글3",
+    "displayName" : "홍길동3",
+    "createdAt" : "2022-10-29T00:12:54.436169",
+    "modifiedAt" : "2022-10-29T00:12:54.436171"
+  } ]
+}
+----

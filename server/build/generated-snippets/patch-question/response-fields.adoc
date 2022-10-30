@@ -21,4 +21,76 @@
 |`+Number+`
 |회원 식별자
 
+|`+data.displayName+`
+|`+String+`
+|회원 이름
+
+|`+data.createdAt+`
+|`+String+`
+|생성 날짜
+
+|`+data.modifiedAt+`
+|`+String+`
+|수정 날짜
+
+|`+data.answers+`
+|`+Array+`
+|질문 답변 정보
+
+|`+data.answers[].answerId+`
+|`+Number+`
+|질문 식별자
+
+|`+data.answers[].body+`
+|`+String+`
+|답변 내용
+
+|`+data.answers[].answerCheck+`
+|`+Boolean+`
+|답변 채택 여부
+
+|`+data.answers[].memberDisplayName+`
+|`+String+`
+|답변 작성 회원
+
+|`+data.answers[].memberId+`
+|`+Number+`
+|답변 작성 회원 식별자
+
+|`+data.answers[].createdAt+`
+|`+String+`
+|답변 생성 시간
+
+|`+data.answers[].modifiedAt+`
+|`+String+`
+|답변 수정 시간
+
+|`+data.answers[].questionId+`
+|`+Number+`
+|질문 식별자
+
+|`+data.answers[].comments+`
+|`+Array+`
+|답변 댓글 정보
+
+|`+data.answers[].comments[].commentId+`
+|`+Number+`
+|댓글 식별자
+
+|`+data.answers[].comments[].body+`
+|`+String+`
+|댓글 내용
+
+|`+data.answers[].comments[].displayName+`
+|`+String+`
+|댓글 작성 회원 이름
+
+|`+data.answers[].comments[].createdAt+`
+|`+String+`
+|댓글 생성 시간
+
+|`+data.answers[].comments[].modifiedAt+`
+|`+String+`
+|댓글 수정 시간
+
 |===

@@ -1,0 +1,10 @@
+[source,bash]
+----
+$ echo '{
+  "answerId" : 0,
+  "body" : "답변1",
+  "answerCheck" : true
+}' | http PATCH 'http://localhost:8080/v1/answers/1' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json'
+----

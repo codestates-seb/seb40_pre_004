@@ -1,0 +1,9 @@
+[source,bash]
+----
+$ echo '{
+  "commentId" : 0,
+  "body" : "댓글2"
+}' | http PATCH 'http://localhost:8080/v1/comments/1' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json'
+----

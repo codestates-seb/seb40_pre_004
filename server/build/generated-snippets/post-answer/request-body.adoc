@@ -1,0 +1,8 @@
+[source,options="nowrap"]
+----
+{
+  "body" : "답변1",
+  "questionId" : 1,
+  "memberId" : 2
+}
+----
