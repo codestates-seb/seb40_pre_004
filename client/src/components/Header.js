@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const S_Header = styled.header`
@@ -141,13 +141,6 @@ const S_Topbar_Search_Label = styled.label`
     left: 10px;
     transform: translateY(-50%);
   }
-  /* 
-  &:before {
-    content: '';
-    position: absolute;
-    left: 10px;
-    width: 20px; 
-  }*/
 `;
 
 const S_Topbar_Search_Input = styled.input`
@@ -177,8 +170,7 @@ const S_Topbar_Input_Dropdown_Box = styled.div`
   width: 690px;
   height: 150px;
   padding: 9px 9px 10px 9px;
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 13px;
   z-index: 99999;
 `;
 
@@ -311,10 +303,10 @@ function Header() {
           </S_Topbar_Search_Label>
           {down && <Dropdown2 />}
         </div>
-        <Link to="/Login">
+        <Link to="/login">
           <S_Topbar_Bnt1>Log in</S_Topbar_Bnt1>
         </Link>
-        <Link to="/Register">
+        <Link to="/register">
           <S_Topbar_Bnt2>Sign up</S_Topbar_Bnt2>{' '}
         </Link>
       </S_Topbar_Container>
@@ -368,78 +360,67 @@ function Dropdown() {
 }
 
 function Dropdown2() {
+  const obj1 = {
+    data: [
+      { word: '[ tag ]', word2: 'search within a tag' },
+      {
+        word: 'user : 1234',
+        word2: 'search by author',
+      },
+      { word: '"words here"', word2: 'exact phrase' },
+      {
+        word: 'collective : "Name"',
+        word2: 'collective content',
+      },
+    ],
+  };
+  const obj2 = {
+    data: [
+      { word: 'answers : 0', word2: 'unanswered questions' },
+      {
+        word: 'score : 3',
+        word2: 'posts with a 3+ score',
+      },
+      { word: 'is : question', word2: 'type of post' },
+      {
+        word: 'isaccepted : yes',
+        word2: 'search within status',
+      },
+    ],
+  };
+
   return (
     <div>
       <S_Topbar_Input_Arrow />
       <S_Topbar_Input_Dropdown>
         <S_Topbar_Input_Dropdown_Box>
           <div>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                [tag]&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                search within a tag
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                user : 1234&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                search by author
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                {'"words here"'}&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                exact phrase
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                collective : {'"Name"'}&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                collective content
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
+            {obj1.data.map((item, index) => {
+              return (
+                <S_Topbar_Input_Dropdown_item key={index}>
+                  <S_Navigation_Dropdown_word>
+                    {item.word}&nbsp;
+                  </S_Navigation_Dropdown_word>
+                  <S_Navigation_Dropdown_word2>
+                    {item.word2}
+                  </S_Navigation_Dropdown_word2>
+                </S_Topbar_Input_Dropdown_item>
+              );
+            })}
           </div>
           <div>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                answers : 0&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                unanswered questions
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                score : 3&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                posts with a 3+ score
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                is : question&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                type of post
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
-            <S_Topbar_Input_Dropdown_item>
-              <S_Navigation_Dropdown_word>
-                isaccepted : yes&nbsp;
-              </S_Navigation_Dropdown_word>
-              <S_Navigation_Dropdown_word2>
-                search within status
-              </S_Navigation_Dropdown_word2>
-            </S_Topbar_Input_Dropdown_item>
+            {obj2.data.map((item, index) => {
+              return (
+                <S_Topbar_Input_Dropdown_item key={index}>
+                  <S_Navigation_Dropdown_word>
+                    {item.word}&nbsp;
+                  </S_Navigation_Dropdown_word>
+                  <S_Navigation_Dropdown_word2>
+                    {item.word2}
+                  </S_Navigation_Dropdown_word2>
+                </S_Topbar_Input_Dropdown_item>
+              );
+            })}
           </div>
         </S_Topbar_Input_Dropdown_Box>
         <S_Topbar_Input_Dropdown_Box2>
