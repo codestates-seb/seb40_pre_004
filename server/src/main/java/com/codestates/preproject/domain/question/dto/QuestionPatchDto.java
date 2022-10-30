@@ -3,6 +3,7 @@ package com.codestates.preproject.domain.question.dto;
 import com.codestates.preproject.validator.NotSpace;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -18,5 +19,6 @@ public class QuestionPatchDto {
     @NotSpace
     private String body;
 
-    private List<String> tags;
+    @Nullable
+    private List<@NotBlank String> tags;
 }
