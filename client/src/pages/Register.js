@@ -102,7 +102,7 @@ const Description = () => {
 const S_OAuthContainer = styled.section`
   margin: -8px 0px 20px 0px;
   width: 100%;
-
+  padding-top: 80px;
   & > button:nth-child(1) {
     background-color: #ffffff;
 

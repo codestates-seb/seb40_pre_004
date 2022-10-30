@@ -13,6 +13,7 @@ const S_Container = styled.div`
   margin: 0 auto;
   position: relative;
   flex: 1 0 auto;
+  padding-top: 60px;
 `;
 
 const Home = () => {
