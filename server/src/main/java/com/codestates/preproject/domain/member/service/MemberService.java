@@ -2,11 +2,11 @@ package com.codestates.preproject.domain.member.service;
 
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.repository.MemberRepository;
-import com.codestates.preproject.exception.BusinessLogicException;
-import com.codestates.preproject.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,16 +16,22 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Member createMember(Member member) {
-        verifyExistsDisplayName(member.getDisplayName());
         verifyExistsEmail(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
 
-        return memberRepository.save(member);
+        Member saveMember = memberRepository.save(member);
+
+        System.out.println("# Create Member in DB");
+        return saveMember;
     }
 
     public Member updateMember(Member member) {
@@ -64,18 +70,9 @@ public class MemberService {
     public Member findVerifiedMember(long memberId) {
 
         Optional<Member> optionalMember = memberRepository.findById(memberId);
-        Member member = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member member = optionalMember.orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다"));
 
         return member;
-    }
-
-    private void verifyExistsDisplayName(String displayName) {
-
-        Optional<Member> optionalMember = memberRepository.findByDisplayName(displayName);
-
-        if (optionalMember.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_DISPLAY_NAME_EXISTS);
-        }
     }
 
     private void verifyExistsEmail(String email) {
@@ -83,7 +80,7 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
 
         if (optionalMember.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EMAIL_EXISTS);
+            throw new RuntimeException("이미 존재하는 회원입니다.");
         }
     }
 }

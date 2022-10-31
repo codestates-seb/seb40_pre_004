@@ -1,8 +1,0 @@
-.+/v1/members/{member-id}+
-|===
-|Parameter|Description
-
-|`+member-id+`
-|회원 식별자
-
-|===

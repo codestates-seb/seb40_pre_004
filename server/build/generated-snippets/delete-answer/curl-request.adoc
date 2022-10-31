@@ -1,4 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/v1/answers/1' -i -X DELETE
-----
