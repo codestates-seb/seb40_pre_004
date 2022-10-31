@@ -22,6 +22,10 @@ public class MemberService {
     }
 
     public Member createMember(Member member) {
+
+        if (member.getDisplayName().isBlank())
+            member.setDisplayName("User" + Long.sum(memberRepository.count(),1));
+
         verifyExistsDisplayName(member.getDisplayName());
         verifyExistsEmail(member.getEmail());
 
