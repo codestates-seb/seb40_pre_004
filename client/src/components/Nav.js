@@ -261,7 +261,7 @@ function Nav() {
             <li>
               <S_Ol>
                 <li>
-                  <S_LiText>Teams</S_LiText>
+                  <S_LiText as="div">Teams</S_LiText>
                 </li>
                 <S_TeamsAd>
                   <strong>Stack Overflow for Teams</strong> – Start

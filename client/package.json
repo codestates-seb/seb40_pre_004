@@ -5,9 +5,11 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
     "axios": "^1.1.3",
+    "draft-js": "^0.11.7",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
@@ -44,5 +46,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0"
-  }
+  },
+  "proxy": "http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080"
 }
