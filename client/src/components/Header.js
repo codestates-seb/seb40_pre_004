@@ -29,26 +29,24 @@ const S_TopbarLogo = styled.div`
   height: 30px;
   width: 146px;
   margin-left: 0;
+  padding-top: 8px;
   background-position: 0 -500px;
   background-image: url(https://cdn.sstatic.net/Img/unified/sprites.svg?v=fcc0ea44ba27);
-  &: hover {
+  &:hover {
     background-color: hsl(210, 8%, 90%);
   }
 `;
 
-const S_Navigation = styled.ol`
+const S_Nav = styled.ol`
   display: flex;
-  width: 290px;
   justify-content: space-evenly;
   position: relative;
   a {
     display: flex;
-    align-items: center;
-    border: none;
     color: rgba(82, 89, 96);
     font-size: 13px;
     margin: 2px;
-    padding: 6px 12px;
+    padding: 6px 20px;
   }
   a:hover {
     border-radius: 1000px;
@@ -57,17 +55,23 @@ const S_Navigation = styled.ol`
   }
 `;
 
-const S_NavigationDropdown = styled.li`
-  a:hover {
+const S_NavDropdownWord = styled.li`
+  position: relative;
+  a:active {
     border-radius: 1000px;
     color: white;
     background-color: #f48225;
   }
 `;
 
-const S_NavigationDropdownBox = styled.div`
+const S_NavDropdown = styled.div`
   position: absolute;
   z-index: 99999;
+  left: -61px;
+  top: 37px;
+`;
+
+const S_NavDropdownBox = styled.div`
   background-color: white;
   border-radius: 4px;
   width: 230px;
@@ -76,7 +80,7 @@ const S_NavigationDropdownBox = styled.div`
   box-shadow: 0 3px 3px rgb(0 0 0 / 10%);
 `;
 
-const S_NavigationDropdownitem = styled.li`
+const S_NavDropdownitem = styled.li`
   box-sizing: border-box;
   line-height: 17px;
   margin: 6px;
@@ -87,7 +91,7 @@ const S_NavigationDropdownitem = styled.li`
     border-radius: 4px;
   }
 `;
-const S_NavigationDropdownitem2 = styled(S_NavigationDropdownitem)`
+const S_NavDropdownitem2 = styled(S_NavDropdownitem)`
   border-top: 1px solid rgb(186, 191, 196);
   margin: 0px;
   padding: 14px;
@@ -100,20 +104,20 @@ const S_NavigationDropdownitem2 = styled(S_NavigationDropdownitem)`
     color: #0c0c0c;
   }
 `;
-const S_NavigationDropdownword = styled.span`
+const S_NavDropdownword = styled.span`
   color: #0c0c0c;
   display: block;
 `;
 
-const S_NavigationDropdownword2 = styled.span`
+const S_NavDropdownword2 = styled.span`
   color: #6a737c;
   font-size: 12px;
 `;
 
 const S_TopbarArrow = styled.div`
   position: absolute;
-  top: 35px;
-  right: 145px;
+  top: -9px;
+  right: 110px;
   width: 0px;
   height: 0px;
   border-bottom: 15px solid white;
@@ -124,13 +128,11 @@ const S_TopbarArrow = styled.div`
 
 const S_TopbarSearchLabel = styled.label`
   display: flex;
-  z-index: 1;
   position: relative;
   width: 710px;
   height: 35px;
   border: 1px solid rgb(186, 191, 196);
-  border-radius: 5px;
-
+  border-radius: 6px;
   svg {
     display: inline-block;
     width: 1em;
@@ -149,7 +151,6 @@ const S_TopbarSearchInput = styled.input`
   padding: 10px 30px;
   width: 100%;
   height: 35px;
-  z-index: -1;
   color: rgb(59, 64, 69);
   border: none;
   &:focus {
@@ -158,11 +159,17 @@ const S_TopbarSearchInput = styled.input`
     border-radius: 3px;
   }
 `;
-const S_TopbarInputDropdown = styled.div`
+
+const S_TopbarInputWrap = styled.div`
   position: absolute;
-  top: 60px;
+  z-index: 99999;
+  margin-top: 15px;
   box-shadow: 0 3px 3px rgb(0 0 0 / 10%);
-  border-radius: 4px;
+`;
+
+const S_TopbarInputDropdown = styled.div`
+  top: 60px;
+
   background-color: white;
 `;
 const S_TopbarInputDropdownBox = styled.div`
@@ -171,7 +178,6 @@ const S_TopbarInputDropdownBox = styled.div`
   height: 150px;
   padding: 9px 9px 0px 9px;
   font-size: 13px;
-  z-index: 99999;
 `;
 
 const S_TopbarInputDropdownitem = styled.div`
@@ -186,7 +192,7 @@ const S_TopbarInputDropdownBox2 = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0 0 4px 4px;
+  /* border-radius: 0 0 4px 4px; */
   border-top: 1px solid rgb(186, 191, 196);
   padding: 10px;
 `;
@@ -210,8 +216,8 @@ const S_TopbarInputDropdownword = styled.span`
 `;
 
 const S_TopbarInputArrow = styled(S_TopbarArrow)`
-  top: 45px;
-  right: 700px;
+  top: -20px;
+  right: 380px;
 `;
 
 const S_TopbarBnt1 = styled.a`
@@ -221,7 +227,6 @@ const S_TopbarBnt1 = styled.a`
   box-sizing: border-box;
   padding: 8px 10.4px 10.4px 8px;
   margin-left: 8px;
-
   border-radius: 3px;
   cursor: pointer;
   text-align: center;
@@ -248,16 +253,97 @@ const S_TopbarBnt2 = styled.a`
   font-size: 13px;
   color: white;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
-
   &:hover {
     background-color: hsl(206, 100%, 40%);
   }
 `;
 
+const S_TopbarLoggedInNav = styled.nav`
+  height: 100%;
+  display: block;
+  box-sizing: border-box;
+`;
+
+const S_TopbarLoggedInOl = styled.ol`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding-inline-start: 40px;
+  margin-top: 0px;
+`;
+
+const S_TopbarLoggedInItem = styled.li`
+  width: 20px;
+  height: 16px;
+  cursor: pointer;
+  padding: 15px 10px 15px 10px;
+  &:hover {
+    background-color: hsl(210, 8%, 90%);
+  }
+`;
+
+const S_TopbarLoggedInDropdown = styled.div`
+  box-sizing: border-box;
+  width: 375px;
+  position: absolute;
+  box-sizing: border-box;
+  border-left: 1px solid hsl(210, 8%, 90%);
+  border-right: 1px solid hsl(210, 8%, 90%);
+  border-bottom: 1px solid hsl(210, 8%, 90%);
+  right: 297px;
+  top: 47px;
+  border: none;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+`;
+
+const S_TopbarLoggedInDropdownItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background-color: hsl(210, 8%, 95%);
+  padding: 8px 10px;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  color: #0074cc;
+  font-weight: bold;
+  font-size: 12px;
+  div:hover {
+    color: hsl(206, 100%, 52%);
+  }
+`;
+
+const S_TopbarLoggedInDropdownItem2 = styled(S_TopbarLoggedInDropdownItem)`
+  padding: 10px;
+  background-color: white;
+  &:hover {
+    background-color: hsl(205, 46%, 92%);
+  }
+`;
+const S_TopbarLoggedInDropdownWord = styled.div`
+  font-size: 13px;
+  color: #0074cc;
+`;
+
+const S_TopbarLoggedInDropdownWord2 = styled.div`
+  font-weight: normal;
+  font-size: 13px;
+`;
+
+const S_TopbarLoggedInDropdownSvg = styled.svg`
+  width: 16px;
+  height: 16px;
+  margin-right: 7px;
+`;
+
 function Header() {
   const [view, setView] = useState(false);
   const [down, setDown] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [drop, setDrop] = useState(false);
 
   function onToggle() {
     setIsLoggedIn(!isLoggedIn);
@@ -267,27 +353,42 @@ function Header() {
     <S_Header>
       <S_TopbarContainer>
         <Link to="/">
-          <S_TopbarLogo>스택오버플로우</S_TopbarLogo>
+          <S_TopbarLogo onClick={onToggle}>스택오버플로우</S_TopbarLogo>
         </Link>
-        <S_Navigation>
-          <li>
-            <a href="#;">About</a>
-          </li>
-          <S_NavigationDropdown>
-            <a
-              href="#;"
-              onClick={() => {
-                setView(!view);
-              }}
-            >
-              Products
-            </a>
+        <S_Nav>
+          {isLoggedIn && (
+            <li>
+              <a href="#;">About</a>
+            </li>
+          )}
+          <S_NavDropdownWord>
+            {isLoggedIn ? (
+              <a
+                href="#;"
+                onClick={() => {
+                  setView(!view);
+                }}
+              >
+                Products
+              </a>
+            ) : (
+              <a
+                href="#;"
+                onClick={() => {
+                  setView(!view);
+                }}
+              >
+                Products
+              </a>
+            )}
             {view && <Dropdown />}
-          </S_NavigationDropdown>
-          <li>
-            <a href="#;">For Teams</a>
-          </li>
-        </S_Navigation>
+          </S_NavDropdownWord>
+          {isLoggedIn && (
+            <li>
+              <a href="#;">For Teams</a>
+            </li>
+          )}
+        </S_Nav>
         <div>
           <S_TopbarSearchLabel>
             <svg aria-hidden="true" viewBox="0 0 18 18">
@@ -308,12 +409,58 @@ function Header() {
           </S_TopbarSearchLabel>
           {down && <Dropdown2 />}
         </div>
-        <Link to="/login">
-          <S_TopbarBnt1>Log in</S_TopbarBnt1>
-        </Link>
-        <Link to="/register">
-          <S_TopbarBnt2>Sign up</S_TopbarBnt2>{' '}
-        </Link>
+        {isLoggedIn ? (
+          <Link to="/login">
+            <S_TopbarBnt1>Log in</S_TopbarBnt1>
+          </Link>
+        ) : (
+          <S_TopbarLoggedInNav>
+            <S_TopbarLoggedInOl>
+              <S_TopbarLoggedInItem>
+                <svg aria-hidden="true" viewBox="0 0 20 18">
+                  <path
+                    d="M4.63 1h10.56a2 2 0 0 1 1.94 1.35L20 10.79V15a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-4.21l2.78-8.44c.25-.8 1-1.36 1.85-1.35Zm8.28 12 2-2h2.95l-2.44-7.32a1 1 0 0 0-.95-.68H5.35a1 1 0 0 0-.95.68L1.96 11h2.95l2 2h6Z"
+                    fill="rgba(59, 64, 69)"
+                  ></path>
+                </svg>
+              </S_TopbarLoggedInItem>
+              <S_TopbarLoggedInItem>
+                <svg aria-hidden="true" viewBox="0 0 18 18">
+                  <path
+                    d="M15 2V1H3v1H0v4c0 1.6 1.4 3 3 3v1c.4 1.5 3 2.6 5 3v2H5s-1 1.5-1 2h10c0-.4-1-2-1-2h-3v-2c2-.4 4.6-1.5 5-3V9c1.6-.2 3-1.4 3-3V2h-3ZM3 7c-.5 0-1-.5-1-1V4h1v3Zm8.4 2.5L9 8 6.6 9.4l1-2.7L5 5h3l1-2.7L10 5h2.8l-2.3 1.8 1 2.7h-.1ZM16 6c0 .5-.5 1-1 1V4h1v2Z"
+                    fill="rgba(59, 64, 69)"
+                  ></path>
+                </svg>
+              </S_TopbarLoggedInItem>
+              <S_TopbarLoggedInItem>
+                <svg aria-hidden="true" viewBox="0 0 18 18">
+                  <path
+                    d="M9 1C4.64 1 1 4.64 1 9c0 4.36 3.64 8 8 8 4.36 0 8-3.64 8-8 0-4.36-3.64-8-8-8Zm.81 12.13c-.02.71-.55 1.15-1.24 1.13-.66-.02-1.17-.49-1.15-1.2.02-.72.56-1.18 1.22-1.16.7.03 1.2.51 1.17 1.23ZM11.77 8c-.59.66-1.78 1.09-2.05 1.97a4 4 0 0 0-.09.75c0 .05-.03.16-.18.16H7.88c-.16 0-.18-.1-.18-.15.06-1.35.66-2.2 1.83-2.88.39-.29.7-.75.7-1.24.01-1.24-1.64-1.82-2.35-.72-.21.33-.18.73-.18 1.1H5.75c0-1.97 1.03-3.26 3.03-3.26 1.75 0 3.47.87 3.47 2.83 0 .57-.2 1.05-.48 1.44Z"
+                    fill="rgba(59, 64, 69)"
+                  ></path>
+                </svg>
+              </S_TopbarLoggedInItem>
+              <S_TopbarLoggedInItem
+                onClick={() => {
+                  setDrop(!drop);
+                }}
+              >
+                <svg aria-hidden="true" viewBox="0 0 18 18">
+                  <path
+                    d="M15 1H3a2 2 0 0 0-2 2v2h16V3a2 2 0 0 0-2-2ZM1 13c0 1.1.9 2 2 2h8v3l3-3h1a2 2 0 0 0 2-2v-2H1v2Zm16-7H1v4h16V6Z"
+                    fill="rgba(59, 64, 69)"
+                  ></path>
+                </svg>
+              </S_TopbarLoggedInItem>
+            </S_TopbarLoggedInOl>
+            {drop && <Dropdown3 />}
+          </S_TopbarLoggedInNav>
+        )}
+        {isLoggedIn && (
+          <Link to="/register">
+            <S_TopbarBnt2>Sign up</S_TopbarBnt2>
+          </Link>
+        )}
       </S_TopbarContainer>
     </S_Header>
   );
@@ -337,28 +484,24 @@ function Dropdown() {
   };
 
   return (
-    <div>
+    <S_NavDropdown>
       <S_TopbarArrow />
-      <S_NavigationDropdownBox>
+      <S_NavDropdownBox>
         <ol>
           {obj.data.map((item, index) => {
             return (
-              <S_NavigationDropdownitem key={index}>
-                <S_NavigationDropdownword>{item.word}</S_NavigationDropdownword>
-                <S_NavigationDropdownword2>
-                  {item.word2}
-                </S_NavigationDropdownword2>
-              </S_NavigationDropdownitem>
+              <S_NavDropdownitem key={index}>
+                <S_NavDropdownword>{item.word}</S_NavDropdownword>
+                <S_NavDropdownword2>{item.word2}</S_NavDropdownword2>
+              </S_NavDropdownitem>
             );
           })}
-          <S_NavigationDropdownitem2>
-            <S_NavigationDropdownword2>
-              About the company
-            </S_NavigationDropdownword2>
-          </S_NavigationDropdownitem2>
+          <S_NavDropdownitem2>
+            <S_NavDropdownword2>About the company</S_NavDropdownword2>
+          </S_NavDropdownitem2>
         </ol>
-      </S_NavigationDropdownBox>
-    </div>
+      </S_NavDropdownBox>
+    </S_NavDropdown>
   );
 }
 
@@ -393,7 +536,7 @@ function Dropdown2() {
   };
 
   return (
-    <div>
+    <S_TopbarInputWrap>
       <S_TopbarInputArrow />
       <S_TopbarInputDropdown>
         <S_TopbarInputDropdownBox>
@@ -401,12 +544,8 @@ function Dropdown2() {
             {obj1.data.map((item, index) => {
               return (
                 <S_TopbarInputDropdownitem key={index}>
-                  <S_NavigationDropdownword>
-                    {item.word}&nbsp;
-                  </S_NavigationDropdownword>
-                  <S_NavigationDropdownword2>
-                    {item.word2}
-                  </S_NavigationDropdownword2>
+                  <S_NavDropdownword>{item.word}&nbsp;</S_NavDropdownword>
+                  <S_NavDropdownword2>{item.word2}</S_NavDropdownword2>
                 </S_TopbarInputDropdownitem>
               );
             })}
@@ -415,12 +554,8 @@ function Dropdown2() {
             {obj2.data.map((item, index) => {
               return (
                 <S_TopbarInputDropdownitem key={index}>
-                  <S_NavigationDropdownword>
-                    {item.word}&nbsp;
-                  </S_NavigationDropdownword>
-                  <S_NavigationDropdownword2>
-                    {item.word2}
-                  </S_NavigationDropdownword2>
+                  <S_NavDropdownword>{item.word}&nbsp;</S_NavDropdownword>
+                  <S_NavDropdownword2>{item.word2}</S_NavDropdownword2>
                 </S_TopbarInputDropdownitem>
               );
             })}
@@ -431,7 +566,38 @@ function Dropdown2() {
           <S_TopbarInputDropdownword>Search help</S_TopbarInputDropdownword>
         </S_TopbarInputDropdownBox2>
       </S_TopbarInputDropdown>
-    </div>
+    </S_TopbarInputWrap>
   );
 }
+
+function Dropdown3() {
+  return (
+    <S_TopbarLoggedInDropdown>
+      <S_TopbarLoggedInDropdownItem>
+        CURRENT COMMUNITY
+      </S_TopbarLoggedInDropdownItem>
+      <S_TopbarLoggedInDropdownItem2>
+        <Link to="/">
+          <S_TopbarLoggedInDropdownWord>
+            <S_TopbarLoggedInDropdownSvg aria-hidden="true" viewBox="0 0 32 37">
+              <path d="M26 33v-9h4v13H0V24h4v9h22Z" fill="#BCBBBB"></path>
+              <path
+                d="m21.5 0-2.7 2 9.9 13.3 2.7-2L21.5 0ZM26 18.4 13.3 7.8l2.1-2.5 12.7 10.6-2.1 2.5ZM9.1 15.2l15 7 1.4-3-15-7-1.4 3Zm14 10.79.68-2.95-16.1-3.35L7 23l16.1 2.99ZM23 30H7v-3h16v3Z"
+                fill="#F48024"
+              ></path>
+            </S_TopbarLoggedInDropdownSvg>
+            Stack Overflow
+          </S_TopbarLoggedInDropdownWord>
+        </Link>
+        <S_TopbarLoggedInDropdownWord2>log out</S_TopbarLoggedInDropdownWord2>
+      </S_TopbarLoggedInDropdownItem2>
+      <S_TopbarLoggedInDropdownItem2>
+        <S_TopbarLoggedInDropdownWord>
+          Delete My Account
+        </S_TopbarLoggedInDropdownWord>
+      </S_TopbarLoggedInDropdownItem2>
+    </S_TopbarLoggedInDropdown>
+  );
+}
+
 export default Header;
