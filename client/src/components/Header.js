@@ -220,7 +220,7 @@ const S_TopbarInputDropdownword = styled.span`
 
 const S_TopbarInputArrow = styled(S_TopbarArrow)`
   top: 45px;
-  right: 700px;
+  right: 701px;
 `;
 
 const S_TopbarBnt1 = styled.a`
