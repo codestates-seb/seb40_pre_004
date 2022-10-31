@@ -22,8 +22,7 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    private ErrorResponse(final List<FieldError> fieldErrors,
-                          final List<ConstraintViolationError> violationErrors) {
+    private ErrorResponse(final List<FieldError> fieldErrors, final List<ConstraintViolationError> violationErrors) {
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
     }
@@ -75,15 +74,13 @@ public class ErrorResponse {
         private Object rejectedValue;
         private String reason;
 
-        private ConstraintViolationError(String propertyPath, Object rejectedValue,
-                                         String reason) {
+        private ConstraintViolationError(String propertyPath, Object rejectedValue, String reason) {
             this.propertyPath = propertyPath;
             this.rejectedValue = rejectedValue;
             this.reason = reason;
         }
 
-        public static List<ConstraintViolationError> of(
-                Set<ConstraintViolation<?>> constraintViolations) {
+        public static List<ConstraintViolationError> of(Set<ConstraintViolation<?>> constraintViolations) {
             return constraintViolations.stream()
                     .map(constraintViolation -> new ConstraintViolationError(
                             constraintViolation.getPropertyPath().toString(),
