@@ -257,6 +257,11 @@ const S_TopbarBnt2 = styled.a`
 function Header() {
   const [view, setView] = useState(false);
   const [down, setDown] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  function onToggle() {
+    setIsLoggedIn(!isLoggedIn);
+  }
 
   return (
     <S_Header>
