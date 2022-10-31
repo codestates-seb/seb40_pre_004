@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-28T16:40:12+0900",
+    date = "2022-10-30T07:56:25+0900",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.1.jar, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -25,6 +25,8 @@ public class CommentMapperImpl implements CommentMapper {
 
         Comment comment = new Comment();
 
+        comment.setBody( commentPostDto.getBody() );
+
         return comment;
     }
 
@@ -37,6 +39,7 @@ public class CommentMapperImpl implements CommentMapper {
         Comment comment = new Comment();
 
         comment.setCommentId( commentPatchDto.getCommentId() );
+        comment.setBody( commentPatchDto.getBody() );
 
         return comment;
     }
@@ -47,7 +50,13 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        CommentResponseDto commentResponseDto = new CommentResponseDto();
+        long commentId = 0L;
+        String body = null;
+
+        commentId = comment.getCommentId();
+        body = comment.getBody();
+
+        CommentResponseDto commentResponseDto = new CommentResponseDto( commentId, body );
 
         return commentResponseDto;
     }
