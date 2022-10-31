@@ -18,7 +18,7 @@ export const validateEmail = (email) => {
   return 'valid';
 };
 
-export const validatePassword = (password) => {
+export const validatePasswordForRegister = (password) => {
   const hasNumberRegex = /(?=.*[0-9])/;
   const hasLetterRegex = /(?=.*[a-zA-Z])/;
   const atLeastEightLettersRegex = /[a-zA-Z0-9`~!@#$%^&*()\-_=+]{8,}/;
@@ -34,6 +34,12 @@ export const validatePassword = (password) => {
   if (!validateString(password, atLeastEightLettersRegex)) {
     return 'short';
   }
+
+  return 'valid';
+};
+
+export const validatePasswordForLogin = (password) => {
+  if (password.length === 0) return 'empty';
 
   return 'valid';
 };
