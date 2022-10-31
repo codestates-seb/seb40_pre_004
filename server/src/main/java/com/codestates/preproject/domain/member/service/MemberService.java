@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Flow;
 
 @Service
 @Transactional
@@ -32,6 +31,8 @@ public class MemberService {
         this.authorityUtils = authorityUtils;
     }
 
+
+
     public Member createMember(Member member) {
 
         verifyExistsEmail(member.getEmail());
@@ -42,11 +43,9 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
 
-        Member saveMember = memberRepository.save(member);
+        Member savedMember = memberRepository.save(member);
 
-//        publisher.publishEvent(new MemberRegistrationApplicationEvent(this, saveMember));
-
-        return saveMember;
+        return savedMember;
     }
 
     public Member updateMember(Member member) {

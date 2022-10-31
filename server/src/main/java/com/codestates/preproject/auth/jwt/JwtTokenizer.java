@@ -24,11 +24,11 @@ public class JwtTokenizer {
     private String secretKey; //JWT 생성 및 검증 시 사용되는 Secret Key 정보
 
     @Getter
-    @Value("${jwt.access-token-expiration-minutes}")
+    @Value("${jwt.access-token-expiration-minutes}0")
     private int accessTokenExpirationMinutes;
 
     @Getter
-    @Value("${jwt.refresh-token-expiration-minutes}")
+    @Value("${jwt.refresh-token-expiration-minutes}0")
     private int refreshTokenExpirationMinutes;
 
     public String encodeBase64SecretKey(String secretKey) {
