@@ -3,6 +3,7 @@ package com.codestates.preproject.domain.question.controller;
 import com.codestates.preproject.domain.question.dto.QuestionPatchDto;
 import com.codestates.preproject.domain.question.dto.QuestionPostDto;
 import com.codestates.preproject.domain.question.dto.QuestionResponseDto;
+import com.codestates.preproject.domain.question.dto.QuestionDetailsResponseDto;
 import com.codestates.preproject.domain.question.entity.Question;
 import com.codestates.preproject.domain.question.mapper.QuestionMapper;
 import com.codestates.preproject.domain.question.service.QuestionService;
@@ -10,8 +11,6 @@ import com.codestates.preproject.dto.PageInfo;
 import com.codestates.preproject.dto.MultiResponseDto;
 import com.codestates.preproject.dto.SingleResponseDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -63,7 +62,7 @@ public class QuestionController {
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId) {
 
         Question foundQuestion = questionService.findQuestion(questionId);
-        QuestionResponseDto responseDto = mapper.questionToQuestionResponseDto(foundQuestion);
+        QuestionDetailsResponseDto responseDto = mapper.questionToQuestionDetailsResponseDto(foundQuestion);
 
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
@@ -71,9 +70,7 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity getQuestions(@RequestParam("page") @Positive int page,
                                        @RequestParam("size") @Positive int size) {
-        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("questionId").descending());
-
-        Page<Question> questionPage = questionService.findQuestions(pageRequest);
+        Page<Question> questionPage = questionService.findQuestions(page, size);
         List<QuestionResponseDto> responseDtos = mapper.questionsToQuestionResponseDtos(questionPage.getContent());
         PageInfo pageInfo = new PageInfo(questionPage.getNumber() + 1, questionPage.getSize(), questionPage.getTotalElements(), questionPage.getTotalPages());
 
