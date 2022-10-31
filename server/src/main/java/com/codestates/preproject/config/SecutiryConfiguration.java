@@ -1,6 +1,7 @@
 package com.codestates.preproject.config;
 
 import com.codestates.preproject.auth.filter.JwtAuthenticationFilter;
+import com.codestates.preproject.auth.filter.JwtVerificationFilter;
 import com.codestates.preproject.auth.handler.MemberAuthenticationFailureHandler;
 import com.codestates.preproject.auth.handler.MemberAuthenticationSuccessHandler;
 import com.codestates.preproject.auth.jwt.JwtTokenizer;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -42,6 +44,8 @@ public class SecutiryConfiguration {
                 .and()
                 .csrf().disable() //TODO : CSRF 공격 비활성화 로컬환경에서 필요하지 않음. disable 처리 안할 시 403 에러 발생
                 .cors(withDefaults()) // cors(withDefaults)일 경우, corsConfigurationSource Bean을 제공하여 CorsFilters 적용
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .formLogin().disable() // CSR 방식 사용으로 form 로그인 비활성화
                 .httpBasic().disable()
                 .apply(new CustomFilterConfigurer())
@@ -77,7 +81,12 @@ public class SecutiryConfiguration {
             jwtAuthenticationFilter.setFilterProcessesUrl("/v1/auth/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-            builder.addFilter(jwtAuthenticationFilter);
+
+//            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+
+            builder.
+                    addFilter(jwtAuthenticationFilter);
+//                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
     }
 }
