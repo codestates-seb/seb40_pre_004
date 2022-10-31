@@ -99,6 +99,7 @@ function MainBar() {
   const [btnColor, setBtnColor] = useState('0');
   // question 데이터 리스트
   const [qList, setQList] = useState([]);
+
   // axios 전체 리스트 Get
   useEffect(() => {
     async function getAllQuestions() {
@@ -107,76 +108,6 @@ function MainBar() {
     }
     getAllQuestions();
   }, []);
-  // 더미데이터
-  // const datas = [
-  //   {
-  //     id: 1,
-  //     title:
-  //       'How to display name and year data from CSV file to HTML under DIV tag',
-  //     answers: [],
-  //     tags: ['html', 'css', 'csv'],
-  //     displayName: 'Sarvana Kumar V',
-  //     createdAt: '2022-10-27',
-  //   },
-  //   {
-  //     id: 2,
-  //     title:
-  //       'There is a plugin for reactjs called mongoose,can you help me with an alternative for that in spring boot?',
-  //     answers: [
-  //       {
-  //         body: '이렇게 하면 됩니다',
-  //       },
-  //     ],
-  //     tags: ['html', 'css', 'csv'],
-  //     displayName: 'jannath hussain',
-  //     createdAt: '2022-10-27',
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Passing multiple variable using compact in Laravel',
-  //     answers: [
-  //       {
-  //         body: '이렇게 하면 됩니다',
-  //       },
-  //       {
-  //         body: '이렇게 하면 됩니다',
-  //       },
-  //     ],
-  //     tags: ['html', 'css', 'csv'],
-  //     displayName: 'Muhammad Zarith',
-  //     createdAt: '2022-10-27',
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'Categories of virtual environments for Pipenv',
-  //     answers: [
-  //       {
-  //         body: '이렇게 하면 됩니다',
-  //       },
-  //       {
-  //         body: '이렇게 하면 됩니다',
-  //       },
-  //     ],
-  //     tags: ['html', 'css', 'csv'],
-  //     displayName: 'Xxxo',
-  //     createdAt: '2022-10-27',
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'Why JSON response is not getting parsed?',
-  //     answers: [
-  //       {
-  //         body: '이렇게 하면 됩니다',
-  //       },
-  //       {
-  //         body: '이렇게 하면 됩니다',
-  //       },
-  //     ],
-  //     tags: ['html', 'css', 'csv'],
-  //     displayName: 'Abhayjeet Singh',
-  //     createdAt: '2022-10-27',
-  //   },
-  // ];
 
   return (
     <S_MainBar>
