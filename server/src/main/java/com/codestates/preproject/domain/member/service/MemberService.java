@@ -1,5 +1,6 @@
 package com.codestates.preproject.domain.member.service;
 
+import com.codestates.preproject.auth.utils.CustomAuthorityUtils;
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,12 +20,13 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    private final CustomAuthorityUtils authorityUtils;
+
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authorityUtils = authorityUtils;
     }
-
-
 
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
