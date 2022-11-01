@@ -1,5 +1,7 @@
+import axios from 'axios';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import useCheckbox from '../hooks/useCheckbox';
 import {
@@ -171,6 +173,8 @@ const RegisterForm = () => {
   // isHuman 유효성 검사 결과
   const [isHumanValidationResult, setIsHumanValidationResult] = useState(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     if (password.length >= 8) {
       setPasswordValidationResult(null);
@@ -185,21 +189,54 @@ const RegisterForm = () => {
     setPasswordValidationResult(validatePasswordForRegister(password));
     setIsHumanValidationResult(validateIsHuman(isHuman));
 
-    const body = {
-      displayName,
-      email,
-      password,
-      optIn,
-    };
-    console.log(body);
-
     if (
       validateDisplayName(displayName, email) === 'valid' &&
       validateEmail(email) === 'valid' &&
       validatePasswordForRegister(password) === 'valid' &&
       validateIsHuman(isHuman) === 'valid'
     ) {
-      console.log('passed');
+      const registerBody = {
+        displayName,
+        email,
+        password,
+        optIn,
+      };
+
+      axios
+        .post('v1/members', registerBody)
+        .then((response) => {
+          if (response.status === 201) {
+            navigate('/register-success', { state: { email, password } });
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 303) {
+            const loginBody = {
+              email,
+              password,
+            };
+
+            switch (error.response.data.message) {
+              case 'LOGIN_SUCCESS':
+                axios
+                  .post('/v1/auth/login', loginBody)
+                  .then((response) => {
+                    if (response.status === 200) {
+                      navigate('/');
+                    }
+                  })
+                  .catch((error) => console.log(error));
+                break;
+              case 'FIND_PASSWORD':
+                navigate('/account-recovery');
+                break;
+              default:
+                console.log(error);
+            }
+          } else {
+            console.log('회원가입 실패', error);
+          }
+        });
     }
   };
 
