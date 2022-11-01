@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import DetailHeadLine from './DetailHeadLine';
 import SideBar from './SideBar';
+import DetailView from './DetailView';
 
 const S_DetailBar = styled.div`
   width: 100%;
@@ -17,9 +18,11 @@ function DetailBar() {
         viewed={9}
       />
       <div>
-        <div>body</div>
         <div>
           <SideBar />
+        </div>
+        <div>
+          <DetailView />
         </div>
       </div>
     </S_DetailBar>
