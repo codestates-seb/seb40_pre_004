@@ -7,7 +7,7 @@ import 'react-quill/dist/quill.snow.css';
 import Header from '../components/Header';
 import { validateTitleForNewQ, validateBodyForNewQ } from '../api/validate';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const S_Content = styled.div`
   padding-top: 50px;
@@ -342,8 +342,6 @@ function NewQuestion() {
   const [bodyValidateResult, setBodyValidateResult] = useState('');
 
   const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location);
 
   // onInput
   const onInput = (e) => {
