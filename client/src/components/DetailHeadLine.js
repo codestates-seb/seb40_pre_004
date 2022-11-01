@@ -11,11 +11,9 @@ const S_DFlex = styled.div`
   display: flex !important;
   border-bottom: 1px solid hsl(210, 8%, 90%);
   flex-direction: column;
-
   div {
     margin-left: 12px !important;
     margin-top: 10px;
-
     a {
       color: white;
       background-color: hsl(206, 100%, 52%);
@@ -34,50 +32,50 @@ const S_DFlex = styled.div`
   }
 `;
 
-const S_div = styled.div`
+const S_Div = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const S_div2 = styled.div`
+const S_Div2 = styled.div`
   display: flex;
   margin-bottom: 20px;
 `;
 
-const S_span = styled.span`
+const S_Span = styled.span`
   color: #6a737c;
 `;
 
-const S_span2 = styled.span`
+const S_Span2 = styled.span`
   color: black;
 `;
 
 function DetailHeadLine({ title, asked, modified, viewed }) {
   return (
     <S_DFlex>
-      <S_div>
+      <S_Div>
         <div>
           <S_H1>{title}</S_H1>
         </div>
         <div>
           <Link to="/">Ask Question</Link>
         </div>
-      </S_div>
-      <S_div2>
+      </S_Div>
+      <S_Div2>
         <div>
-          <S_span>Asked </S_span>
-          <S_span2>{asked}</S_span2>
+          <S_Span>Asked </S_Span>
+          <S_Span2>{asked}</S_Span2>
         </div>
         <div>
-          <S_span>Modified </S_span>
-          <S_span2>{modified}</S_span2>
+          <S_Span>Modified </S_Span>
+          <S_Span2>{modified}</S_Span2>
         </div>
         <div>
-          <S_span>viewed </S_span>
-          <S_span2>{viewed} times</S_span2>
+          <S_Span>viewed </S_Span>
+          <S_Span2>{viewed} times</S_Span2>
         </div>
-      </S_div2>
+      </S_Div2>
     </S_DFlex>
   );
 }
