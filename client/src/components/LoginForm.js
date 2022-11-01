@@ -1,6 +1,8 @@
+import axios from 'axios';
 import styled from 'styled-components';
 import useInput from '../hooks/useInput';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePasswordForLogin } from '../api/validate';
 
 const S_FormContainer = styled.section`
@@ -94,6 +96,8 @@ const LoginForm = () => {
   const [passwordValidationResult, setPasswordValidationResult] =
     useState(null);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -104,13 +108,23 @@ const LoginForm = () => {
       email,
       password,
     };
-    console.log(body);
 
     if (
       validateEmail(email) === 'valid' &&
       validatePasswordForLogin(password) === 'valid'
     ) {
-      console.log('passed');
+      axios
+        .post('/v1/auth/login', body)
+        .then((response) => {
+          if (response.status === 200) {
+            navigate('/');
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            setEmailValidationResult('incorrect');
+          }
+        });
     }
   };
 
@@ -120,8 +134,7 @@ const LoginForm = () => {
         <S_FormInputWrapper validationResult={emailValidationResult}>
           <label htmlFor="email">Email</label>
           <input type="text" id="email" {...emailBind} />
-          {emailValidationResult === 'empty' ||
-          emailValidationResult === 'invalid' ? (
+          {['empty', 'invalid', 'incorrect'].includes(emailValidationResult) ? (
             <S_Svg size="18">
               <path
                 d="M9 17c-4.36 0-8-3.64-8-8 0-4.36 3.64-8 8-8 4.36 0 8 3.64 8 8 0 4.36-3.64 8-8 8ZM8 4v6h2V4H8Zm0 8v2h2v-2H8Z"
