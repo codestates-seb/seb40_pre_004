@@ -41,6 +41,9 @@ public class MemberService {
             }
         }
 
+        if (member.getDisplayName().isBlank())
+            member.setDisplayName("User" + Long.sum(memberRepository.count(),1));
+
         verifyExistingDisplayName(member.getDisplayName());
 
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
