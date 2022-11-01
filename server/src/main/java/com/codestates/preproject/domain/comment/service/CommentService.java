@@ -28,8 +28,8 @@ public class CommentService {
     }
 
     public Comment createComment(Comment comment) {
-        Answer answer = verifyExistAnswer(comment.getAnswer());
-        Member member = verifyExistsMember(comment.getMember());
+        Answer answer = verifyExistingAnswer(comment.getAnswer());
+        Member member = verifyExistingMember(comment.getMember());
 
         comment.setAnswer(answer);
         comment.setMember(member);
@@ -67,11 +67,11 @@ public class CommentService {
         return comment;
     }
 
-    private Member verifyExistsMember(Member member) {
+    private Member verifyExistingMember(Member member) {
         return memberService.findVerifiedMember(member.getMemberId());
     }
 
-    private Answer verifyExistAnswer(Answer answer) {
+    private Answer verifyExistingAnswer(Answer answer) {
         return answerService.findVerifiedAnswer(answer.getAnswerId());
     }
 }
