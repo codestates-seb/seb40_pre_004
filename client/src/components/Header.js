@@ -223,7 +223,7 @@ const S_TopbarInputArrow = styled(S_TopbarArrow)`
   right: 380px;
 `;
 
-const S_TopbarBnt1 = styled.a`
+const S_TopbarBnt1 = styled.button`
   background-color: rgb(225, 236, 244);
   border: 1px solid rgb(122, 167, 199);
   display: inline-block;
@@ -242,7 +242,7 @@ const S_TopbarBnt1 = styled.a`
   }
 `;
 
-const S_TopbarBnt2 = styled.a`
+const S_TopbarBnt2 = styled.button`
   background-color: rgb(10, 149, 255);
   border: 1px solid white;
   border-radius: 3px;
