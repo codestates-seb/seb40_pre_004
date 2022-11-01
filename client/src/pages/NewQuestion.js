@@ -2,13 +2,12 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import CustomToolBar from '../components/CustomToolbar';
 import Footer from '../components/Footer';
-import './NewQuestion.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Header from '../components/Header';
 import { validateTitleForNewQ, validateBodyForNewQ } from '../api/validate';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const S_Content = styled.div`
   padding-top: 50px;
@@ -21,7 +20,7 @@ const S_Content = styled.div`
   margin: 0 auto;
 `;
 
-const S_main = styled.main`
+const S_Main = styled.main`
   margin-bottom: 48px;
 `;
 
@@ -144,6 +143,16 @@ const S_PsRelativeBody = styled.div`
   }
   &.err {
     box-shadow: 0 0 0 4px hsla(358, 62%, 47%, 0.15);
+  }
+  .ql-toolbar.ql-snow {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  .ql-container.ql-snow {
+    margin-top: -1px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    min-height: 210px;
   }
 `;
 
@@ -333,6 +342,14 @@ function NewQuestion() {
   const [bodyValidateResult, setBodyValidateResult] = useState('');
 
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+
+  // onInput
+  const onInput = (e) => {
+    if (e.target.value.length > e.target.maxLength)
+      e.target.value = e.target.value.slice(0, e.target.maxLength);
+  };
 
   // 태그 박스 관련 function
   const onKeyPress = (e) => {
@@ -379,15 +396,14 @@ function NewQuestion() {
         .post(
           '/v1/questions',
           {
-            memberId: 21,
+            memberId: 'memberId',
             title,
             body: text,
             tags: tagList,
           },
           {
             headers: {
-              Authorization:
-                'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoibm9hNzE2QG5hdmVyLmNvbSIsInN1YiI6Im5vYTcxNkBuYXZlci5jb20iLCJpYXQiOjE2NjcyODM2NTksImV4cCI6MTY2NzMwMTY1OX0.GgNkxIR1hz6q9AXXrNVqtjctEQfF37QguaVgpYxORk8',
+              Authorization: 'token',
             },
           }
         )
@@ -406,7 +422,7 @@ function NewQuestion() {
       <Header />
       <S_Content>
         <form onSubmit={handleSubmit}>
-          <S_main>
+          <S_Main>
             <S_QNotice>
               <h1>Ask a public question</h1>
             </S_QNotice>
@@ -429,13 +445,7 @@ function NewQuestion() {
                     </S_FlexTitle>
                     <S_PsRelative>
                       <S_InputTitle
-                        onInput={(e) => {
-                          if (e.target.value.length > e.target.maxLength)
-                            e.target.value = e.target.value.slice(
-                              0,
-                              e.target.maxLength
-                            );
-                        }}
+                        onInput={onInput}
                         id="title"
                         name="title"
                         value={title}
@@ -590,7 +600,7 @@ function NewQuestion() {
               <S_BtnSubmit type="submit">Post your question</S_BtnSubmit>
               <S_BtnClear onClick={clearFrom}>Discard draft</S_BtnClear>
             </S_FormSubmit>
-          </S_main>
+          </S_Main>
         </form>
       </S_Content>
       <Footer />

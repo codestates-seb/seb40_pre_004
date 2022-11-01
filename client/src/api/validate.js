@@ -51,7 +51,7 @@ export const validateIsHuman = (isHuman) => {
 };
 
 export const validateTitleForNewQ = (title) => {
-  const letterLengthRegex = /^[0-9가-힣a-zA-Z]{15,}$/;
+  const letterLengthRegex = /^[0-9가-힣a-zA-Z].{15,}$/;
   if (title.length === 0) return 'empty';
   if (!validateString(title, letterLengthRegex)) return 'short';
 
