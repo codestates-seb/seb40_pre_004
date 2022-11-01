@@ -23,15 +23,19 @@ public class MemberService {
         this.passwordEncoder = passwordEncoder;
     }
 
+
+
     public Member createMember(Member member) {
         verifyExistsEmail(member.getEmail());
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
 
-        Member saveMember = memberRepository.save(member);
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
 
-        System.out.println("# Create Member in DB");
-        return saveMember;
+        Member savedMember = memberRepository.save(member);
+
+        return savedMember;
     }
 
     public Member updateMember(Member member) {
