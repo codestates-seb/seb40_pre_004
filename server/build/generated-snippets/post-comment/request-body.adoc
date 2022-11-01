@@ -1,8 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "memberId" : 1,
-  "answerId" : 1,
-  "body" : "댓글1"
-}
-----

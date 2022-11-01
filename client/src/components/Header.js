@@ -91,6 +91,7 @@ const S_NavDropdownitem = styled.li`
     border-radius: 4px;
   }
 `;
+
 const S_NavDropdownitem2 = styled(S_NavDropdownitem)`
   border-top: 1px solid rgb(186, 191, 196);
   margin: 0px;
@@ -104,6 +105,7 @@ const S_NavDropdownitem2 = styled(S_NavDropdownitem)`
     color: #0c0c0c;
   }
 `;
+
 const S_NavDropdownword = styled.span`
   color: #0c0c0c;
   display: block;
@@ -116,25 +118,23 @@ const S_NavDropdownword2 = styled.span`
 
 const S_TopbarArrow = styled.div`
   position: absolute;
-  top: -9px;
+  top: -4px;
   right: 110px;
   width: 0px;
   height: 0px;
-  border-bottom: 15px solid white;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-bottom: 10px solid white;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
   filter: drop-shadow(2px -5px 10px rgb(186, 191, 196));
 `;
 
 const S_TopbarSearchLabel = styled.label`
   display: flex;
-  z-index: 1;
   position: relative;
   width: 710px;
   height: 35px;
   border: 1px solid rgb(186, 191, 196);
-  border-radius: 5px;
-
+  border-radius: 6px;
   svg {
     display: inline-block;
     width: 1em;
@@ -153,10 +153,8 @@ const S_TopbarSearchInput = styled.input`
   padding: 10px 30px;
   width: 100%;
   height: 35px;
-  z-index: -1;
   color: rgb(59, 64, 69);
   border: none;
-  /* position: relative; */
   &:focus {
     box-shadow: rgb(0, 116, 204, 0.15) 0px 0px 0px 4px;
     outline: none;
@@ -167,12 +165,11 @@ const S_TopbarSearchInput = styled.input`
 const S_TopbarInputWrap = styled.div`
   position: absolute;
   z-index: 99999;
+  margin-top: 25px;
+  box-shadow: 0 3px 3px rgb(0 0 0 / 10%);
 `;
 
 const S_TopbarInputDropdown = styled.div`
-  top: 60px;
-  box-shadow: 0 3px 3px rgb(0 0 0 / 10%);
-  border-radius: 4px;
   background-color: white;
 `;
 const S_TopbarInputDropdownBox = styled.div`
@@ -195,7 +192,6 @@ const S_TopbarInputDropdownBox2 = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 0 0 4px 4px;
   border-top: 1px solid rgb(186, 191, 196);
   padding: 10px;
 `;
@@ -203,24 +199,28 @@ const S_TopbarInputDropdownBox2 = styled.div`
 const S_TopbarInputDropdownbtn = styled.a`
   background-color: rgb(225, 236, 244);
   border: 1px solid rgb(122, 167, 199);
-  padding: 4px;
+  padding: 5px;
   border-radius: 4px;
   color: rgb(57, 115, 157);
   cursor: pointer;
+  font-size: 12px;
+  &:hover {
+    background-color: hsl(205, 57%, 81%);
+  }
 `;
 
 const S_TopbarInputDropdownword = styled.span`
   cursor: pointer;
   color: hsl(206, 100%, 40%);
-
+  font-size: 11px;
   &:hover {
     color: hsl(206, 100%, 52%);
   }
 `;
 
 const S_TopbarInputArrow = styled(S_TopbarArrow)`
-  top: 45px;
-  right: 701px;
+  top: -27px;
+  right: 380px;
 `;
 
 const S_TopbarBnt1 = styled.a`
@@ -245,11 +245,11 @@ const S_TopbarBnt1 = styled.a`
 const S_TopbarBnt2 = styled.a`
   background-color: rgb(10, 149, 255);
   border: 1px solid white;
+  border-radius: 3px;
   display: inline-block;
   box-sizing: border-box;
   padding: 8px 10.4px 10.4px 8px;
   margin: 0px 0px 0px 4px;
-  border-radius: 3px;
   cursor: pointer;
   text-align: center;
   position: relative;
@@ -281,7 +281,6 @@ const S_TopbarLoggedInItem = styled.li`
   height: 16px;
   cursor: pointer;
   padding: 15px 10px 15px 10px;
-
   &:hover {
     background-color: hsl(210, 8%, 90%);
   }
@@ -315,7 +314,6 @@ const S_TopbarLoggedInDropdownItem = styled.div`
   color: #0074cc;
   font-weight: bold;
   font-size: 12px;
-
   div:hover {
     color: hsl(206, 100%, 52%);
   }
@@ -328,6 +326,7 @@ const S_TopbarLoggedInDropdownItem2 = styled(S_TopbarLoggedInDropdownItem)`
     background-color: hsl(205, 46%, 92%);
   }
 `;
+
 const S_TopbarLoggedInDropdownWord = styled.div`
   font-size: 13px;
   color: #0074cc;
@@ -461,7 +460,6 @@ function Header() {
             {drop && <Dropdown3 />}
           </S_TopbarLoggedInNav>
         )}
-
         {isLoggedIn && (
           <Link to="/register">
             <S_TopbarBnt2>Sign up</S_TopbarBnt2>
@@ -526,6 +524,7 @@ function Dropdown2() {
       },
     ],
   };
+
   const obj2 = {
     data: [
       { word: 'answers : 0', word2: 'unanswered questions' },
@@ -597,7 +596,6 @@ function Dropdown3() {
         </Link>
         <S_TopbarLoggedInDropdownWord2>log out</S_TopbarLoggedInDropdownWord2>
       </S_TopbarLoggedInDropdownItem2>
-
       <S_TopbarLoggedInDropdownItem2>
         <S_TopbarLoggedInDropdownWord>
           Delete My Account

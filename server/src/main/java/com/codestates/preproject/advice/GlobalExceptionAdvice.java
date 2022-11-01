@@ -71,7 +71,11 @@ public class GlobalExceptionAdvice {
     // BusienessLogic Error : BusinessLogicException 에 등록 된 오류, 예외 처리
     @ExceptionHandler(BusinessLogicException.class)
     public ResponseEntity handleBusinessLogicException(BusinessLogicException e) {
+        System.out.println(e.getExceptionCode().getStatus());
+        System.out.println(e.getMessage());
+
         log.error("handleBusinessLogicException", e);
+
         final ErrorResponse errorResponse = ErrorResponse.of(e.getExceptionCode());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(errorResponse.getStatus()));
     }
