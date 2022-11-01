@@ -223,7 +223,7 @@ const S_TopbarInputArrow = styled(S_TopbarArrow)`
   right: 380px;
 `;
 
-const S_TopbarBnt1 = styled.button`
+const S_LinkBtn = styled(Link)`
   background-color: rgb(225, 236, 244);
   border: 1px solid rgb(122, 167, 199);
   display: inline-block;
@@ -242,7 +242,7 @@ const S_TopbarBnt1 = styled.button`
   }
 `;
 
-const S_TopbarBnt2 = styled.button`
+const S_LinkBtn2 = styled(Link)`
   background-color: rgb(10, 149, 255);
   border: 1px solid white;
   border-radius: 3px;
@@ -366,25 +366,14 @@ function Header() {
             </li>
           )}
           <S_NavDropdownWord>
-            {isLoggedIn ? (
-              <a
-                href="#;"
-                onClick={() => {
-                  setView(!view);
-                }}
-              >
-                Products
-              </a>
-            ) : (
-              <a
-                href="#;"
-                onClick={() => {
-                  setView(!view);
-                }}
-              >
-                Products
-              </a>
-            )}
+            <a
+              href="#;"
+              onClick={() => {
+                setView(!view);
+              }}
+            >
+              Products
+            </a>
             {view && <Dropdown />}
           </S_NavDropdownWord>
           {isLoggedIn && (
@@ -414,9 +403,10 @@ function Header() {
           {down && <Dropdown2 />}
         </div>
         {isLoggedIn ? (
-          <Link to="/login">
-            <S_TopbarBnt1>Log in</S_TopbarBnt1>
-          </Link>
+          <>
+            <S_LinkBtn to="/login">Log in</S_LinkBtn>
+            <S_LinkBtn2 to="/register">Sign up</S_LinkBtn2>
+          </>
         ) : (
           <S_TopbarLoggedInNav>
             <S_TopbarLoggedInOl>
@@ -459,11 +449,6 @@ function Header() {
             </S_TopbarLoggedInOl>
             {drop && <Dropdown3 />}
           </S_TopbarLoggedInNav>
-        )}
-        {isLoggedIn && (
-          <Link to="/register">
-            <S_TopbarBnt2>Sign up</S_TopbarBnt2>
-          </Link>
         )}
       </S_TopbarContainer>
     </S_Header>
