@@ -114,7 +114,7 @@ function MainBar() {
       <S_DFlex>
         <S_H1>Top Questions</S_H1>
         <div>
-          <Link to="/">Ask Question</Link>
+          <Link to="/questions/ask">Ask Question</Link>
         </div>
       </S_DFlex>
 
