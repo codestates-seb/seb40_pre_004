@@ -1,8 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "title" : "제목1",
-  "body" : "본문1",
-  "memberId" : 1
-}
-----

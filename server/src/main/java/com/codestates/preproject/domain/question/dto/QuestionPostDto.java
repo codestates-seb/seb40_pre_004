@@ -1,11 +1,15 @@
 package com.codestates.preproject.domain.question.dto;
 
 import com.codestates.preproject.domain.member.entity.Member;
+import com.codestates.preproject.validator.NotSpace;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -15,6 +19,9 @@ public class QuestionPostDto {
 
     @NotBlank
     private String body;
+
+    @NotEmpty
+    private List<@NotBlank String> tags;
 
     @Positive
     private long memberId;

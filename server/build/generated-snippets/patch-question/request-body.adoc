@@ -1,8 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "questionId" : 0,
-  "title" : "제목 수정",
-  "body" : "본문 수정"
-}
-----

@@ -58,6 +58,13 @@ public class CommentMapperImpl implements CommentMapper {
 
         CommentResponseDto commentResponseDto = new CommentResponseDto( commentId, body );
 
+        commentResponseDto.setCommentId( comment.getCommentId() );
+        commentResponseDto.setBody( comment.getBody() );
+        commentResponseDto.setDisplayName( comment.getDisplayName() );
+        commentResponseDto.setCreatedAt( comment.getCreatedAt() );
+        commentResponseDto.setModifiedAt( comment.getModifiedAt() );
+        commentResponseDto.setAnswerId( comment.getAnswerId() );
+
         return commentResponseDto;
     }
 

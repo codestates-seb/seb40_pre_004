@@ -22,9 +22,17 @@ public class Comment extends Auditable {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    public String getDisplayName() {
+        return member.getDisplayName();
+    }
+
     @ManyToOne
     @JoinColumn(name = "ANSWER_ID")
     private Answer answer;
+
+    public long getAnswerId() {
+        return answer.getAnswerId();
+    }
 
     @Column(nullable = false, length = 10000)
     private String body;

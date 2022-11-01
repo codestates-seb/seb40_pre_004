@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ curl 'http://localhost:8080/v1/questions?page=1&size=5' -i -X GET \
-    -H 'Accept: application/json'
-----
