@@ -28,8 +28,8 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
-        Question question = verifiedExistsQuestion(answer.getQuestion());
-        Member member = verifiedExistsMember(answer.getMember());
+        Question question = verifyExistingQuestion(answer.getQuestion());
+        Member member = verifyExistingMember(answer.getMember());
 
         answer.setQuestion(question);
         answer.setMember(member);
@@ -69,11 +69,11 @@ public class AnswerService {
         return answer;
     }
 
-    private Question verifiedExistsQuestion(Question question){
+    private Question verifyExistingQuestion(Question question){
         return questionService.findVerifiedQuestion(question.getQuestionId());
     }
 
-    private Member verifiedExistsMember(Member member) {
+    private Member verifyExistingMember(Member member) {
         return memberService.findVerifiedMember(member.getMemberId());
     }
 }

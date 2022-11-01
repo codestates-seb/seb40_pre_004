@@ -1,18 +1,20 @@
 package com.codestates.preproject.config;
 
 import com.codestates.preproject.auth.filter.JwtAuthenticationFilter;
+import com.codestates.preproject.auth.filter.JwtVerificationFilter;
+import com.codestates.preproject.auth.handler.MemberAccessDeniedHandler;
+import com.codestates.preproject.auth.handler.MemberAuthenticationEntryPoint;
 import com.codestates.preproject.auth.handler.MemberAuthenticationFailureHandler;
 import com.codestates.preproject.auth.handler.MemberAuthenticationSuccessHandler;
 import com.codestates.preproject.auth.jwt.JwtTokenizer;
+import com.codestates.preproject.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,7 +22,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.security.Security;
 import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -29,9 +30,11 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecutiryConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
+    private final CustomAuthorityUtils authorityUtills;
 
-    public SecutiryConfiguration(JwtTokenizer jwtTokenizer) {
+    public SecutiryConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtills ) {
         this.jwtTokenizer = jwtTokenizer;
+        this.authorityUtills = authorityUtills;
     }
 
     @Bean
@@ -42,12 +45,26 @@ public class SecutiryConfiguration {
                 .and()
                 .csrf().disable() //TODO : CSRF 공격 비활성화 로컬환경에서 필요하지 않음. disable 처리 안할 시 403 에러 발생
                 .cors(withDefaults()) // cors(withDefaults)일 경우, corsConfigurationSource Bean을 제공하여 CorsFilters 적용
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .formLogin().disable() // CSR 방식 사용으로 form 로그인 비활성화
                 .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll() //TODO : JWT 적용 이후 HTTP request 접근 비활성화 시킬 것
+                        .antMatchers(HttpMethod.POST, "/*/members").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("ADMIN", "USER")
+                        .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/*/questions").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "*/answers").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "*/comments").hasRole("USER")
+                        .anyRequest().permitAll()
                 );
         return http.build();
     }
@@ -77,7 +94,12 @@ public class SecutiryConfiguration {
             jwtAuthenticationFilter.setFilterProcessesUrl("/v1/auth/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-            builder.addFilter(jwtAuthenticationFilter);
+
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtills);
+
+            builder.
+                    addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
     }
 }

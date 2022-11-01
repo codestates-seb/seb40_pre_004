@@ -27,7 +27,7 @@ public class QuestionService {
     }
 
     public Question createQuestion(Question question) {
-        Member member = verifyExistsMember(question.getMember());
+        Member member = verifyExistingMember(question.getMember());
         question.setMember(member);
 
         member.addQuestion(question);
@@ -75,7 +75,7 @@ public class QuestionService {
         return question;
     }
 
-    private Member verifyExistsMember(Member member) {
+    private Member verifyExistingMember(Member member) {
 
         return memberService.findVerifiedMember(member.getMemberId());
     }
