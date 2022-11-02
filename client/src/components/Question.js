@@ -169,7 +169,7 @@ function Question({ title, displayName, createdAt }) {
       </S_SummaryStatus>
       <S_SummaryContent>
         <S_H3>
-          <Link to="/">{title}</Link>
+          <Link to="/detail">{title}</Link>
         </S_H3>
         <S_SummaryMeta>
           <S_SummaryMetaTags>
