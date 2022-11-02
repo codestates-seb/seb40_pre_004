@@ -6,7 +6,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import AccountRecovery from './pages/AccountRecovery';
 import RegisterSuccess from './pages/RegisterSuccess';
-
+import Detail from './pages/Detail';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
         <Route path="/account-recovery" element={<AccountRecovery />} />
         <Route path="/register-success" element={<RegisterSuccess />} />
         <Route path="/questions/ask" element={<NewQuestion />} />
+        <Route path="/detail" element={<Detail />} />
       </Routes>
     </>
   );
