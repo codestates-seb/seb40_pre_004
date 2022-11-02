@@ -49,15 +49,7 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<QuestionHashtag> questionHashtags = new ArrayList<>();
-
     public void addAnswers(Answer answer) {
         answers.add(answer);
     }
-
-    public void addQuestionHashtags(QuestionHashtag questionHashtag) {
-        questionHashtags.add(questionHashtag);
-    }
-
 }

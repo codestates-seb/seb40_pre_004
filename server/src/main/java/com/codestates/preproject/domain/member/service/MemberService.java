@@ -34,12 +34,15 @@ public class MemberService {
 
         Optional<Member> optionalMember = memberRepository.findByEmail(member.getEmail());
         if (optionalMember.isPresent()) {
-            if (passwordEncoder.matches(member.getPassword(), optionalMember.orElse(null).getPassword())) {
+            if (passwordEncoder.matches(member.getPassword(), optionalMember.get().getPassword())) {
                 throw new BusinessLogicException(ExceptionCode.MEMBER_REDIRECTION_LOGIN_SUCCESS);
             } else {
                 throw new BusinessLogicException(ExceptionCode.MEMBER_REDIRECTION_FIND_PASSWORD);
             }
         }
+
+        if (member.getDisplayName().isBlank())
+            member.setDisplayName("User" + Long.sum(memberRepository.count(),1));
 
         verifyExistingDisplayName(member.getDisplayName());
 
