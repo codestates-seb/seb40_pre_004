@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import AccountRecovery from './pages/AccountRecovery';
 import RegisterSuccess from './pages/RegisterSuccess';
 
-
 function App() {
   return (
     <>
