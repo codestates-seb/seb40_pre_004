@@ -19,7 +19,7 @@ function App() {
         <Route path="/account-recovery" element={<AccountRecovery />} />
         <Route path="/register-success" element={<RegisterSuccess />} />
         <Route path="/questions/ask" element={<NewQuestion />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:questionId" element={<Detail />} />
       </Routes>
     </>
   );

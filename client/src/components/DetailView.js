@@ -4,6 +4,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import CustomToolBar from '../components/CustomToolbar';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const S_PostLayout = styled.div`
   margin: 20px;
@@ -34,21 +36,35 @@ const S_PostContent = styled.p`
 `;
 
 const S_PostTagDiv = styled.div`
+  display: flex;
   margin-top: 20px;
   margin-bottom: 35px;
 `;
 
 const S_PostTagList = styled.div`
-  font-size: 12px;
+  flex-wrap: wrap;
+  gap: 4px;
+  line-height: 18px;
+  float: left;
   color: hsl(205, 46%, 32%);
-  background-color: hsl(205, 46%, 92%);
-  border: 1px solid hsl(205, 46%, 92%);
-  display: inline-block;
-  padding: 0.4em 0.5em;
-  margin: 3px 6px 2px 0;
-  line-height: 1;
-  white-space: nowrap;
-  border-radius: 3px;
+  ul {
+    margin-bottom: 13px;
+  }
+  ul li {
+    font-size: 12px;
+    background-color: hsl(205, 46%, 92%);
+    border: 1px solid hsl(205, 46%, 92%);
+    display: inline-block;
+    padding: 0.4em 0.5em;
+    margin: 3px 6px 2px 0;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  li:hover {
+    background-color: hsl(205, 57%, 81%);
+  }
 `;
 
 const S_DFlex = styled.div`
@@ -129,7 +145,12 @@ const S_AnswerPostSignature = styled(S_PostSignature)`
 
 const S_UserActionTime = styled.div``;
 
-const S_UserName = styled.div``;
+const S_UserName = styled.div`
+  color: hsl(206, 100%, 40%);
+  :hover {
+    color: hsl(206, 100%, 52%);
+  }
+`;
 
 //form
 
@@ -164,29 +185,38 @@ const S_Link = styled(Link)`
   }
 `;
 
-const S_Word2 = styled.p`
+const S_Word2 = styled.span`
   font-size: 18px;
   margin: 20px 0px 20px 0px;
 `;
 
-function DetailView({
-  count,
-  actiontime,
-  answercontent,
-  answerusername,
-  answeractiontime,
-}) {
-  const question = {
-    body: '<p>jwtTestjwtTestjwtTestjwtTestjwtTestjwtTestjwtTe…estjwtTestjwtTestjwtTestjwtTestjwtTestjwtTest</p>',
-    createdAt: '2022-11-02T07:49:30.394906',
-    displayName: 'test11',
-    memberId: 25,
-    modifiedAt: '2022-11-02T07:49:30.394906',
-    questionId: 15,
-    tags: ['jwt', 'java'],
-  };
+const S_PsRelativeBody = styled.div`
+  width: 100%;
+  margin: 10px 0 8px;
+  border-radius: 3px;
+  &:focus-within {
+    box-shadow: 0 0 0 4px hsla(206, 100%, 40%, 0.15);
+  }
+  &.err {
+    box-shadow: 0 0 0 4px hsla(358, 62%, 47%, 0.15);
+  }
+  .ql-toolbar.ql-snow {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  }
+  .ql-container.ql-snow {
+    margin-top: -1px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    min-height: 210px;
+  }
+`;
+function DetailView({ content, username, tags, questionid }) {
+  const [comment, setComment] = useState(true);
 
-  //   const answer = {};
+  function createComment() {
+    setComment(!comment);
+  }
 
   return (
     <S_PostLayout>
@@ -196,32 +226,50 @@ function DetailView({
           alt="ad"
         ></img>
       </S_Ad>
-
       <S_PostCell>
         <S_PostBody>
-          <S_PostContent>{question.body}</S_PostContent>
+          <S_PostContent>{content}</S_PostContent>
         </S_PostBody>
         <S_PostTagDiv>
-          <S_PostTagList>{question.tags}</S_PostTagList>
+          <S_PostTagList>
+            {tags && tags.length > 0 ? (
+              <ul>
+                {' '}
+                {tags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            ) : (
+              ''
+            )}
+          </S_PostTagList>
         </S_PostTagDiv>
         <S_DFlex>
           <S_FlexItem>
             <p>Share Edit Follow</p>
           </S_FlexItem>
           <S_PostSignature>
-            <S_UserActionTime>{actiontime} hours ago</S_UserActionTime>
-            <S_UserName>{question.displayName}</S_UserName>
+            <S_UserActionTime>{} hours ago</S_UserActionTime>
+            <S_UserName>{username}</S_UserName>
           </S_PostSignature>
         </S_DFlex>
       </S_PostCell>
       <S_CommentLink>
-        <a href="#;">Add a comment</a>
+        {comment ? (
+          <a href="#;" onClick={createComment}>
+            Add a comment
+          </a>
+        ) : (
+          <form>
+            <input type="text" placeholder="댓글..." />
+            <button onClick={createComment}>send !</button>
+          </form>
+        )}
       </S_CommentLink>
-
       <S_Answers>
         <S_AnswersHeader>
           <div>
-            <S_Word>{count} Answers</S_Word>
+            <S_Word>{} Answers</S_Word>
           </div>
           <S_Select>
             Sorted by:&nbsp;
@@ -232,17 +280,15 @@ function DetailView({
         </S_AnswersHeader>
         <S_PostCell>
           <S_PostBody>
-            <S_PostContent>{answercontent}</S_PostContent>
+            <S_PostContent>{}</S_PostContent>
           </S_PostBody>
           <S_DFlex>
             <S_FlexItem>
               <p>Share Edit Follow</p>
             </S_FlexItem>
             <S_AnswerPostSignature>
-              <S_UserActionTime>
-                answered {answeractiontime} hours ago
-              </S_UserActionTime>
-              <S_UserName>{answerusername}</S_UserName>
+              <S_UserActionTime>answered {} hours ago</S_UserActionTime>
+              <S_UserName>{}</S_UserName>
             </S_AnswerPostSignature>
           </S_DFlex>
         </S_PostCell>
@@ -250,32 +296,40 @@ function DetailView({
       <S_CommentLink>
         <a href="#;">Add a comment</a>
       </S_CommentLink>
-
       {/* 댓글 없을때 */}
-
-      <div>
-        <S_Word2>
-          Know someone who can answer? Share a link to this&nbsp;
-          <S_Link>question</S_Link> via&nbsp;
-          <S_Link>email</S_Link>, <S_Link>Twitter</S_Link>, or&nbsp;
-          <S_Link>Facebook.</S_Link>
-        </S_Word2>
-      </div>
-      <div>
-        <FormBox />
-      </div>
-      <div>
-        <S_Btn>Post Your Answer</S_Btn>
-      </div>
-      <div>
-        <S_Word2>
-          Browse other questions tagged&nbsp;
-          <S_PostTagList>node.js</S_PostTagList>
-          <S_PostTagList>angular</S_PostTagList>
-          <S_PostTagList>express</S_PostTagList>
-          or <S_Link to="/questions/ask">ask your own question.</S_Link>
-        </S_Word2>
-      </div>
+      <S_Word2>
+        Know someone who can answer? Share a link to this&nbsp;
+        <S_Link>question</S_Link> via&nbsp;
+        <S_Link>email</S_Link>, <S_Link>Twitter</S_Link>, or&nbsp;
+        <S_Link>Facebook.</S_Link>
+      </S_Word2>
+      <form onClick={handleSubmit}>
+        <div>
+          <FormBox />
+        </div>
+        <div>
+          <S_Btn type="submit">Post Your Answer</S_Btn>
+        </div>
+      </form>
+      <S_Word2>Browse other questions tagged&nbsp;</S_Word2>
+      <S_PostTagDiv>
+        <S_PostTagList>
+          {tags && tags.length > 0 ? (
+            <ul>
+              {' '}
+              {tags.map((tag) => (
+                <li key={tag}>{tag}</li>
+              ))}
+            </ul>
+          ) : (
+            ''
+          )}
+        </S_PostTagList>
+      </S_PostTagDiv>
+      or{' '}
+      <S_Link to="/questions/ask">
+        <S_Word2>ask your own question.</S_Word2>
+      </S_Link>
     </S_PostLayout>
   );
 }
@@ -300,45 +354,84 @@ function Selecting() {
 }
 
 function FormBox() {
-  const modules = {
-    toolbar: {
-      container: '#toolbar',
-    },
-  };
-  const formats = [
-    'header',
-    'font',
-    'size',
-    'bold',
-    'italic',
-    'underline',
-    'list',
-    'bullet',
-    'align',
-    'color',
-    'background',
-    'image',
-  ];
-  const [text, setText] = useState('');
+  const [aText, setAtext] = useState('');
   const handleText = (value) => {
     setText(value);
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      axios
+        .post(
+          `/v1/questions/${questionid}`,
+          {
+            memberId: 'memberId',
+            body: answer,
+          },
+          {
+            headers: {
+              Authorization: 'token',
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          navigate(`/v1/questions/${questionid}`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    const modules = {
+      toolbar: {
+        container: '#toolbar',
+      },
+    };
+    const formats = [
+      'header',
+      'font',
+      'size',
+      'bold',
+      'italic',
+      'underline',
+      'list',
+      'bullet',
+      'align',
+      'color',
+      'background',
+      'image',
+    ];
   };
   return (
     <>
       <div>
         <S_Word>Your Answer</S_Word>
       </div>
+
       <S_StackForm>
-        <CustomToolBar />
-        <ReactQuill
-          modules={modules}
-          formats={formats}
-          value={text}
-          onChange={handleText}
-        />
+        <S_PsRelativeBody>
+          <CustomToolBar />
+          <ReactQuill
+            modules={modules}
+            formats={formats}
+            value={aText}
+            onChange={handleText}
+          />
+        </S_PsRelativeBody>
       </S_StackForm>
     </>
   );
 }
+
+// function createComment (){
+// const [comment ,setComment] = useState('');
+// const [userName] = useState('hyeyln');
+// const [feedComment, setFeedComment] = useState([]);
+
+// return ();
+
+// }
 
 export default DetailView;

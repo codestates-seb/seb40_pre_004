@@ -166,6 +166,7 @@ function MainBar() {
           {qList.map((list) => (
             <Question
               key={list.questionId}
+              id={list.questionId}
               title={list.title}
               displayName={list.displayName}
               createdAt={list.createdAt}
