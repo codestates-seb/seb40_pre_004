@@ -4,8 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import CustomToolBar from '../components/CustomToolbar';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import axios from 'axios';
 
 const S_PostLayout = styled.div`
   margin: 20px;
@@ -81,8 +80,9 @@ const S_FlexItem = styled.div`
 `;
 
 const S_PostSignature = styled.div`
-  display: inline-block;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: 200px;
   height: 67px;
   background-color: hsl(205, 53%, 88%);
@@ -146,6 +146,7 @@ const S_AnswerPostSignature = styled(S_PostSignature)`
 const S_UserActionTime = styled.div``;
 
 const S_UserName = styled.div`
+  display: block;
   color: hsl(206, 100%, 40%);
   :hover {
     color: hsl(206, 100%, 52%);
@@ -185,7 +186,7 @@ const S_Link = styled(Link)`
   }
 `;
 
-const S_Word2 = styled.span`
+const S_Word2 = styled.div`
   font-size: 18px;
   margin: 20px 0px 20px 0px;
 `;
@@ -211,9 +212,20 @@ const S_PsRelativeBody = styled.div`
     min-height: 210px;
   }
 `;
-function DetailView({ content, username, tags, questionid }) {
-  const [comment, setComment] = useState(true);
 
+const S_Img = styled.div`
+  display: flex;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+`;
+const S_div = styled.div`
+  display: flex;
+`;
+
+function DetailView({ content, username, tags, answers }) {
+  const [comment, setComment] = useState(true);
+  console.log(answers);
   function createComment() {
     setComment(!comment);
   }
@@ -234,7 +246,6 @@ function DetailView({ content, username, tags, questionid }) {
           <S_PostTagList>
             {tags && tags.length > 0 ? (
               <ul>
-                {' '}
                 {tags.map((tag) => (
                   <li key={tag}>{tag}</li>
                 ))}
@@ -249,8 +260,18 @@ function DetailView({ content, username, tags, questionid }) {
             <p>Share Edit Follow</p>
           </S_FlexItem>
           <S_PostSignature>
-            <S_UserActionTime>{} hours ago</S_UserActionTime>
-            <S_UserName>{username}</S_UserName>
+            <S_div>
+              <S_UserActionTime>asked 3 hours ago</S_UserActionTime>
+            </S_div>
+            <S_div>
+              <S_Img>
+                <img
+                  src="https://cdn.hellodd.com/news/photo/202005/71835_craw1.jpg"
+                  alt="고양이"
+                ></img>
+              </S_Img>
+              <S_UserName>{username}</S_UserName>
+            </S_div>
           </S_PostSignature>
         </S_DFlex>
       </S_PostCell>
@@ -280,6 +301,7 @@ function DetailView({ content, username, tags, questionid }) {
         </S_AnswersHeader>
         <S_PostCell>
           <S_PostBody>
+            {/* 삼항연산자 (답변 존재여부) */}
             <S_PostContent>{}</S_PostContent>
           </S_PostBody>
           <S_DFlex>
@@ -287,7 +309,8 @@ function DetailView({ content, username, tags, questionid }) {
               <p>Share Edit Follow</p>
             </S_FlexItem>
             <S_AnswerPostSignature>
-              <S_UserActionTime>answered {} hours ago</S_UserActionTime>
+              <S_UserActionTime>answered 1 hours ago</S_UserActionTime>
+              {/* 삼항연산자 (답변 존재여부) */}
               <S_UserName>{}</S_UserName>
             </S_AnswerPostSignature>
           </S_DFlex>
@@ -303,33 +326,33 @@ function DetailView({ content, username, tags, questionid }) {
         <S_Link>email</S_Link>, <S_Link>Twitter</S_Link>, or&nbsp;
         <S_Link>Facebook.</S_Link>
       </S_Word2>
-      <form onClick={handleSubmit}>
-        <div>
-          <FormBox />
-        </div>
-        <div>
-          <S_Btn type="submit">Post Your Answer</S_Btn>
-        </div>
-      </form>
-      <S_Word2>Browse other questions tagged&nbsp;</S_Word2>
-      <S_PostTagDiv>
-        <S_PostTagList>
-          {tags && tags.length > 0 ? (
-            <ul>
-              {' '}
-              {tags.map((tag) => (
-                <li key={tag}>{tag}</li>
-              ))}
-            </ul>
-          ) : (
-            ''
-          )}
-        </S_PostTagList>
-      </S_PostTagDiv>
-      or{' '}
-      <S_Link to="/questions/ask">
-        <S_Word2>ask your own question.</S_Word2>
-      </S_Link>
+      <div>
+        <FormBox />
+      </div>
+      <div>
+        <S_Btn type="submit">Post Your Answer</S_Btn>
+      </div>
+      <S_div>
+        <S_Word2>Browse other questions tagged&nbsp;</S_Word2>
+        <S_PostTagDiv>
+          <S_PostTagList>
+            {tags && tags.length > 0 ? (
+              <ul>
+                {' '}
+                {tags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            ) : (
+              ''
+            )}
+          </S_PostTagList>
+        </S_PostTagDiv>
+        <S_Word2> or&nbsp;</S_Word2>
+        <S_Link to="/questions/ask">
+          <S_Word2>ask your own question.</S_Word2>
+        </S_Link>
+      </S_div>
     </S_PostLayout>
   );
 }
@@ -356,75 +379,77 @@ function Selecting() {
 function FormBox() {
   const [aText, setAtext] = useState('');
   const handleText = (value) => {
-    setText(value);
-    const navigate = useNavigate();
-
-    const handleSubmit = (e) => {
-      e.preventDefault();
-
-      axios
-        .post(
-          `/v1/questions/${questionid}`,
-          {
-            memberId: 'memberId',
-            body: answer,
-          },
-          {
-            headers: {
-              Authorization: 'token',
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          navigate(`/v1/questions/${questionid}`);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-
-    const modules = {
-      toolbar: {
-        container: '#toolbar',
-      },
-    };
-    const formats = [
-      'header',
-      'font',
-      'size',
-      'bold',
-      'italic',
-      'underline',
-      'list',
-      'bullet',
-      'align',
-      'color',
-      'background',
-      'image',
-    ];
+    setAtext(value);
   };
-  return (
-    <>
-      <div>
-        <S_Word>Your Answer</S_Word>
-      </div>
 
-      <S_StackForm>
-        <S_PsRelativeBody>
-          <CustomToolBar />
-          <ReactQuill
-            modules={modules}
-            formats={formats}
-            value={aText}
-            onChange={handleText}
-          />
-        </S_PsRelativeBody>
-      </S_StackForm>
-    </>
-  );
+  //   const navigate = useNavigate();
+
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+
+  //     axios
+  //       .post(
+  //         `/v1/questions/${questionid}`,
+  //         {
+  //           memberId: 'memberId',
+  //           body: answer,
+  //         },
+  //         {
+  //           headers: {
+  //             Authorization: 'token',
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         console.log(res);
+  //         navigate(`/v1/questions/${questionid}`);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   };
+
+  const modules = {
+    toolbar: {
+      container: '#toolbar',
+    },
+  };
+  const formats = [
+    'header',
+    'font',
+    'size',
+    'bold',
+    'italic',
+    'underline',
+    'list',
+    'bullet',
+    'align',
+    'color',
+    'background',
+    'image',
+  ];
+  {
+    return (
+      <>
+        <div>
+          <S_Word>Your Answer</S_Word>
+        </div>
+
+        <S_StackForm>
+          <S_PsRelativeBody>
+            <CustomToolBar />
+            <ReactQuill
+              modules={modules}
+              formats={formats}
+              value={aText}
+              onChange={handleText}
+            />
+          </S_PsRelativeBody>
+        </S_StackForm>
+      </>
+    );
+  }
 }
-
 // function createComment (){
 // const [comment ,setComment] = useState('');
 // const [userName] = useState('hyeyln');

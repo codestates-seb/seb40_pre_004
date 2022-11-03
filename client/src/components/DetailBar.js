@@ -22,39 +22,33 @@ function DetailBar({ questionId }) {
     }
     fetchItem();
   }, []);
-
-  return (
-    <S_DetailBar>
-      <DetailHeadLine
-        key={item.questionId}
-        title={item.title}
-        asked={item.createdAt}
-        modified={item.modifiedAt}
-        viewed={9}
-      />
-      <div>
+  {
+    return (
+      <S_DetailBar>
+        <DetailHeadLine
+          key={item.questionId}
+          title={item.title}
+          asked={item.createdAt}
+          modified={item.modifiedAt}
+          viewed={9}
+        />
         <div>
-          <SideBar />
+          <div>
+            <SideBar />
+          </div>
+          <div>
+            <DetailView
+              key={questionId}
+              id={questionId}
+              content={item.body}
+              tags={item.tags}
+              username={item.displayName}
+              answers={item.answers}
+            />
+          </div>
         </div>
-        <div>
-          <DetailView
-            key={questionId}
-            id={questionId}
-            content={item.body}
-            count={2}
-            tags={item.tags}
-            actiontime={14}
-            username={item.displayName}
-            answercontent={
-              'I assume you have untracked files. By default, git stash the uncommitted changes(staged and un-staged files) and overlooks untracked and ignored files. you can add them for tracking,'
-            }
-            answertime={12}
-            answerusername={'답변자이름'}
-          />
-        </div>
-      </div>
-    </S_DetailBar>
-  );
+      </S_DetailBar>
+    );
+  }
 }
-
 export default DetailBar;
