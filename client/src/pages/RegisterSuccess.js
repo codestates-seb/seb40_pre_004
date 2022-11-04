@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from '../components/Header';
+import { setRefreshToken } from '../storage/Cookie';
+import { useDispatch } from 'react-redux';
+import { SET_TOKEN } from '../store/Auth';
 
 const S_Container = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
@@ -70,6 +73,7 @@ const S_SubmitButton = styled.button`
 const RegisterSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const { email, password } = location.state;
 
@@ -82,6 +86,12 @@ const RegisterSuccess = () => {
       .post('/v1/auth/login', body)
       .then((response) => {
         if (response.status === 200) {
+          const accessToken = response.headers.authorization.slice(7);
+          const refreshToken = response.headers.refresh;
+          const memberId = response.data;
+          setRefreshToken(refreshToken);
+          dispatch(SET_TOKEN({ memberId, accessToken }));
+
           navigate('/');
         }
       })

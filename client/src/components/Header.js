@@ -368,7 +368,8 @@ function Header() {
         .then((response) => {
           if (response.status === 201) {
             const accessToken = response.headers.authorization.slice(7);
-            dispatch(SET_TOKEN({ memberId: 25, accessToken }));
+            const memberId = response.data;
+            dispatch(SET_TOKEN({ memberId, accessToken }));
           } else {
             console.log(response);
           }
