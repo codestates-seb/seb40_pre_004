@@ -97,7 +97,7 @@ public class JwtProvider {
         return objectMapper.readValue(subjectStr, Subject.class);
     }
 
-    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JsonProcessingException {
+    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JsonProcessingException, JwtException {
         String rtkInRedis = redisDao.getValues(memberResponseDto.getEmail());
         if (Objects.isNull(rtkInRedis)) {
             throw new JwtException("인증 정보가 만료되었습니다.");
@@ -109,5 +109,9 @@ public class JwtProvider {
                 memberResponseDto.getDisplayName());
         String atk = createToken(atkSubject, accessTokenExpirationMinutes);
         return new TokenResponseDto(atk, null);
+    }
+
+    public void deleteRtk(MemberResponseDto memberResponseDto) {
+        redisDao.deleteValues(memberResponseDto.getEmail());
     }
 }

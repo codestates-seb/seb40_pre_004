@@ -51,7 +51,15 @@ public class MemberController {
         headers.add("Authorization", "Bearer " + tokenResponseDto.getAtk());
         headers.add("Refresh", tokenResponseDto.getRtk());
 
-        return new ResponseEntity<>(new SingleResponseDto<>("로그인 성공"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>("로그인에 성공하였습니다."), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) {
+        MemberResponseDto memberResponseDto = mapper.memberToMemberResponseDto(memberDetails.getMember());
+        jwtProvider.deleteRtk(memberResponseDto);
+
+        return new ResponseEntity<>(new SingleResponseDto<>("로그아웃이 완료되었습니다."), HttpStatus.NO_CONTENT);
     }
 
 
