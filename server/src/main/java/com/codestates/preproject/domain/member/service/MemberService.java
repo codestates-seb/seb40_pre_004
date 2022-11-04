@@ -4,7 +4,6 @@ import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.repository.MemberRepository;
 import com.codestates.preproject.exception.BusinessLogicException;
 import com.codestates.preproject.exception.ExceptionCode;
-import com.codestates.preproject.security.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
