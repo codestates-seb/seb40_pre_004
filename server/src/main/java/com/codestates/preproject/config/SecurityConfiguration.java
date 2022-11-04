@@ -21,19 +21,17 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-public class SecutiryConfiguration {
+public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtills;
 
-    public SecutiryConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtills ) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtills ) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtills = authorityUtills;
     }
@@ -85,7 +83,9 @@ public class SecutiryConfiguration {
 //        configuration.setAllowedOrigins(Arrays.asList("http://seb40-pre-004-stack-overflow.s3-website.ap-northeast-2.amazonaws.com:80", "http://localhost:3000/" )); // 모든 출처에 대해 HTTP 통신을 허용
 //        configuration.setAllowedOrigins(Arrays.asList("http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080", "http://localhost:3000/" )); // 모든 출처에 대해 HTTP 통신을 허용
         configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS")); //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // 모든 URL 앞에서 구성한 CORS 정책을 적용
