@@ -230,8 +230,9 @@ const RegisterForm = () => {
                       const accessToken =
                         response.headers.authorization.slice(7);
                       const refreshToken = response.headers.refresh;
+                      const memberId = response.data;
                       setRefreshToken(refreshToken);
-                      dispatch(SET_TOKEN({ memberId: 25, accessToken }));
+                      dispatch(SET_TOKEN({ memberId, accessToken }));
 
                       navigate('/');
                     }
