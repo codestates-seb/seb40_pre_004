@@ -4,6 +4,9 @@ import useInput from '../hooks/useInput';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePasswordForLogin } from '../api/validate';
+import { setRefreshToken } from '../storage/Cookie';
+import { useDispatch } from 'react-redux';
+import { SET_TOKEN } from '../store/Auth';
 
 const S_FormContainer = styled.section`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
@@ -98,6 +101,8 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -117,6 +122,11 @@ const LoginForm = () => {
         .post('/v1/auth/login', body)
         .then((response) => {
           if (response.status === 200) {
+            const accessToken = response.headers.authorization.slice(7);
+            const refreshToken = response.headers.refresh;
+            setRefreshToken(refreshToken);
+            dispatch(SET_TOKEN({ memberId: 25, accessToken }));
+
             navigate('/');
           }
         })

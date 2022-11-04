@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Question from './Question';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const S_MainBar = styled.div`
   width: calc(100% - 300px - 24px);
@@ -109,12 +110,18 @@ function MainBar() {
     getAllQuestions();
   }, []);
 
+  const { authenticated } = useSelector((state) => state.authToken);
+
   return (
     <S_MainBar>
       <S_DFlex>
         <S_H1>Top Questions</S_H1>
         <div>
-          <Link to="/questions/ask">Ask Question</Link>
+          {authenticated ? (
+            <Link to="/questions/ask">Ask Question</Link>
+          ) : (
+            <Link to="/login">Ask Question</Link>
+          )}
         </div>
       </S_DFlex>
 

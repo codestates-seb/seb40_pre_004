@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import { validateTitleForNewQ, validateBodyForNewQ } from '../api/validate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const S_Content = styled.div`
   padding-top: 50px;
@@ -343,6 +344,8 @@ function NewQuestion() {
 
   const navigate = useNavigate();
 
+  const { memberId, accessToken } = useSelector((state) => state.authToken);
+
   // onInput
   const onInput = (e) => {
     if (e.target.value.length > e.target.maxLength)
@@ -389,19 +392,18 @@ function NewQuestion() {
       validateTitleForNewQ(title) === 'valid' &&
       validateBodyForNewQ(text) === 'valid'
     ) {
-      console.log('success');
       axios
         .post(
           '/v1/questions',
           {
-            memberId: 'memberId',
+            memberId,
             title,
             body: text,
             tags: tagList,
           },
           {
             headers: {
-              Authorization: 'token',
+              Authorization: accessToken,
             },
           }
         )

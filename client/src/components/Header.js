@@ -1,6 +1,10 @@
+import axios from 'axios';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_TOKEN, DELETE_TOKEN } from '../store/Auth';
+import { removeCookieToken } from '../storage/Cookie';
 
 const S_Header = styled.header`
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
@@ -135,6 +139,9 @@ const S_TopbarSearchLabel = styled.label`
   height: 35px;
   border: 1px solid rgb(186, 191, 196);
   border-radius: 6px;
+  &.login {
+    width: 830px;
+  }
   svg {
     display: inline-block;
     width: 1em;
@@ -346,21 +353,47 @@ const S_TopbarLoggedInDropdownSvg = styled.svg`
 function Header() {
   const [view, setView] = useState(false);
   const [down, setDown] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [drop, setDrop] = useState(false);
 
-  function onToggle() {
-    setIsLoggedIn(!isLoggedIn);
-  }
+  const dispatch = useDispatch();
+  const { authenticated, accessToken, expireTime } = useSelector(
+    (state) => state.authToken
+  );
+
+  useEffect(() => {
+    // access token 재발급
+    if (accessToken === null || new Date().getTime() - expireTime < 30 * 1000) {
+      axios
+        .get('/url-is-not-defined')
+        .then((response) => {
+          if (response.status === 201) {
+            const accessToken = response.headers.authorization.slice(7);
+            dispatch(SET_TOKEN({ memberId: 25, accessToken }));
+          } else {
+            console.log(response);
+          }
+        })
+        .catch((error) => {
+          if (error.response.status === 403) {
+            dispatch(DELETE_TOKEN());
+            removeCookieToken();
+          } else {
+            console.log(
+              '백엔드 access token 재발급 로직이 구현되지 않아서 발생하는 오류입니다.'
+            );
+          }
+        });
+    }
+  }, []);
 
   return (
     <S_Header>
       <S_TopbarContainer>
         <Link to="/">
-          <S_TopbarLogo onClick={onToggle}>스택오버플로우</S_TopbarLogo>
+          <S_TopbarLogo>스택오버플로우</S_TopbarLogo>
         </Link>
         <S_Nav>
-          {isLoggedIn && (
+          {!authenticated && (
             <li>
               <a href="#;">About</a>
             </li>
@@ -376,14 +409,14 @@ function Header() {
             </a>
             {view && <Dropdown />}
           </S_NavDropdownWord>
-          {isLoggedIn && (
+          {!authenticated && (
             <li>
               <a href="#;">For Teams</a>
             </li>
           )}
         </S_Nav>
         <div>
-          <S_TopbarSearchLabel>
+          <S_TopbarSearchLabel className={authenticated ? 'login' : ''}>
             <svg aria-hidden="true" viewBox="0 0 18 18">
               <path
                 d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"
@@ -402,12 +435,7 @@ function Header() {
           </S_TopbarSearchLabel>
           {down && <Dropdown2 />}
         </div>
-        {isLoggedIn ? (
-          <>
-            <S_LinkBtn to="/login">Log in</S_LinkBtn>
-            <S_LinkBtn2 to="/register">Sign up</S_LinkBtn2>
-          </>
-        ) : (
+        {authenticated ? (
           <S_TopbarLoggedInNav>
             <S_TopbarLoggedInOl>
               <S_TopbarLoggedInItem>
@@ -449,6 +477,11 @@ function Header() {
             </S_TopbarLoggedInOl>
             {drop && <Dropdown3 />}
           </S_TopbarLoggedInNav>
+        ) : (
+          <>
+            <S_LinkBtn to="/login">Log in</S_LinkBtn>
+            <S_LinkBtn2 to="/register">Sign up</S_LinkBtn2>
+          </>
         )}
       </S_TopbarContainer>
     </S_Header>
@@ -561,6 +594,13 @@ function Dropdown2() {
 }
 
 function Dropdown3() {
+  const dispatch = useDispatch();
+
+  const logOutHandler = () => {
+    dispatch(DELETE_TOKEN());
+    removeCookieToken();
+  };
+
   return (
     <S_TopbarLoggedInDropdown>
       <S_TopbarLoggedInDropdownItem>
@@ -579,7 +619,9 @@ function Dropdown3() {
             Stack Overflow
           </S_TopbarLoggedInDropdownWord>
         </Link>
-        <S_TopbarLoggedInDropdownWord2>log out</S_TopbarLoggedInDropdownWord2>
+        <S_TopbarLoggedInDropdownWord2 onClick={logOutHandler}>
+          log out
+        </S_TopbarLoggedInDropdownWord2>
       </S_TopbarLoggedInDropdownItem2>
       <S_TopbarLoggedInDropdownItem2>
         <S_TopbarLoggedInDropdownWord>
