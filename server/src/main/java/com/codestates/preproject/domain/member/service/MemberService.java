@@ -1,10 +1,11 @@
 package com.codestates.preproject.domain.member.service;
 
-import com.codestates.preproject.auth.utils.CustomAuthorityUtils;
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.repository.MemberRepository;
 import com.codestates.preproject.exception.BusinessLogicException;
 import com.codestates.preproject.exception.ExceptionCode;
+import com.codestates.preproject.security.exception.BadRequestException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,16 +19,19 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final CustomAuthorityUtils authorityUtils;
+    public Member loginMember(Member member) {
+        Member findMember = memberRepository.findByEmail(member.getEmail()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authorityUtils = authorityUtils;
+        if (!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_REDIRECTION_FIND_PASSWORD);
+        }
+
+        return findMember;
     }
 
     public Member createMember(Member member) {
@@ -48,9 +52,6 @@ public class MemberService {
 
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
-
-        List<String> roles = authorityUtils.createRoles(member.getEmail());
-        member.setRoles(roles);
 
         Member savedMember = memberRepository.save(member);
 

@@ -1,5 +1,6 @@
 package com.codestates.preproject.domain.member.controller;
 
+import com.codestates.preproject.domain.member.dto.LoginDto;
 import com.codestates.preproject.domain.member.dto.MemberPatchDto;
 import com.codestates.preproject.domain.member.dto.MemberPostDto;
 import com.codestates.preproject.domain.member.dto.MemberResponseDto;
@@ -9,11 +10,18 @@ import com.codestates.preproject.domain.member.service.MemberService;
 import com.codestates.preproject.dto.PageInfo;
 import com.codestates.preproject.dto.MultiResponseDto;
 import com.codestates.preproject.dto.SingleResponseDto;
+import com.codestates.preproject.security.dto.TokenResponseDto;
+import com.codestates.preproject.security.jwt.JwtProvider;
+import com.codestates.preproject.security.jwt.MemberDetails;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,18 +32,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/members")
 @Validated
+@RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
+    private final JwtProvider jwtProvider;
 
-    public MemberController(MemberService memberService, MemberMapper mapper) {
-        this.memberService = memberService;
-        this.mapper = mapper;
+    @PostMapping("/login")
+    public ResponseEntity login(@Valid @RequestBody LoginDto loginDto) throws JsonProcessingException {
+
+        Member member = mapper.loginDtoToMember(loginDto);
+        Member authorizedMember = memberService.loginMember(member);
+        MemberResponseDto responseDto = mapper.memberToMemberResponseDto(authorizedMember);
+
+        TokenResponseDto tokenResponseDto = jwtProvider.createTokensByLogin(responseDto);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + tokenResponseDto.getAtk());
+        headers.add("Refresh", tokenResponseDto.getRtk());
+
+        return new ResponseEntity<>(new SingleResponseDto<>("로그인 성공"), headers, HttpStatus.OK);
     }
 
-/*
-    MemberController 전체 흐름 구현(dto 클래스, 비즈니스 계층 미구현)
-*/
+
+    @GetMapping("/reissue")
+    public ResponseEntity reissue(@AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException {
+        MemberResponseDto responseDto = mapper.memberToMemberResponseDto(memberDetails.getMember());
+        TokenResponseDto tokenResponseDto = jwtProvider.reissueAtk(responseDto);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + tokenResponseDto.getAtk());
+
+        return new ResponseEntity<>(new SingleResponseDto<>("AccessToken 재발급 성공"), headers, HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto postDto) {
