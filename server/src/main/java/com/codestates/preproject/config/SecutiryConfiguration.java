@@ -69,7 +69,8 @@ public class SecutiryConfiguration {
                         .antMatchers(HttpMethod.POST, "*/answers").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "*/comments").hasRole("USER")
                         .anyRequest().permitAll()
-                );
+                )
+                .cors();
         return http.build();
     }
 
