@@ -345,8 +345,6 @@ function NewQuestion() {
   const navigate = useNavigate();
   const { memberId, accessToken } = useSelector((state) => state.authToken);
 
-  const { memberId, accessToken } = useSelector((state) => state.authToken);
-
   // onInput
   const onInput = (e) => {
     if (e.target.value.length > e.target.maxLength)
