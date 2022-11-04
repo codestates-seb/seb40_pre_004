@@ -137,8 +137,9 @@ const LoginForm = () => {
             dispatch(SET_TOKEN({ memberId: 17, accessToken }));
 =======
             const refreshToken = response.headers.refresh;
+            const memberId = response.data;
             setRefreshToken(refreshToken);
-            dispatch(SET_TOKEN({ memberId: 25, accessToken }));
+            dispatch(SET_TOKEN({ memberId, accessToken }));
 
 >>>>>>> e0a7fb8766175677c5983d6e3f10547977eef650
             navigate('/');
