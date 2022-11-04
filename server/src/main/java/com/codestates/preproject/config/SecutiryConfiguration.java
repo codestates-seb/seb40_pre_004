@@ -77,7 +77,8 @@ public class SecutiryConfiguration implements WebMvcConfigurer {
                         .antMatchers(HttpMethod.POST, "*/answers").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "*/comments").hasRole("USER")
                         .anyRequest().permitAll()
-                );
+                )
+                .cors();
         return http.build();
     }
 
@@ -90,7 +91,7 @@ public class SecutiryConfiguration implements WebMvcConfigurer {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
+//        configuration.setAllowedOrigins(Arrays.asList("setAllowedOrigins")); // 모든 출처에 대해 HTTP 통신을 허용
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS")); //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
         configuration.setAllowCredentials(true);
 
