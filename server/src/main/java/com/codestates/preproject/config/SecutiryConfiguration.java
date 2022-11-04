@@ -33,7 +33,8 @@ public class SecutiryConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080");
+                .allowCredentials(true)
+                .allowedOrigins("http://seb40-pre-004-stack-overflow.s3-website.ap-northeast-2.amazonaws.com/");
 
     }
 
