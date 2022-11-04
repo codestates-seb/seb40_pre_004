@@ -60,6 +60,7 @@ public class SecutiryConfiguration {
 
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.OPTIONS,"/**/*").permitAll()
                         .antMatchers(HttpMethod.POST, "/*/members").permitAll()
                         .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")
