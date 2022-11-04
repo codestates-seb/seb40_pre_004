@@ -34,6 +34,7 @@ public class SecutiryConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080");
+
     }
 
     private final JwtTokenizer jwtTokenizer;

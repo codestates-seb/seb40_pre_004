@@ -21,6 +21,9 @@ ext {
 	set('snippetsDir', file("build/generated-snippets"))
 }
 
+// Skips tests if you provide prod project property from command line
+test.onlyIf { !project.hasProperty('Test') }
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security' // (1)
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
@@ -49,6 +52,7 @@ dependencies {
 
 }
 
+
 tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
@@ -66,6 +70,7 @@ task copyDocument(type: Copy) {
 	from file("${asciidoctor.outputDir}")
 	into file("src/main/resources/static/docs")
 }
+
 
 build {
 	dependsOn copyDocument
