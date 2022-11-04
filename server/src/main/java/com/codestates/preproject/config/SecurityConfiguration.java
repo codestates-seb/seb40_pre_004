@@ -68,9 +68,8 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.POST, "*/answers").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "*/comments").hasRole("USER")
                         .anyRequest().permitAll()
-                )
-                .cors();
-        return http.build();
+                );
+    return http.build();
     }
 
     @Bean
