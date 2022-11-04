@@ -78,7 +78,7 @@ public class SecutiryConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE")); //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS")); //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // 모든 URL 앞에서 구성한 CORS 정책을 적용
