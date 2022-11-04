@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import { validateTitleForNewQ, validateBodyForNewQ } from '../api/validate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const S_Content = styled.div`
   padding-top: 50px;
@@ -342,6 +343,7 @@ function NewQuestion() {
   const [bodyValidateResult, setBodyValidateResult] = useState('');
 
   const navigate = useNavigate();
+  const { memberId, accessToken } = useSelector((state) => state.authToken);
 
   // onInput
   const onInput = (e) => {
@@ -394,14 +396,14 @@ function NewQuestion() {
         .post(
           '/v1/questions',
           {
-            memberId: 'memberId',
+            memberId,
             title,
             body: text,
             tags: tagList,
           },
           {
             headers: {
-              Authorization: 'token',
+              Authorization: accessToken,
             },
           }
         )
