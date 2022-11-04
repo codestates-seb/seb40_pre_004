@@ -345,6 +345,8 @@ function NewQuestion() {
   const navigate = useNavigate();
   const { memberId, accessToken } = useSelector((state) => state.authToken);
 
+  const { memberId, accessToken } = useSelector((state) => state.authToken);
+
   // onInput
   const onInput = (e) => {
     if (e.target.value.length > e.target.maxLength)
@@ -391,7 +393,6 @@ function NewQuestion() {
       validateTitleForNewQ(title) === 'valid' &&
       validateBodyForNewQ(text) === 'valid'
     ) {
-      console.log('success');
       axios
         .post(
           '/v1/questions',

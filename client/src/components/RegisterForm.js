@@ -10,6 +10,9 @@ import {
   validatePasswordForRegister,
   validateIsHuman,
 } from '../api/validate';
+import { setRefreshToken } from '../storage/Cookie';
+import { SET_TOKEN } from '../store/Auth';
+import { useDispatch } from 'react-redux';
 
 const S_FormContainer = styled.section`
   width: 268px;
@@ -175,6 +178,8 @@ const RegisterForm = () => {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (password.length >= 8) {
       setPasswordValidationResult(null);
@@ -222,6 +227,12 @@ const RegisterForm = () => {
                   .post('/v1/auth/login', loginBody)
                   .then((response) => {
                     if (response.status === 200) {
+                      const accessToken =
+                        response.headers.authorization.slice(7);
+                      const refreshToken = response.headers.refresh;
+                      setRefreshToken(refreshToken);
+                      dispatch(SET_TOKEN({ memberId: 25, accessToken }));
+
                       navigate('/');
                     }
                   })

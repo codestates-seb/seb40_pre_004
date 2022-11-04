@@ -27,6 +27,14 @@ public class MemberDetailsService implements UserDetailsService{
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        // ***** 로그인 과정 *****
+        // 1. email과 password를 받는다.
+        // 2. authenticationManager로 로그인 시도를 하면 MemberDetailsService의 loadUserByUsername이 실행된다. -- 정상인지 확인
+        // 3. MemberDetails를 세션에 담고(권한 관리를 위해, 권한같은 정보가 없다면 세션 필요없음)
+        // 4. JWT 토큰을 생성하여 응답
+
+
         Member findMember = memberRepository.findByEmail(username)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 

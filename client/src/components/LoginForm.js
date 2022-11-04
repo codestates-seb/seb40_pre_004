@@ -4,8 +4,13 @@ import useInput from '../hooks/useInput';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePasswordForLogin } from '../api/validate';
+<<<<<<< HEAD
 import { useSelector, useDispatch } from 'react-redux';
 import { setRefreshToken } from '../storage/cookie';
+=======
+import { setRefreshToken } from '../storage/Cookie';
+import { useDispatch } from 'react-redux';
+>>>>>>> e0a7fb8766175677c5983d6e3f10547977eef650
 import { SET_TOKEN } from '../store/Auth';
 
 const S_FormContainer = styled.section`
@@ -104,6 +109,8 @@ const LoginForm = () => {
   console.log(token);
   const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -124,9 +131,16 @@ const LoginForm = () => {
         .then((response) => {
           if (response.status === 200) {
             const accessToken = response.headers.authorization.slice(7);
+<<<<<<< HEAD
             const refreshToken = response.headers.represh;
             setRefreshToken(refreshToken);
             dispatch(SET_TOKEN({ memberId: 17, accessToken }));
+=======
+            const refreshToken = response.headers.refresh;
+            setRefreshToken(refreshToken);
+            dispatch(SET_TOKEN({ memberId: 25, accessToken }));
+
+>>>>>>> e0a7fb8766175677c5983d6e3f10547977eef650
             navigate('/');
           }
         })
