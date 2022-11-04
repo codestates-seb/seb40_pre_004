@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import CustomToolBar from '../components/CustomToolbar';
+import CustomToolBar from './CustomToolbar';
 import { Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
+import Answer from './Answer';
 // import axios from 'axios';
 
 const S_PostLayout = styled.div`
@@ -71,6 +73,7 @@ const S_DFlex = styled.div`
   justify-content: space-between;
   color: hsl(210, 8%, 45%);
   margin-top: 30px;
+  border-bottom: 1px solid rgb(186, 191, 196);
 `;
 
 const S_FlexItem = styled.div`
@@ -88,6 +91,7 @@ const S_PostSignature = styled.div`
   background-color: hsl(205, 53%, 88%);
   padding: 5px 6px 7px 7px;
   border-radius: 3px;
+  margin-bottom: 20px;
 `;
 
 const S_select = styled.select`
@@ -139,12 +143,6 @@ const S_Select = styled.div`
   margin-left: 10px;
 `;
 
-const S_AnswerPostSignature = styled(S_PostSignature)`
-  background-color: white;
-`;
-
-const S_UserActionTime = styled.div``;
-
 const S_UserName = styled.div`
   display: block;
   color: hsl(206, 100%, 40%);
@@ -152,6 +150,7 @@ const S_UserName = styled.div`
     color: hsl(206, 100%, 52%);
   }
 `;
+const S_UserActionTime = styled.div``;
 
 //form
 
@@ -224,11 +223,15 @@ const S_div = styled.div`
 `;
 
 function DetailView({ content, username, tags, answers }) {
-  const [comment, setComment] = useState(true);
-  console.log(answers);
-  function createComment() {
-    setComment(!comment);
-  }
+  // const onChange = (event) => setComment(event.target.value);
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  //   if (comment === '') {
+  //     return;
+  //   }
+  //   setCommentArray((commentValueList) => [comment, ...commentValueList]);
+  //   setComment('');
+  // };
 
   return (
     <S_PostLayout>
@@ -240,7 +243,11 @@ function DetailView({ content, username, tags, answers }) {
       </S_Ad>
       <S_PostCell>
         <S_PostBody>
-          <S_PostContent>{content}</S_PostContent>
+          <S_PostContent
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(content),
+            }}
+          ></S_PostContent>
         </S_PostBody>
         <S_PostTagDiv>
           <S_PostTagList>
@@ -274,23 +281,28 @@ function DetailView({ content, username, tags, answers }) {
             </S_div>
           </S_PostSignature>
         </S_DFlex>
+        <S_CommentLink>
+          {isComment ? (
+            <form>
+              <input type="text" placeholder="댓글달기..." />
+              <button>send !</button>
+            </form>
+          ) : (
+            <a href="#;" onClick={CommentToggle}>
+              Add a comment
+            </a>
+          )}
+        </S_CommentLink>
       </S_PostCell>
-      <S_CommentLink>
-        {comment ? (
-          <a href="#;" onClick={createComment}>
-            Add a comment
-          </a>
-        ) : (
-          <form>
-            <input type="text" placeholder="댓글..." />
-            <button onClick={createComment}>send !</button>
-          </form>
-        )}
-      </S_CommentLink>
+
       <S_Answers>
         <S_AnswersHeader>
           <div>
-            <S_Word>{} Answers</S_Word>
+            {answers && answers.length > 0 ? (
+              <S_Word>{answers.length} Answer</S_Word>
+            ) : (
+              ''
+            )}
           </div>
           <S_Select>
             Sorted by:&nbsp;
@@ -299,26 +311,9 @@ function DetailView({ content, username, tags, answers }) {
             </div>
           </S_Select>
         </S_AnswersHeader>
-        <S_PostCell>
-          <S_PostBody>
-            {/* 삼항연산자 (답변 존재여부) */}
-            <S_PostContent>{}</S_PostContent>
-          </S_PostBody>
-          <S_DFlex>
-            <S_FlexItem>
-              <p>Share Edit Follow</p>
-            </S_FlexItem>
-            <S_AnswerPostSignature>
-              <S_UserActionTime>answered 1 hours ago</S_UserActionTime>
-              {/* 삼항연산자 (답변 존재여부) */}
-              <S_UserName>{}</S_UserName>
-            </S_AnswerPostSignature>
-          </S_DFlex>
-        </S_PostCell>
+        <Answers />
       </S_Answers>
-      <S_CommentLink>
-        <a href="#;">Add a comment</a>
-      </S_CommentLink>
+
       {/* 댓글 없을때 */}
       <S_Word2>
         Know someone who can answer? Share a link to this&nbsp;
@@ -338,7 +333,6 @@ function DetailView({ content, username, tags, answers }) {
           <S_PostTagList>
             {tags && tags.length > 0 ? (
               <ul>
-                {' '}
                 {tags.map((tag) => (
                   <li key={tag}>{tag}</li>
                 ))}
@@ -382,33 +376,6 @@ function FormBox() {
     setAtext(value);
   };
 
-  //   const navigate = useNavigate();
-
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
-
-  //     axios
-  //       .post(
-  //         `/v1/questions/${questionid}`,
-  //         {
-  //           memberId: 'memberId',
-  //           body: answer,
-  //         },
-  //         {
-  //           headers: {
-  //             Authorization: 'token',
-  //           },
-  //         }
-  //       )
-  //       .then((res) => {
-  //         console.log(res);
-  //         navigate(`/v1/questions/${questionid}`);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
-
   const modules = {
     toolbar: {
       container: '#toolbar',
@@ -450,13 +417,13 @@ function FormBox() {
     );
   }
 }
-// function createComment (){
-// const [comment ,setComment] = useState('');
-// const [userName] = useState('hyeyln');
-// const [feedComment, setFeedComment] = useState([]);
 
-// return ();
-
-// }
+function Answers({ answers }) {
+  return answers.map((answer) => (
+    <div key={answer}>
+      <Answer answer={answer} />
+    </div>
+  ));
+}
 
 export default DetailView;
