@@ -82,6 +82,7 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
 //        configuration.setAllowedOrigins(Arrays.asList("http://seb40-pre-004-stack-overflow.s3-website.ap-northeast-2.amazonaws.com:80")); // 모든 출처에 대해 HTTP 통신을 허용
 //        configuration.setAllowedOrigins(Arrays.asList("http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080", "http://localhost:3000/" )); // 모든 출처에 대해 HTTP 통신을 허용
+        configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedOrigins(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS")); //파라미터로 지정한 HTTP Method에 대한 HTTP 통신을 허용
