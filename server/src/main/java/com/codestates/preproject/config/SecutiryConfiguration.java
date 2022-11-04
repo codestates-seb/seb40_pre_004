@@ -8,7 +8,6 @@ import com.codestates.preproject.auth.handler.MemberAuthenticationFailureHandler
 import com.codestates.preproject.auth.handler.MemberAuthenticationSuccessHandler;
 import com.codestates.preproject.auth.jwt.JwtTokenizer;
 import com.codestates.preproject.auth.utils.CustomAuthorityUtils;
-import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -24,7 +23,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -87,7 +85,6 @@ public class SecutiryConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Refresh"));
         configuration.setAllowedHeaders(Arrays.asList("*")); // 모든 출처에 대해 HTTP 통신을 허용
         configuration.setAllowedOrigins(Arrays.asList("http://seb40-pre-004-stack-overflow.s3-website.ap-northeast-2.amazonaws.com/")); // 모든 출처에 대해 HTTP 통신을 허용
