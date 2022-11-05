@@ -135,7 +135,7 @@ public class JwtProvider {
         return new TokenResponseDto(atk, null);
     }
 
-    public void deleteRtk(MemberResponseDto memberResponseDto) {
+    public void deleteRtk(MemberResponseDto memberResponseDto) throws JwtException {
         redisDao.deleteValues(memberResponseDto.getEmail());
     }
 }

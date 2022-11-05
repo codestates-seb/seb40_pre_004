@@ -14,6 +14,7 @@ import com.codestates.preproject.security.dto.TokenResponseDto;
 import com.codestates.preproject.security.jwt.JwtProvider;
 import com.codestates.preproject.security.jwt.MemberDetails;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -55,7 +56,7 @@ public class MemberController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) {
+    public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) throws JwtException {
         MemberResponseDto memberResponseDto = mapper.memberToMemberResponseDto(memberDetails.getMember());
         jwtProvider.deleteRtk(memberResponseDto);
 
