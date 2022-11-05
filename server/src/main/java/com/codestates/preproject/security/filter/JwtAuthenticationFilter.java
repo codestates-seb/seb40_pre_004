@@ -2,7 +2,6 @@ package com.codestates.preproject.security.filter;
 
 import com.codestates.preproject.security.jwt.JwtProvider;
 import com.codestates.preproject.security.jwt.MemberDetailsService;
-import com.codestates.preproject.security.jwt.Subject;
 import io.jsonwebtoken.JwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -37,17 +36,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             try {
 
                 if (requestURI.equals("/v1/members/reissue")) {
-                    Subject rtkSubject = jwtProvider.getSubject(refresh);
-                    UserDetails userDetails = memberDetailsService.loadUserByUsername(rtkSubject.getEmail());
-                    Authentication token = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+                    String rtkSubject = jwtProvider.getSubject(refresh);
+                    UserDetails userDetails = memberDetailsService.loadUserByUsername(rtkSubject);
+                    Authentication token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(token);
                 }
                 else {
                     String atk = access.substring(7);
-                    Subject atkSubject = jwtProvider.getSubject(atk);
+                    String atkSubject = jwtProvider.getSubject(atk);
 
-                    UserDetails userDetails = memberDetailsService.loadUserByUsername(atkSubject.getEmail());
-                    Authentication token = new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+                    UserDetails userDetails = memberDetailsService.loadUserByUsername(atkSubject);
+                    Authentication token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(token);
                 }
             } catch (JwtException e) {
