@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:mysql://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:3306/testDB?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&serverTimezone=Asia/Seoul
+    username: test
+    password: test1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  redis:
+    host: ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com
+    port: 6379
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
+mail:
+  address:
+    admin: okip0428@gmail.com
+jwt:
+  secret-key: St5h23phd4V37SFvHXBY2Zwmfvkkgjecqib0Bxz5Eh2Ch4R5dz
+  access-token-expiration-minutes: 60
+  refresh-token-expiration-minutes: 360
