@@ -125,6 +125,17 @@ public class JwtProvider {
 
     }
 
+    public Jws<Claims> getClaims(String jws) {
+        Key key = getKeyFromBase64EncodedKey(encodeBase64SecretKey(secretKey));
+
+        Jws<Claims> claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(jws);
+
+        return claims;
+    }
+
     public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JsonProcessingException, JwtException {
         String rtkInRedis = redisDao.getValues(memberResponseDto.getEmail());
         if (Objects.isNull(rtkInRedis)) {

@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/v1/members")
@@ -48,11 +49,14 @@ public class MemberController {
 
         TokenResponseDto tokenResponseDto = jwtProvider.createTokensByLogin(responseDto);
 
+        Map<String, Object> claims = jwtProvider.getClaims(tokenResponseDto.getAtk()).getBody();
+        long memberId = Long.parseLong(claims.get("memberId").toString());
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + tokenResponseDto.getAtk());
         headers.add("Refresh", tokenResponseDto.getRtk());
 
-        return new ResponseEntity<>(new SingleResponseDto<>("로그인에 성공하였습니다."), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(memberId), headers, HttpStatus.OK);
     }
 
     @GetMapping("/logout")
@@ -69,10 +73,13 @@ public class MemberController {
         MemberResponseDto responseDto = mapper.memberToMemberResponseDto(memberDetails.getMember());
         TokenResponseDto tokenResponseDto = jwtProvider.reissueAtk(responseDto);
 
+        Map<String, Object> claims = jwtProvider.getClaims(tokenResponseDto.getAtk()).getBody();
+        long memberId = Long.parseLong(claims.get("memberId").toString());
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + tokenResponseDto.getAtk());
 
-        return new ResponseEntity<>(new SingleResponseDto<>("AccessToken 재발급 성공"), headers, HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(memberId), headers, HttpStatus.OK);
     }
 
     @PostMapping
