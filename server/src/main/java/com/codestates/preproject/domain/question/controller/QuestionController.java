@@ -32,10 +32,6 @@ public class QuestionController {
         this.mapper = mapper;
     }
 
-/*
-    QuestionController 전체 흐름 구현(dto 클래스, 비즈니스 계층 미구현)
-*/
-
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto postDto) {
 
