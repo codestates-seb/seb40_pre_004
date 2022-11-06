@@ -23,9 +23,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -40,6 +42,7 @@ public class MemberController {
     private final MemberMapper mapper;
     private final JwtProvider jwtProvider;
 
+    @Transactional
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody LoginDto loginDto) throws JsonProcessingException {
 
@@ -59,17 +62,21 @@ public class MemberController {
         return new ResponseEntity<>(new SingleResponseDto<>(memberId), headers, HttpStatus.OK);
     }
 
+    @Transactional
     @GetMapping("/logout")
-    public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) throws JwtException {
+    public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails,
+                                 @RequestHeader("Authorization") String bearerAtk) throws JwtException {
         MemberResponseDto memberResponseDto = mapper.memberToMemberResponseDto(memberDetails.getMember());
+
+        jwtProvider.setBlackListAtk(bearerAtk);
         jwtProvider.deleteRtk(memberResponseDto);
 
         return new ResponseEntity<>(new SingleResponseDto<>("로그아웃이 완료되었습니다."), HttpStatus.NO_CONTENT);
     }
 
-
+    @Transactional
     @GetMapping("/reissue")
-    public ResponseEntity reissue(@AuthenticationPrincipal MemberDetails memberDetails) throws JsonProcessingException {
+    public ResponseEntity reissue(@AuthenticationPrincipal MemberDetails memberDetails) throws JwtException {
         MemberResponseDto responseDto = mapper.memberToMemberResponseDto(memberDetails.getMember());
         TokenResponseDto tokenResponseDto = jwtProvider.reissueAtk(responseDto);
 

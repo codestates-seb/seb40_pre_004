@@ -45,6 +45,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     String atk = access.substring(7);
                     String atkSubject = jwtProvider.getSubject(atk);
 
+                    if (jwtProvider.isBlackList(atk)) {
+                        throw new JwtException("유효하지 않은 AccessToken 입니다.");
+                    }
+
                     UserDetails userDetails = memberDetailsService.loadUserByUsername(atkSubject);
                     Authentication token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(token);

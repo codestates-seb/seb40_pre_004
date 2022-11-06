@@ -13,6 +13,7 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
@@ -136,7 +137,7 @@ public class JwtProvider {
         return claims;
     }
 
-    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JsonProcessingException, JwtException {
+    public TokenResponseDto reissueAtk(MemberResponseDto memberResponseDto) throws JwtException {
         String rtkInRedis = redisDao.getValues(memberResponseDto.getEmail());
         if (Objects.isNull(rtkInRedis)) {
             throw new JwtException("인증 정보가 만료되었습니다.");
@@ -148,5 +149,17 @@ public class JwtProvider {
 
     public void deleteRtk(MemberResponseDto memberResponseDto) throws JwtException {
         redisDao.deleteValues(memberResponseDto.getEmail());
+    }
+
+    public void setBlackListAtk(String bearerAtk) {
+        String atk = bearerAtk.substring(7);
+        long expiration = getClaims(atk).getBody().getExpiration().getTime();
+        long now = Calendar.getInstance().getTime().getTime();
+
+        redisDao.setValues(atk, "logout", Duration.ofMillis(expiration-now));
+    }
+
+    public boolean isBlackList(String atk) {
+        return StringUtils.hasText(redisDao.getValues(atk));
     }
 }
