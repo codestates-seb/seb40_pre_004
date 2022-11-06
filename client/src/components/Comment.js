@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { transDate } from '../api/time';
 
 const S_CommentToggle = styled.div`
   color: hsl(210, 8%, 55%);
@@ -7,13 +8,13 @@ const S_CommentToggle = styled.div`
   padding: 0 3px 2px;
   margin: 20px 20px 0px 20px;
   border-bottom: 1px solid rgb(186, 191, 196);
-  a {
+  span {
     cursor: pointer;
     position: relative;
     bottom: 10px;
-  }
-  a:hover {
-    color: hsl(206, 100%, 52%);
+    &:hover {
+      color: hsl(206, 100%, 52%);
+    }
   }
   input {
     border: 1px solid rgb(186, 191, 196);
@@ -72,9 +73,8 @@ const Comment = ({ answer }) => {
   const [isEditing, setIsEditing] = useState(false); // input 숨기기
   const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
   const [commentArray, setCommentArray] = useState([]); // 코멘트입력값배열 저장 공간
-  console.log(answer.comments[0].body);
 
-  function CommentToggle() {
+  function commentToggle() {
     setIsEditing(!isEditing);
   }
 
@@ -88,7 +88,6 @@ const Comment = ({ answer }) => {
     setCommentArray((commentValueList) => [createComment, ...commentValueList]);
     setCreateComment('');
   };
-  console.log(answer);
 
   return (
     <>
@@ -100,13 +99,7 @@ const Comment = ({ answer }) => {
               <S_CList>
                 <span>{comment.body} -</span>
                 <S_CUserName> {comment.displayName}</S_CUserName>
-                <S_CCreatedAt>
-                  {new Date(comment.createdAt).toLocaleDateString('en-us', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </S_CCreatedAt>
+                <S_CCreatedAt>{transDate(comment.createdAt)}</S_CCreatedAt>
               </S_CList>
             </li>
           ))}
@@ -117,41 +110,29 @@ const Comment = ({ answer }) => {
                 <span>{value} - </span>
                 {/* 작성자 이름 들어가야함 */}
                 <S_CUserName>hyelyn</S_CUserName>
-                <S_CCreatedAt>
-                  {new Date().toLocaleDateString('en-us', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </S_CCreatedAt>
+                <S_CCreatedAt>{transDate()}</S_CCreatedAt>
               </S_CList>
             </li>
           ))}
         </ul>
       </S_Comment>
       {/* 토글눌러서 인풋창 띄우기 */}
-      <S_CommentToggle>
+      <S_CommentToggle onClick={commentToggle}>
+        <span>Add a comment</span>
         {isEditing ? (
-          <>
-            <a href="#;" onClick={CommentToggle}>
-              Add a comment
-            </a>
-            <div onSubmit={onSubmit}>
-              <form>
-                <input
-                  type="text"
-                  placeholder="Add a comment"
-                  value={createComment}
-                  onChange={onChange}
-                />
-                <button>Send !</button>
-              </form>
-            </div>
-          </>
+          <div onSubmit={onSubmit}>
+            <form>
+              <input
+                type="text"
+                placeholder="Add a comment"
+                value={createComment}
+                onChange={onChange}
+              />
+              <button>Send !</button>
+            </form>
+          </div>
         ) : (
-          <a href="#;" onClick={CommentToggle}>
-            Add a comment
-          </a>
+          ''
         )}
       </S_CommentToggle>
     </>

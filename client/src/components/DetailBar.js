@@ -20,13 +20,16 @@ function DetailBar({ questionId }) {
       setItem(data);
       console.log(data);
     }
-    fetchItem();
+    try {
+      fetchItem();
+    } catch (err) {
+      console.error(err);
+    }
   }, []);
   {
     return (
       <S_DetailBar>
         <DetailHeadLine
-          key={item.questionId}
           title={item.title}
           asked={item.createdAt}
           modified={item.modifiedAt}
@@ -37,11 +40,10 @@ function DetailBar({ questionId }) {
           </div>
           <div>
             <DetailView
-              key={questionId}
               id={questionId}
               content={item.body}
               tags={item.tags}
-              username={item.displayName}
+              userName={item.displayName}
               asked={item.createdAt}
               answers={item.answers}
               memberId={item.memberId}

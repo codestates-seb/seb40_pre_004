@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { transDate } from '../api/time';
 
 const S_H1 = styled.h1`
   font-size: 1.61538462rem;
@@ -52,18 +53,6 @@ const S_Span2 = styled.span`
 `;
 
 function DetailHeadLine({ title, asked, modified }) {
-  const askedDate = new Date(asked).toLocaleDateString('en-us', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-
-  const modifiedDate = new Date(modified).toLocaleDateString('en-us', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-
   return (
     <S_DFlex>
       <S_Div>
@@ -71,17 +60,17 @@ function DetailHeadLine({ title, asked, modified }) {
           <S_H1>{title}</S_H1>
         </div>
         <div>
-          <Link to="/">Ask Question</Link>
+          <Link to="/questions/ask">Ask Question</Link>
         </div>
       </S_Div>
       <S_Div2>
         <div>
           <S_Span>Asked </S_Span>
-          <S_Span2>{askedDate}</S_Span2>
+          <S_Span2>{transDate(asked)}</S_Span2>
         </div>
         <div>
           <S_Span>Modified </S_Span>
-          <S_Span2>{modifiedDate}</S_Span2>
+          <S_Span2>{transDate(modified)}</S_Span2>
         </div>
       </S_Div2>
     </S_DFlex>

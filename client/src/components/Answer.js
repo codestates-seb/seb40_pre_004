@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Comment from './Comment';
+import { getTime, diff } from '../api/time';
 
 const S_PostCell = styled.div`
   margin: 20px;
@@ -75,9 +76,7 @@ const S_div = styled.div`
 `;
 
 function Answer({ answer, id }) {
-  let now = new Date();
-  let then = new Date(answer.createdAt);
-  let diff = now.getDate() - then.getDate();
+  const time = diff(new Date().getDate(), getTime(answer.createdAt).getDate());
 
   return (
     <S_PostCell>
@@ -102,13 +101,13 @@ function Answer({ answer, id }) {
           Follow
         </S_FlexItem>
         <S_AnswerPostSignature>
-          <div>answered {diff} days ago</div>
+          <div>answered {time} days ago</div>
           <S_div>
             <S_Img>
               <img
                 src="https://pbs.twimg.com/media/EyNja1BWUAEpxJh?format=jpg&name=900x900"
                 alt="강아지"
-              ></img>
+              />
             </S_Img>
             <S_UserName>{answer.memberDisplayName}</S_UserName>
           </S_div>

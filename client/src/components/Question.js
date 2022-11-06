@@ -136,8 +136,6 @@ const S_UserCardTheme = styled.div`
 `;
 
 function Question({ title, displayName, createdAt, id }) {
-  // 더미데이터
-  // const questionId = 18;
   const sideData = [
     {
       answers: [

@@ -5,8 +5,8 @@ import 'react-quill/dist/quill.snow.css';
 import CustomToolBar from './CustomToolbar';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
-import Answer from './Answer';
-// import axios from 'axios';
+import Answers from './Answers';
+import { getTime, diff } from '../api/time';
 
 const S_PostLayout = styled.div`
   margin: 20px;
@@ -114,7 +114,7 @@ const S_CommentToggle = styled.div`
   padding: 0 3px 2px;
   margin: 20px 20px 0px 20px;
   border-bottom: 1px solid rgb(186, 191, 196);
-  a {
+  span {
     cursor: pointer;
     position: relative;
     bottom: 10px;
@@ -151,30 +151,9 @@ const S_CommentToggle = styled.div`
     }
   }
 `;
-const S_SelectBox = styled.div`
-  display: flex;
-  margin-left: 10px;
-`;
-
-const S_selectItem = styled.select`
-  border-radius: 4px;
-  border-color: rgb(186, 191, 196);
-  width: 244px;
-  height: 32px;
-  &:focus {
-    box-shadow: rgb(0, 116, 204, 0.15) 0px 0px 0px 4px;
-    outline: none;
-    border-radius: 3px;
-  }
-`;
 
 const S_Answers = styled.div`
   margin: 20px 20px 0px 20px;
-`;
-
-const S_AnswersHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 const S_Word = styled.p`
@@ -265,21 +244,17 @@ function DetailView({
   id,
   title,
   content,
-  username,
+  userName,
   asked,
   tags,
   answers,
   memberId,
 }) {
-  let now = new Date();
-  let then = new Date(asked);
-  let diff = now.getDate() - then.getDate();
-
   const [isEditing, setIsEditing] = useState(false); // input 숨기기
   const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
   const [commentArray, setCommentArray] = useState([]); // 코멘트입력값배열 저장 공간
 
-  function CommentToggle() {
+  function commentToggle() {
     setIsEditing(!isEditing);
   }
 
@@ -293,13 +268,15 @@ function DetailView({
     setCreateComment('');
   };
 
+  const time = diff(new Date().getDate(), getTime(asked).getDate());
+
   return (
     <S_PostLayout>
       <S_Ad>
         <img
           src="https://tpc.googlesyndication.com/simgad/10582817586221403560"
           alt="ad"
-        ></img>
+        />
       </S_Ad>
       <S_PostCell>
         <S_PostBody>
@@ -313,8 +290,8 @@ function DetailView({
           <S_PostTagList>
             {tags && tags.length > 0 ? (
               <ul>
-                {tags.map((tag) => (
-                  <li key={tag}>{tag}</li>
+                {tags.map((tag, index) => (
+                  <li key={index}>{tag}</li>
                 ))}
               </ul>
             ) : (
@@ -330,7 +307,7 @@ function DetailView({
                 pathname: `/update/${id}`,
                 state: {
                   title: title,
-                  name: username,
+                  name: userName,
                   body: content,
                   memberId: memberId,
                 },
@@ -342,16 +319,16 @@ function DetailView({
           </S_FlexItem>
           <S_PostSignature>
             <S_Div>
-              <div>asked {diff} days ago</div>
+              <div>asked {time} days ago</div>
             </S_Div>
             <S_Div>
               <S_Img>
                 <img
                   src="https://cdn.hellodd.com/news/photo/202005/71835_craw1.jpg"
                   alt="고양이"
-                ></img>
+                />
               </S_Img>
-              <S_UserName>{username}</S_UserName>
+              <S_UserName>{userName}</S_UserName>
             </S_Div>
           </S_PostSignature>
         </S_DFlex>
@@ -364,28 +341,22 @@ function DetailView({
             </li>
           ))}
         </div>
-        <S_CommentToggle>
+        <S_CommentToggle onClick={commentToggle}>
+          <span>Add a comment</span>
           {isEditing ? (
-            <>
-              <a href="#;" onClick={CommentToggle}>
-                Add a comment
-              </a>
-              <div onSubmit={onSubmit}>
-                <form>
-                  <input
-                    type="text"
-                    placeholder="Add a comment"
-                    value={createComment}
-                    onChange={onChange}
-                  />
-                  <button>Send !</button>
-                </form>
-              </div>
-            </>
+            <div>
+              <form onSubmit={onSubmit}>
+                <input
+                  type="text"
+                  placeholder="Add a comment"
+                  value={createComment}
+                  onChange={onChange}
+                />
+                <button>Send !</button>
+              </form>
+            </div>
           ) : (
-            <a href="#;" onClick={CommentToggle}>
-              Add a comment
-            </a>
+            ''
           )}
         </S_CommentToggle>
       </S_PostCell>
@@ -410,8 +381,8 @@ function DetailView({
           <S_PostTagList>
             {tags && tags.length > 0 ? (
               <ul>
-                {tags.map((tag) => (
-                  <li key={tag}>{tag}</li>
+                {tags.map((tag, index) => (
+                  <li key={index}>{tag}</li>
                 ))}
               </ul>
             ) : (
@@ -425,25 +396,6 @@ function DetailView({
         </S_Link2>
       </S_Div>
     </S_PostLayout>
-  );
-}
-
-function SelectMenu() {
-  const [Selected, setSelected] = useState('');
-
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
-
-  return (
-    <div>
-      <div>
-        <S_selectItem onChange={handleSelect} value={Selected}>
-          {<option>{'Date created (oldest first)'}</option>}
-        </S_selectItem>
-        <p>{Selected}</p>
-      </div>
-    </div>
   );
 }
 
@@ -493,35 +445,6 @@ function FormBox() {
       </>
     );
   }
-}
-
-function Answers({ answers, id }) {
-  return (
-    <>
-      <S_AnswersHeader>
-        <div>
-          {answers && answers.length > 0 ? (
-            <S_Word>{answers.length} Answer</S_Word>
-          ) : (
-            ''
-          )}
-        </div>
-        <S_SelectBox>
-          Sorted by:&nbsp;
-          <div>
-            <SelectMenu />
-          </div>
-        </S_SelectBox>
-      </S_AnswersHeader>
-      {answers && answers.length > 0
-        ? answers.map((answer) => (
-            <div key={answer}>
-              <Answer answer={answer} id={id} />
-            </div>
-          ))
-        : ''}
-    </>
-  );
 }
 
 export default DetailView;
