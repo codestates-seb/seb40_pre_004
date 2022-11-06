@@ -123,6 +123,7 @@ const LoginForm = () => {
       axios
         .post('/v1/auth/login', body)
         .then((response) => {
+          console.log(response.headers);
           if (response.status === 200) {
             const accessToken = response.headers.authorization.slice(7);
             const refreshToken = response.headers.refresh;

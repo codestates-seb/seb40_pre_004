@@ -7,6 +7,7 @@ import com.codestates.preproject.domain.member.dto.MemberResponseDto;
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.mapper.MemberMapper;
 import com.codestates.preproject.domain.member.service.MemberService;
+import com.codestates.preproject.security.jwt.JwtProvider;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -48,6 +49,9 @@ class MemberControllerTest {
 
     @MockBean
     private MemberMapper mapper;
+
+    @MockBean
+    private JwtProvider jwtProvider;
 
     @Autowired
     private MockMvc mockMvc;

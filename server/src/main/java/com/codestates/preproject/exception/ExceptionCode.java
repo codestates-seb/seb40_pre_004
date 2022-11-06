@@ -5,6 +5,7 @@ import lombok.Getter;
 public enum ExceptionCode {
     /* 400 : */
     INVALID_INPUT_VALUE(400,  "INVALID INPUT VALUE"),
+    INVALID_INPUT_ATK(400, "INVALID INPUT ACCESS_TOKEN"),
 
     /* 403 : */
     HANDLE_ACCESS_DENIED(403,"HANDLE ACCESS DENIED"),

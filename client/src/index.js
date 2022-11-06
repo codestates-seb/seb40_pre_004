@@ -9,7 +9,7 @@ import { CookiesProvider } from 'react-cookie';
 
 // axios.defaults.baseURL =
 //   'http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080';
-// axios.defaults.withCredentials = false;
+// axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
