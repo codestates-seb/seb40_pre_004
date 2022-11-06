@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Comment from './Comment';
 
 const S_PostCell = styled.div`
   margin: 20px;
@@ -21,6 +23,7 @@ const S_DFlex = styled.div`
   margin-top: 30px;
   border-bottom: 1px solid rgb(186, 191, 196);
 `;
+
 const S_PostSignature = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -38,8 +41,17 @@ const S_AnswerPostSignature = styled(S_PostSignature)`
 `;
 
 const S_FlexItem = styled.div`
-  p {
-    cursor: pointer;
+  cursor: pointer;
+  &:hover {
+    color: hsl(210, 8%, 55%);
+  }
+`;
+
+const S_Link = styled(Link)`
+  margin: 4px;
+  color: hsl(210, 8%, 45%);
+  &:hover {
+    color: hsl(210, 8%, 55%);
   }
 `;
 
@@ -50,7 +62,6 @@ const S_UserName = styled.div`
     color: hsl(206, 100%, 52%);
   }
 `;
-const S_UserActionTime = styled.div``;
 
 const S_Img = styled.div`
   display: flex;
@@ -58,41 +69,52 @@ const S_Img = styled.div`
   height: 35px;
   margin-right: 10px;
 `;
+
 const S_div = styled.div`
   display: flex;
 `;
 
-function Answer(answer) {
+function Answer({ answer, id }) {
+  let now = new Date();
+  let then = new Date(answer.createdAt);
+  let diff = now.getDate() - then.getDate();
+
   return (
     <S_PostCell>
       <S_PostBody>
-        {answer && answer.length > 0 ? (
-          <S_PostContent>{answer.body}</S_PostContent>
-        ) : (
-          ''
-        )}
+        <S_PostContent>{answer.body}</S_PostContent>
       </S_PostBody>
       <S_DFlex>
         <S_FlexItem>
-          <p>Share Edit Follow</p>
+          Share
+          <S_Link
+            to={{
+              pathname: `/update/${id}/${answer.answerId}}`,
+              state: {
+                name: answer.memberDisplayName,
+                body: answer.body,
+                memberId: answer.memberId,
+              },
+            }}
+          >
+            Edit
+          </S_Link>
+          Follow
         </S_FlexItem>
         <S_AnswerPostSignature>
-          <S_UserActionTime>answered 1 hours ago</S_UserActionTime>
+          <div>answered {diff} days ago</div>
           <S_div>
             <S_Img>
               <img
                 src="https://pbs.twimg.com/media/EyNja1BWUAEpxJh?format=jpg&name=900x900"
-                alt="고양이"
+                alt="강아지"
               ></img>
             </S_Img>
-            {answer && answer.length > 0 ? (
-              <S_UserName>{answer.memberDisplayName}</S_UserName>
-            ) : (
-              ''
-            )}
+            <S_UserName>{answer.memberDisplayName}</S_UserName>
           </S_div>
         </S_AnswerPostSignature>
       </S_DFlex>
+      <Comment answer={answer} />
     </S_PostCell>
   );
 }

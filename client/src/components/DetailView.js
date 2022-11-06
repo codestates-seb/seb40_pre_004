@@ -36,7 +36,7 @@ const S_PostContent = styled.p`
   font-size: 16px;
 `;
 
-const S_PostTagDiv = styled.div`
+const S_PostTagBox = styled.div`
   display: flex;
   margin-top: 20px;
   margin-bottom: 35px;
@@ -77,8 +77,17 @@ const S_DFlex = styled.div`
 `;
 
 const S_FlexItem = styled.div`
-  p {
-    cursor: pointer;
+  cursor: pointer;
+  &:hover {
+    color: hsl(210, 8%, 55%);
+  }
+`;
+
+const S_Link = styled(Link)`
+  margin: 4px;
+  color: hsl(210, 8%, 45%);
+  &:hover {
+    color: hsl(210, 8%, 55%);
   }
 `;
 
@@ -94,7 +103,60 @@ const S_PostSignature = styled.div`
   margin-bottom: 20px;
 `;
 
-const S_select = styled.select`
+const S_CList = styled.div`
+  border-bottom: 1px solid rgb(186, 191, 196);
+  margin: 10px;
+  padding-bottom: 10px;
+`;
+const S_CommentToggle = styled.div`
+  color: hsl(210, 8%, 55%);
+  opacity: 0.6;
+  padding: 0 3px 2px;
+  margin: 20px 20px 0px 20px;
+  border-bottom: 1px solid rgb(186, 191, 196);
+  a {
+    cursor: pointer;
+    position: relative;
+    bottom: 10px;
+    &:hover {
+      color: hsl(206, 100%, 52%);
+    }
+  }
+  input {
+    border: 1px solid rgb(186, 191, 196);
+    margin-bottom: 10px;
+    padding: 4px 200px 4px 10px;
+    &:focus {
+      box-shadow: rgb(0, 116, 204, 0.15) 0px 0px 0px 4px;
+      outline: none;
+      border-radius: 3px;
+    }
+  }
+  button {
+    margin-left: 10px;
+    background-color: rgb(10, 149, 255);
+    border: 1px solid white;
+    border-radius: 3px;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    font-size: 13px;
+    color: white;
+    box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+    &:hover {
+      background-color: hsl(206, 100%, 40%);
+    }
+  }
+`;
+const S_SelectBox = styled.div`
+  display: flex;
+  margin-left: 10px;
+`;
+
+const S_selectItem = styled.select`
   border-radius: 4px;
   border-color: rgb(186, 191, 196);
   width: 244px;
@@ -103,24 +165,6 @@ const S_select = styled.select`
     box-shadow: rgb(0, 116, 204, 0.15) 0px 0px 0px 4px;
     outline: none;
     border-radius: 3px;
-  }
-`;
-
-const S_CommentLink = styled.div`
-  color: hsl(210, 8%, 55%);
-  opacity: 0.6;
-  padding: 0 3px 2px;
-  margin: 20px 20px 0px 20px;
-  border-bottom: 1px solid rgb(186, 191, 196);
-
-  a {
-    cursor: pointer;
-    position: relative;
-    bottom: 20px;
-  }
-
-  a:hover {
-    color: hsl(206, 100%, 52%);
   }
 `;
 
@@ -138,11 +182,6 @@ const S_Word = styled.p`
   margin-bottom: 20px;
 `;
 
-const S_Select = styled.div`
-  display: flex;
-  margin-left: 10px;
-`;
-
 const S_UserName = styled.div`
   display: block;
   color: hsl(206, 100%, 40%);
@@ -150,7 +189,6 @@ const S_UserName = styled.div`
     color: hsl(206, 100%, 52%);
   }
 `;
-const S_UserActionTime = styled.div``;
 
 //form
 
@@ -178,7 +216,7 @@ const S_Btn = styled.button`
   }
 `;
 
-const S_Link = styled(Link)`
+const S_Link2 = styled(Link)`
   color: hsl(206, 100%, 40%);
   :hover {
     color: hsl(206, 100%, 52%);
@@ -218,20 +256,42 @@ const S_Img = styled.div`
   height: 35px;
   margin-right: 10px;
 `;
-const S_div = styled.div`
+
+const S_Div = styled.div`
   display: flex;
 `;
 
-function DetailView({ content, username, tags, answers }) {
-  // const onChange = (event) => setComment(event.target.value);
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (comment === '') {
-  //     return;
-  //   }
-  //   setCommentArray((commentValueList) => [comment, ...commentValueList]);
-  //   setComment('');
-  // };
+function DetailView({
+  id,
+  title,
+  content,
+  username,
+  asked,
+  tags,
+  answers,
+  memberId,
+}) {
+  let now = new Date();
+  let then = new Date(asked);
+  let diff = now.getDate() - then.getDate();
+
+  const [isEditing, setIsEditing] = useState(false); // input 숨기기
+  const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
+  const [commentArray, setCommentArray] = useState([]); // 코멘트입력값배열 저장 공간
+
+  function CommentToggle() {
+    setIsEditing(!isEditing);
+  }
+
+  const onChange = (e) => setCreateComment(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (createComment === '') {
+      return;
+    }
+    setCommentArray((commentValueList) => [createComment, ...commentValueList]);
+    setCreateComment('');
+  };
 
   return (
     <S_PostLayout>
@@ -245,11 +305,11 @@ function DetailView({ content, username, tags, answers }) {
         <S_PostBody>
           <S_PostContent
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(content),
+              __html: DOMPurify.sanitize(content), //본문 태그 출력 무시
             }}
           ></S_PostContent>
         </S_PostBody>
-        <S_PostTagDiv>
+        <S_PostTagBox>
           <S_PostTagList>
             {tags && tags.length > 0 ? (
               <ul>
@@ -261,16 +321,30 @@ function DetailView({ content, username, tags, answers }) {
               ''
             )}
           </S_PostTagList>
-        </S_PostTagDiv>
+        </S_PostTagBox>
         <S_DFlex>
           <S_FlexItem>
-            <p>Share Edit Follow</p>
+            Share
+            <S_Link
+              to={{
+                pathname: `/update/${id}`,
+                state: {
+                  title: title,
+                  name: username,
+                  body: content,
+                  memberId: memberId,
+                },
+              }}
+            >
+              Edit
+            </S_Link>
+            Follow
           </S_FlexItem>
           <S_PostSignature>
-            <S_div>
-              <S_UserActionTime>asked 3 hours ago</S_UserActionTime>
-            </S_div>
-            <S_div>
+            <S_Div>
+              <div>asked {diff} days ago</div>
+            </S_Div>
+            <S_Div>
               <S_Img>
                 <img
                   src="https://cdn.hellodd.com/news/photo/202005/71835_craw1.jpg"
@@ -278,48 +352,51 @@ function DetailView({ content, username, tags, answers }) {
                 ></img>
               </S_Img>
               <S_UserName>{username}</S_UserName>
-            </S_div>
+            </S_Div>
           </S_PostSignature>
         </S_DFlex>
-        <S_CommentLink>
-          {isComment ? (
-            <form>
-              <input type="text" placeholder="댓글달기..." />
-              <button>send !</button>
-            </form>
+        <div>
+          {commentArray.map((value, id) => (
+            <li key={id}>
+              <S_CList>
+                <span>{value}</span>
+              </S_CList>
+            </li>
+          ))}
+        </div>
+        <S_CommentToggle>
+          {isEditing ? (
+            <>
+              <a href="#;" onClick={CommentToggle}>
+                Add a comment
+              </a>
+              <div onSubmit={onSubmit}>
+                <form>
+                  <input
+                    type="text"
+                    placeholder="Add a comment"
+                    value={createComment}
+                    onChange={onChange}
+                  />
+                  <button>Send !</button>
+                </form>
+              </div>
+            </>
           ) : (
             <a href="#;" onClick={CommentToggle}>
               Add a comment
             </a>
           )}
-        </S_CommentLink>
+        </S_CommentToggle>
       </S_PostCell>
-
       <S_Answers>
-        <S_AnswersHeader>
-          <div>
-            {answers && answers.length > 0 ? (
-              <S_Word>{answers.length} Answer</S_Word>
-            ) : (
-              ''
-            )}
-          </div>
-          <S_Select>
-            Sorted by:&nbsp;
-            <div>
-              <Selecting />
-            </div>
-          </S_Select>
-        </S_AnswersHeader>
-        <Answers />
+        <Answers answers={answers} id={id} />
       </S_Answers>
-
-      {/* 댓글 없을때 */}
       <S_Word2>
         Know someone who can answer? Share a link to this&nbsp;
-        <S_Link>question</S_Link> via&nbsp;
-        <S_Link>email</S_Link>, <S_Link>Twitter</S_Link>, or&nbsp;
-        <S_Link>Facebook.</S_Link>
+        <S_Link2>question</S_Link2> via&nbsp;
+        <S_Link2>email</S_Link2>, <S_Link>Twitter</S_Link>, or&nbsp;
+        <S_Link2>Facebook.</S_Link2>
       </S_Word2>
       <div>
         <FormBox />
@@ -327,9 +404,9 @@ function DetailView({ content, username, tags, answers }) {
       <div>
         <S_Btn type="submit">Post Your Answer</S_Btn>
       </div>
-      <S_div>
+      <S_Div>
         <S_Word2>Browse other questions tagged&nbsp;</S_Word2>
-        <S_PostTagDiv>
+        <S_PostTagBox>
           <S_PostTagList>
             {tags && tags.length > 0 ? (
               <ul>
@@ -341,17 +418,17 @@ function DetailView({ content, username, tags, answers }) {
               ''
             )}
           </S_PostTagList>
-        </S_PostTagDiv>
+        </S_PostTagBox>
         <S_Word2> or&nbsp;</S_Word2>
-        <S_Link to="/questions/ask">
+        <S_Link2 to="/questions/ask">
           <S_Word2>ask your own question.</S_Word2>
-        </S_Link>
-      </S_div>
+        </S_Link2>
+      </S_Div>
     </S_PostLayout>
   );
 }
 
-function Selecting() {
+function SelectMenu() {
   const [Selected, setSelected] = useState('');
 
   const handleSelect = (e) => {
@@ -361,9 +438,9 @@ function Selecting() {
   return (
     <div>
       <div>
-        <S_select onChange={handleSelect} value={Selected}>
+        <S_selectItem onChange={handleSelect} value={Selected}>
           {<option>{'Date created (oldest first)'}</option>}
-        </S_select>
+        </S_selectItem>
         <p>{Selected}</p>
       </div>
     </div>
@@ -381,6 +458,7 @@ function FormBox() {
       container: '#toolbar',
     },
   };
+
   const formats = [
     'header',
     'font',
@@ -401,7 +479,6 @@ function FormBox() {
         <div>
           <S_Word>Your Answer</S_Word>
         </div>
-
         <S_StackForm>
           <S_PsRelativeBody>
             <CustomToolBar />
@@ -418,12 +495,33 @@ function FormBox() {
   }
 }
 
-function Answers({ answers }) {
-  return answers.map((answer) => (
-    <div key={answer}>
-      <Answer answer={answer} />
-    </div>
-  ));
+function Answers({ answers, id }) {
+  return (
+    <>
+      <S_AnswersHeader>
+        <div>
+          {answers && answers.length > 0 ? (
+            <S_Word>{answers.length} Answer</S_Word>
+          ) : (
+            ''
+          )}
+        </div>
+        <S_SelectBox>
+          Sorted by:&nbsp;
+          <div>
+            <SelectMenu />
+          </div>
+        </S_SelectBox>
+      </S_AnswersHeader>
+      {answers && answers.length > 0
+        ? answers.map((answer) => (
+            <div key={answer}>
+              <Answer answer={answer} id={id} />
+            </div>
+          ))
+        : ''}
+    </>
+  );
 }
 
 export default DetailView;

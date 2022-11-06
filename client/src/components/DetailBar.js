@@ -30,7 +30,6 @@ function DetailBar({ questionId }) {
           title={item.title}
           asked={item.createdAt}
           modified={item.modifiedAt}
-          viewed={9}
         />
         <div>
           <div>
@@ -43,7 +42,9 @@ function DetailBar({ questionId }) {
               content={item.body}
               tags={item.tags}
               username={item.displayName}
+              asked={item.createdAt}
               answers={item.answers}
+              memberId={item.memberId}
             />
           </div>
         </div>

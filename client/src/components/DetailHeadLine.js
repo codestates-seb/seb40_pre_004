@@ -51,7 +51,19 @@ const S_Span2 = styled.span`
   color: black;
 `;
 
-function DetailHeadLine({ title, asked, modified, viewed }) {
+function DetailHeadLine({ title, asked, modified }) {
+  const askedDate = new Date(asked).toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+
+  const modifiedDate = new Date(modified).toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+
   return (
     <S_DFlex>
       <S_Div>
@@ -65,15 +77,11 @@ function DetailHeadLine({ title, asked, modified, viewed }) {
       <S_Div2>
         <div>
           <S_Span>Asked </S_Span>
-          <S_Span2>{asked}</S_Span2>
+          <S_Span2>{askedDate}</S_Span2>
         </div>
         <div>
           <S_Span>Modified </S_Span>
-          <S_Span2>{modified}</S_Span2>
-        </div>
-        <div>
-          <S_Span>viewed </S_Span>
-          <S_Span2>{viewed} times</S_Span2>
+          <S_Span2>{modifiedDate}</S_Span2>
         </div>
       </S_Div2>
     </S_DFlex>
