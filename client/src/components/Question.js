@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { isToday, transDate } from '../api/time';
 
 const S_QuestionSummary = styled.div`
   position: relative;
@@ -184,7 +185,9 @@ function Question({ title, displayName, createdAt, id, tags }) {
               </div>
             </S_UserCardInfo>
             <S_UserCardTheme>
-              <a href="/">{createdAt}</a>
+              <Link to={`/detail/${id}`}>
+                asked {isToday(createdAt) ? 'today' : transDate(createdAt)}
+              </Link>
             </S_UserCardTheme>
           </S_UserCard>
         </S_SummaryMeta>
