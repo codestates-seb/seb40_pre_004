@@ -135,8 +135,7 @@ const S_UserCardTheme = styled.div`
   }
 `;
 
-function Question({ title, displayName, createdAt }) {
-  // 더미데이터
+function Question({ title, displayName, createdAt, id }) {
   const sideData = [
     {
       answers: [
@@ -169,7 +168,7 @@ function Question({ title, displayName, createdAt }) {
       </S_SummaryStatus>
       <S_SummaryContent>
         <S_H3>
-          <Link to="/detail">{title}</Link>
+          <Link to={`/detail/${id}`}>{title}</Link>
         </S_H3>
         <S_SummaryMeta>
           <S_SummaryMetaTags>

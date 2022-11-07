@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { transDate } from '../api/time';
 
 const S_H1 = styled.h1`
   font-size: 1.61538462rem;
@@ -51,7 +52,7 @@ const S_Span2 = styled.span`
   color: black;
 `;
 
-function DetailHeadLine({ title, asked, modified, viewed }) {
+function DetailHeadLine({ title, asked, modified }) {
   return (
     <S_DFlex>
       <S_Div>
@@ -59,21 +60,17 @@ function DetailHeadLine({ title, asked, modified, viewed }) {
           <S_H1>{title}</S_H1>
         </div>
         <div>
-          <Link to="/">Ask Question</Link>
+          <Link to="/questions/ask">Ask Question</Link>
         </div>
       </S_Div>
       <S_Div2>
         <div>
           <S_Span>Asked </S_Span>
-          <S_Span2>{asked}</S_Span2>
+          <S_Span2>{transDate(asked)}</S_Span2>
         </div>
         <div>
           <S_Span>Modified </S_Span>
-          <S_Span2>{modified}</S_Span2>
-        </div>
-        <div>
-          <S_Span>viewed </S_Span>
-          <S_Span2>{viewed} times</S_Span2>
+          <S_Span2>{transDate(modified)}</S_Span2>
         </div>
       </S_Div2>
     </S_DFlex>

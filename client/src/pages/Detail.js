@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Nav from '../components/Nav';
 import DetailBar from '../components/DetailBar';
+import { useParams } from 'react-router-dom';
 
 const S_Container = styled.div`
   max-width: 1264px;
@@ -17,12 +18,14 @@ const S_Container = styled.div`
 `;
 
 const Detail = () => {
+  let { questionId } = useParams();
+
   return (
     <>
       <S_Container>
         <Header />
         <Nav />
-        <DetailBar />
+        <DetailBar questionId={questionId} />
       </S_Container>
 
       <Footer />
