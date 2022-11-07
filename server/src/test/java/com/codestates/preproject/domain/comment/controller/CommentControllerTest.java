@@ -74,7 +74,7 @@ class CommentControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        post("/v1/comments")
+                        post("/comments")
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
@@ -133,7 +133,7 @@ class CommentControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                patch("/v1/comments/{comment-id}", commentId)
+                patch("/comments/{comment-id}", commentId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -183,7 +183,7 @@ class CommentControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/v1/comments/{comment-id}", commentId)
+                get("/comments/{comment-id}", commentId)
                         .accept(MediaType.APPLICATION_JSON)
         );
 
@@ -226,7 +226,7 @@ class CommentControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/v1/comments")
+                get("/comments")
                         .accept(MediaType.APPLICATION_JSON)
         );
 
@@ -257,7 +257,7 @@ class CommentControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                delete("/v1/comments/{comment-id}", commentId)
+                delete("/comments/{comment-id}", commentId)
         );
 
         //then

@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/members")
+@RequestMapping("/members")
 @Validated
 @RequiredArgsConstructor
 public class MemberController {

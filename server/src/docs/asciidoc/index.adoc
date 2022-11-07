@@ -7,7 +7,7 @@
 
 NOTE: https://github.com/codestates-seb/seb40_pre_004
 
-    version: 2.0,   date: 2022.11.3
+    version: final,   date: 2022.11.7
 
 ***
 

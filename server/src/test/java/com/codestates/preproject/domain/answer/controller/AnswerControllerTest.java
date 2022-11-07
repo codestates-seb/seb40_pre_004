@@ -80,7 +80,7 @@ class AnswerControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        post("/v1/answers")
+                        post("/answers")
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
@@ -152,7 +152,7 @@ class AnswerControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                patch("/v1/answers/{answer-id}", answerId)
+                patch("/answers/{answer-id}", answerId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -221,7 +221,7 @@ class AnswerControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        get("/v1/answers/{answer-id}", answerId)
+                        get("/answers/{answer-id}", answerId)
                                 .accept(MediaType.APPLICATION_JSON)
                 );
 
@@ -283,7 +283,7 @@ class AnswerControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        get("/v1/answers")
+                        get("/answers")
                                 .accept(MediaType.APPLICATION_JSON)
                 );
 
@@ -324,7 +324,7 @@ class AnswerControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        delete("/v1/answers/{answer-id}", answerId)
+                        delete("/answers/{answer-id}", answerId)
                 );
 
         //then

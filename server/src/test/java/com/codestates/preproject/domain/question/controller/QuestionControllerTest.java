@@ -82,7 +82,7 @@ class QuestionControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                post("/v1/questions")
+                post("/questions")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -150,7 +150,7 @@ class QuestionControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                patch("/v1/questions/{question-id}", questionId)
+                patch("/questions/{question-id}", questionId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -212,7 +212,7 @@ class QuestionControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/v1/questions/{question-id}", questionId)
+                get("/questions/{question-id}", questionId)
                         .accept(MediaType.APPLICATION_JSON)
         );
 
@@ -279,7 +279,7 @@ class QuestionControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                get("/v1/questions?page={page}&size={size}", page, size)
+                get("/questions?page={page}&size={size}", page, size)
                         .accept(MediaType.APPLICATION_JSON)
         );
 
@@ -321,7 +321,7 @@ class QuestionControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                delete("/v1/questions/{question-id}", questionId)
+                delete("/questions/{question-id}", questionId)
         );
 
         //then

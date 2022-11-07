@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/v1/answers")
+@RequestMapping("/answers")
 @Validated
 public class AnswerController {
         private final AnswerService answerService;
