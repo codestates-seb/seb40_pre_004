@@ -6,7 +6,7 @@ import CustomToolBar from './CustomToolbar';
 import { Link, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import Answers from './Answers';
-import { time } from '../api/time';
+import { dateDiff } from '../api/time';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -305,13 +305,7 @@ function DetailView({
             )}
           </S_FlexItem>
           <S_PostSignature>
-            <S_Div>
-              {time(asked) === 0 ? (
-                <div>answered Today</div>
-              ) : (
-                <div>answered {time(asked)} days ago</div>
-              )}
-            </S_Div>
+            <S_Div>{dateDiff(asked)}</S_Div>
             <S_Div>
               <S_Img>
                 <img
