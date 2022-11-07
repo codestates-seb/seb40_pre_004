@@ -101,7 +101,11 @@ function Answer({ answer, id, setItem }) {
           Follow
         </S_FlexItem>
         <S_AnswerPostSignature>
-          <div>answered {time} days ago</div>
+          {time === 0 ? (
+            <div>answered Today</div>
+          ) : (
+            <div>answered {time} days ago</div>
+          )}
           <S_div>
             <S_Img>
               <img

@@ -255,7 +255,11 @@ function DetailView({
           </S_FlexItem>
           <S_PostSignature>
             <S_Div>
-              <div>asked {time} days ago</div>
+              {time === 0 ? (
+                <div>answered Today</div>
+              ) : (
+                <div>answered {time} days ago</div>
+              )}
             </S_Div>
             <S_Div>
               <S_Img>
@@ -339,7 +343,7 @@ function FormBox(setItem, id) {
 
     axios
       .post(
-        '/v1/answers',
+        '/answers',
         {
           memberId,
           questionId: id,
@@ -353,7 +357,7 @@ function FormBox(setItem, id) {
       )
       .then(() => {
         async function fetchItem() {
-          const res = await axios.get(`/v1/questions/${id}`);
+          const res = await axios.get(`/questions/${id}`);
           let data = res.data.data;
           setItem(data);
         }
