@@ -46,6 +46,7 @@ function DetailBar({ questionId }) {
               asked={item.createdAt}
               answers={item.answers}
               memberId={item.memberId}
+              setItem={setItem}
             />
           </div>
         </div>

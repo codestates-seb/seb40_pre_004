@@ -75,7 +75,7 @@ const S_div = styled.div`
   display: flex;
 `;
 
-function Answer({ answer, id }) {
+function Answer({ answer, id, setItem }) {
   const time = diff(new Date().getDate(), getTime(answer.createdAt).getDate());
 
   return (
@@ -113,7 +113,7 @@ function Answer({ answer, id }) {
           </S_div>
         </S_AnswerPostSignature>
       </S_DFlex>
-      <Comment answer={answer} />
+      <Comment answer={answer} setItem={setItem} id={id} />
     </S_PostCell>
   );
 }

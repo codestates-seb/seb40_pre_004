@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { transDate } from '../api/time';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
 const S_CommentToggle = styled.div`
   color: hsl(210, 8%, 55%);
@@ -69,10 +71,11 @@ const S_CCreatedAt = styled.span`
   color: hsl(210, 8%, 45%);
 `;
 
-const Comment = ({ answer }) => {
+const Comment = ({ answer, setItem, id }) => {
   const [isEditing, setIsEditing] = useState(false); // input 숨기기
   const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
   const [commentArray, setCommentArray] = useState([]); // 코멘트입력값배열 저장 공간
+  const { memberId, accessToken } = useSelector((state) => state.authToken);
 
   function commentToggle() {
     setIsEditing(!isEditing);
@@ -85,9 +88,41 @@ const Comment = ({ answer }) => {
     if (createComment === '') {
       return;
     }
-    setCommentArray((commentValueList) => [createComment, ...commentValueList]);
+    setCommentArray([createComment, ...commentArray]);
     setCreateComment('');
+
+    axios
+      .post(
+        '/v1/comments',
+        {
+          memberId,
+          answerId: answer.answerId,
+          body: createComment,
+        },
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
+      )
+      .then(() => {
+        async function fetchItem() {
+          const res = await axios.get(`/v1/questions/${id}`);
+          let data = res.data.data;
+          setItem(data);
+        }
+        try {
+          fetchItem();
+        } catch (err) {
+          console.error(err);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
+
+  console.log(answer);
 
   return (
     <>
@@ -109,7 +144,7 @@ const Comment = ({ answer }) => {
               <S_CList>
                 <span>{value} - </span>
                 {/* 작성자 이름 들어가야함 */}
-                <S_CUserName>hyelyn</S_CUserName>
+                <S_CUserName>{}</S_CUserName>
                 <S_CCreatedAt>{transDate()}</S_CCreatedAt>
               </S_CList>
             </li>
@@ -117,8 +152,8 @@ const Comment = ({ answer }) => {
         </ul>
       </S_Comment>
       {/* 토글눌러서 인풋창 띄우기 */}
-      <S_CommentToggle onClick={commentToggle}>
-        <span>Add a comment</span>
+      <S_CommentToggle>
+        <button onClick={commentToggle}>Add a comment</button>
         {isEditing ? (
           <div>
             <form onSubmit={onSubmit}>

@@ -249,6 +249,7 @@ function DetailView({
   tags,
   answers,
   memberId,
+  setItem,
 }) {
   const [isEditing, setIsEditing] = useState(false); // input 숨기기
   const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
@@ -361,7 +362,7 @@ function DetailView({
         </S_CommentToggle>
       </S_PostCell>
       <S_Answers>
-        <Answers answers={answers} id={id} />
+        <Answers answers={answers} id={id} setItem={setItem} />
       </S_Answers>
       <S_Word2>
         Know someone who can answer? Share a link to this&nbsp;

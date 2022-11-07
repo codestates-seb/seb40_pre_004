@@ -29,7 +29,7 @@ const S_SelectItem = styled.select`
   }
 `;
 
-function Answers({ answers, id }) {
+function Answers({ answers, id, setItem }) {
   return (
     <>
       <S_AnswersHeader>
@@ -50,7 +50,7 @@ function Answers({ answers, id }) {
       {answers && answers.length > 0
         ? answers.map((answer, memberId) => (
             <div key={memberId}>
-              <Answer answer={answer} id={id} />
+              <Answer answer={answer} id={id} setItem={setItem} />
             </div>
           ))
         : ''}
