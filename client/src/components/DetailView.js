@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import CustomToolBar from './CustomToolbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import Answers from './Answers';
 import { time } from '../api/time';
@@ -79,9 +79,35 @@ const S_DFlex = styled.div`
 `;
 
 const S_FlexItem = styled.div`
+  position: relative;
   cursor: pointer;
   &:hover {
     color: hsl(210, 8%, 55%);
+  }
+  span {
+    margin-right: 7px;
+  }
+`;
+
+const S_ButtonDelete = styled.button`
+  position: absolute;
+  top: 24px;
+  left: -5px;
+
+  background-color: rgb(10, 149, 255);
+  border: 1px solid white;
+  border-radius: 5px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 10px 11px 10.4px 10px;
+  margin: 0px 0px 0px 4px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 13px;
+  color: white;
+  box-shadow: inset 0 1px 0 0 hsl(210, 8%, 90%);
+  &:hover {
+    background-color: hsl(206, 100%, 40%);
   }
 `;
 
@@ -204,6 +230,26 @@ function DetailView({
   memberId,
   setItem,
 }) {
+  // 로그인 한 memberID
+  const popsToData = useSelector((state) => state.authToken);
+  const loginMemberId = popsToData.memberId;
+
+  const navigate = useNavigate();
+
+  const buttonDelete = () => {
+    axios
+      .delete(`/questions/${id}`, {
+        headers: {
+          Authorization: popsToData.accessToken,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        navigate('/');
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <S_PostLayout>
       <S_Ad>
@@ -235,21 +281,28 @@ function DetailView({
         </S_PostTagBox>
         <S_DFlex>
           <S_FlexItem>
-            Share
-            <S_Link
-              to={{
-                pathname: `/update/${id}`,
-                state: {
+            <span>Share</span>
+            {loginMemberId === memberId ? (
+              <S_Link
+                to={`/questions/update/${id}`}
+                state={{
+                  questionId: id,
                   title: title,
-                  name: userName,
+                  tags: tags,
                   body: content,
-                  memberId: memberId,
-                },
-              }}
-            >
-              Edit
-            </S_Link>
-            Follow
+                }}
+              >
+                <span>Edit</span>
+              </S_Link>
+            ) : (
+              <></>
+            )}
+            <span>Follow</span>
+            {loginMemberId === memberId ? (
+              <S_ButtonDelete onClick={buttonDelete}>Delete</S_ButtonDelete>
+            ) : (
+              <></>
+            )}
           </S_FlexItem>
           <S_PostSignature>
             <S_Div>
