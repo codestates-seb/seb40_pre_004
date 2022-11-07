@@ -103,55 +103,6 @@ const S_PostSignature = styled.div`
   margin-bottom: 20px;
 `;
 
-const S_CList = styled.div`
-  border-bottom: 1px solid rgb(186, 191, 196);
-  margin: 10px;
-  padding-bottom: 10px;
-`;
-const S_CommentToggle = styled.div`
-  color: hsl(210, 8%, 55%);
-  opacity: 0.6;
-  padding: 0 3px 2px;
-  margin: 20px 20px 0px 20px;
-  border-bottom: 1px solid rgb(186, 191, 196);
-  span {
-    cursor: pointer;
-    position: relative;
-    bottom: 10px;
-    &:hover {
-      color: hsl(206, 100%, 52%);
-    }
-  }
-  input {
-    border: 1px solid rgb(186, 191, 196);
-    margin-bottom: 10px;
-    padding: 4px 200px 4px 10px;
-    &:focus {
-      box-shadow: rgb(0, 116, 204, 0.15) 0px 0px 0px 4px;
-      outline: none;
-      border-radius: 3px;
-    }
-  }
-  button {
-    margin-left: 10px;
-    background-color: rgb(10, 149, 255);
-    border: 1px solid white;
-    border-radius: 3px;
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 5px;
-    cursor: pointer;
-    text-align: center;
-    position: relative;
-    font-size: 13px;
-    color: white;
-    box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
-    &:hover {
-      background-color: hsl(206, 100%, 40%);
-    }
-  }
-`;
-
 const S_Answers = styled.div`
   margin: 20px 20px 0px 20px;
 `;
@@ -251,24 +202,6 @@ function DetailView({
   memberId,
   setItem,
 }) {
-  const [isEditing, setIsEditing] = useState(false); // input 숨기기
-  const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
-  const [commentArray, setCommentArray] = useState([]); // 코멘트입력값배열 저장 공간
-
-  function commentToggle() {
-    setIsEditing(!isEditing);
-  }
-
-  const onChange = (e) => setCreateComment(e.target.value);
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (createComment === '') {
-      return;
-    }
-    setCommentArray((commentValueList) => [createComment, ...commentValueList]);
-    setCreateComment('');
-  };
-
   const time = diff(new Date().getDate(), getTime(asked).getDate());
 
   return (
@@ -333,33 +266,6 @@ function DetailView({
             </S_Div>
           </S_PostSignature>
         </S_DFlex>
-        <div>
-          {commentArray.map((value, id) => (
-            <li key={id}>
-              <S_CList>
-                <span>{value}</span>
-              </S_CList>
-            </li>
-          ))}
-        </div>
-        <S_CommentToggle onClick={commentToggle}>
-          <span>Add a comment</span>
-          {isEditing ? (
-            <div>
-              <form onSubmit={onSubmit}>
-                <input
-                  type="text"
-                  placeholder="Add a comment"
-                  value={createComment}
-                  onChange={onChange}
-                />
-                <button>Send !</button>
-              </form>
-            </div>
-          ) : (
-            ''
-          )}
-        </S_CommentToggle>
       </S_PostCell>
       <S_Answers>
         <Answers answers={answers} id={id} setItem={setItem} />

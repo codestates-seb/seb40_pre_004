@@ -10,14 +10,6 @@ const S_CommentToggle = styled.div`
   padding: 0 3px 2px;
   margin: 20px 20px 0px 20px;
   border-bottom: 1px solid rgb(186, 191, 196);
-  span {
-    cursor: pointer;
-    position: relative;
-    bottom: 10px;
-    &:hover {
-      color: hsl(206, 100%, 52%);
-    }
-  }
   input {
     border: 1px solid rgb(186, 191, 196);
     margin-bottom: 10px;
@@ -28,24 +20,34 @@ const S_CommentToggle = styled.div`
       border-radius: 3px;
     }
   }
+`;
 
-  button {
-    margin-left: 10px;
-    background-color: rgb(10, 149, 255);
-    border: 1px solid white;
-    border-radius: 3px;
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 5px;
-    cursor: pointer;
-    text-align: center;
-    position: relative;
-    font-size: 13px;
-    color: white;
-    box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
-    &:hover {
-      background-color: hsl(206, 100%, 40%);
-    }
+const S_Btn = styled.button`
+  margin-left: 10px;
+  background-color: rgb(10, 149, 255);
+  border: 1px solid white;
+  border-radius: 3px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 5px;
+  cursor: pointer;
+  text-align: center;
+  position: relative;
+  font-size: 13px;
+  color: white;
+  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+  &:hover {
+    background-color: hsl(206, 100%, 40%);
+  }
+`;
+
+const S_Word = styled.button`
+  cursor: pointer;
+  position: relative;
+  bottom: 10px;
+  background-color: white;
+  &:hover {
+    color: hsl(206, 100%, 52%);
   }
 `;
 
@@ -74,7 +76,6 @@ const S_CCreatedAt = styled.span`
 const Comment = ({ answer, setItem, id }) => {
   const [isEditing, setIsEditing] = useState(false); // input 숨기기
   const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
-  const [commentArray, setCommentArray] = useState([]); // 코멘트입력값배열 저장 공간
   const { memberId, accessToken } = useSelector((state) => state.authToken);
 
   function commentToggle() {
@@ -88,8 +89,6 @@ const Comment = ({ answer, setItem, id }) => {
     if (createComment === '') {
       return;
     }
-    setCommentArray([createComment, ...commentArray]);
-    setCreateComment('');
 
     axios
       .post(
@@ -113,6 +112,7 @@ const Comment = ({ answer, setItem, id }) => {
         }
         try {
           fetchItem();
+          setCreateComment('');
         } catch (err) {
           console.error(err);
         }
@@ -138,22 +138,11 @@ const Comment = ({ answer, setItem, id }) => {
               </S_CList>
             </li>
           ))}
-          {/* 새로 추가되는 댓글 띄우기 */}
-          {commentArray.map((value, id) => (
-            <li key={id}>
-              <S_CList>
-                <span>{value} - </span>
-                {/* 작성자 이름 들어가야함 */}
-                <S_CUserName>{}</S_CUserName>
-                <S_CCreatedAt>{transDate()}</S_CCreatedAt>
-              </S_CList>
-            </li>
-          ))}
         </ul>
       </S_Comment>
       {/* 토글눌러서 인풋창 띄우기 */}
       <S_CommentToggle>
-        <button onClick={commentToggle}>Add a comment</button>
+        <S_Word onClick={commentToggle}>Add a comment</S_Word>
         {isEditing ? (
           <div>
             <form onSubmit={onSubmit}>
@@ -163,7 +152,7 @@ const Comment = ({ answer, setItem, id }) => {
                 value={createComment}
                 onChange={onChange}
               />
-              <button>Send !</button>
+              <S_Btn>Send !</S_Btn>
             </form>
           </div>
         ) : (
