@@ -42,7 +42,7 @@ API 문서: http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080/
 - <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
 - Spring Data JPA
 - Java
-- MySQL
+- <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
 - Redis
 
 ## ☀️ 프로젝트 핵심 기능
