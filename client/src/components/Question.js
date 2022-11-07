@@ -135,7 +135,7 @@ const S_UserCardTheme = styled.div`
   }
 `;
 
-function Question({ title, displayName, createdAt, id }) {
+function Question({ title, displayName, createdAt, id, tags }) {
   const sideData = [
     {
       answers: [
@@ -146,7 +146,6 @@ function Question({ title, displayName, createdAt, id }) {
           body: '이렇게 하면 됩니다',
         },
       ],
-      tags: ['html', 'css', 'csv'],
     },
   ];
 
@@ -173,8 +172,8 @@ function Question({ title, displayName, createdAt, id }) {
         <S_SummaryMeta>
           <S_SummaryMetaTags>
             <ul>
-              {sideData[0].tags.map((tag) => (
-                <li key={tag}>{tag}</li>
+              {tags.map((tag, idx) => (
+                <li key={idx}>{tag}</li>
               ))}
             </ul>
           </S_SummaryMetaTags>
