@@ -298,7 +298,11 @@ function DetailView({
               <></>
             )}
             <span>Follow</span>
-            <S_ButtonDelete onClick={buttonDelete}>Delete</S_ButtonDelete>
+            {loginMemberId === memberId ? (
+              <S_ButtonDelete onClick={buttonDelete}>Delete</S_ButtonDelete>
+            ) : (
+              <></>
+            )}
           </S_FlexItem>
           <S_PostSignature>
             <S_Div>
