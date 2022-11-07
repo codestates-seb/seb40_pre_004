@@ -143,20 +143,7 @@ const S_UserCardTheme = styled.div`
   }
 `;
 
-function Question({ title, displayName, createdAt, id, tags }) {
-  const sideData = [
-    {
-      answers: [
-        {
-          body: '이렇게 하면 됩니다',
-        },
-        {
-          body: '이렇게 하면 됩니다',
-        },
-      ],
-    },
-  ];
-
+function Question({ title, displayName, createdAt, id, tags, answerCount }) {
   return (
     <S_QuestionSummary>
       <S_SummaryStatus>
@@ -164,9 +151,9 @@ function Question({ title, displayName, createdAt, id, tags }) {
           <span>0</span>
           <span>votes</span>
         </S_StatusVote>
-        <S_StatusVote className={sideData[0].answers.length > 0 ? 'green' : ''}>
-          <span>{sideData[0].answers.length}</span>
-          <span>{sideData[0].answers.length === 1 ? 'answer' : 'answers'}</span>
+        <S_StatusVote className={answerCount > 0 ? 'green' : ''}>
+          <span>{answerCount}</span>
+          <span>{answerCount === 1 ? 'answer' : 'answers'}</span>
         </S_StatusVote>
         <S_StatusVote>
           <span>2</span>
