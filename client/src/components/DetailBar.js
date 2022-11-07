@@ -18,7 +18,6 @@ function DetailBar({ questionId }) {
       const res = await axios.get(`/v1/questions/${questionId}`);
       let data = res.data.data;
       setItem(data);
-      console.log(data);
     }
     try {
       fetchItem();

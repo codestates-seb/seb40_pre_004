@@ -94,8 +94,8 @@ const Comment = ({ answer }) => {
       <S_Comment>
         {/* 기존의 댓글 데이터 띄우기 */}
         <ul>
-          {answer.comments.map((comment) => (
-            <li key={comment}>
+          {answer.comments.map((comment, id) => (
+            <li key={id}>
               <S_CList>
                 <span>{comment.body} -</span>
                 <S_CUserName> {comment.displayName}</S_CUserName>
@@ -120,8 +120,8 @@ const Comment = ({ answer }) => {
       <S_CommentToggle onClick={commentToggle}>
         <span>Add a comment</span>
         {isEditing ? (
-          <div onSubmit={onSubmit}>
-            <form>
+          <div>
+            <form onSubmit={onSubmit}>
               <input
                 type="text"
                 placeholder="Add a comment"

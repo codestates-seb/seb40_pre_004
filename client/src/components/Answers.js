@@ -30,7 +30,6 @@ const S_SelectItem = styled.select`
 `;
 
 function Answers({ answers, id }) {
-  console.log(answers);
   return (
     <>
       <S_AnswersHeader>
