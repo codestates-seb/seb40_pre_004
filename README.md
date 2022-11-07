@@ -8,11 +8,11 @@ API 문서: http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080/
 
 ## 📋 목차
 
-1. [🍣 팀 소개](##-🍣-팀-소개)
-2. [🛠️ 기술 스택](##-기술-스택)
-3. [☀️ 프로젝트 핵심 기능](##-☀️-프로젝트-핵심-기능)
-4. [📃 DB 테이블 설계](##-📃-DB-테이블-설계)
-5. [✅ 커밋 메시지 규칙](##-✅-커밋-메시지-규칙)
+1. [🍣 팀 소개](#-팀-소개)
+2. [🛠️ 기술 스택](#%EF%B8%8F-기술-스택)
+3. [☀️ 프로젝트 핵심 기능](#%EF%B8%8F-프로젝트-핵심-기능)
+4. [📃 DB 테이블 설계](#-db-테이블-설계)
+5. [✅ 커밋 메시지 규칙](#-커밋-메시지-규칙)
 
 ## 🍣 팀 소개
 
@@ -47,9 +47,9 @@ API 문서: http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080/
 ## ☀️ 프로젝트 핵심 기능
 
 ### 회원가입 / 로그인 / 로그아웃
-<img width="800" alt="Screenshot 2022-11-07 at 5 23 35 PM" src="https://user-images.githubusercontent.com/47207736/200261670-3811eee1-e295-4953-b56d-5effba9868cf.png">
-<img width="800" alt="Screenshot 2022-11-07 at 5 27 58 PM" src="https://user-images.githubusercontent.com/47207736/200261876-cc7562b6-eaaf-4c5b-8a6b-7332fce48502.png">
-
+<img width="800" alt="회원가입" src="https://user-images.githubusercontent.com/47207736/200261670-3811eee1-e295-4953-b56d-5effba9868cf.png">
+<img width="800" alt="로그인" src="https://user-images.githubusercontent.com/47207736/200261876-cc7562b6-eaaf-4c5b-8a6b-7332fce48502.png">
+<img width="800" alt="로그아웃" src="https://user-images.githubusercontent.com/47207736/200271416-33c6650b-69a6-467c-8cb4-dfc6b6c91fbf.png">
 
 ### 질문 조회 / 작성 / 수정 / 삭제
 
