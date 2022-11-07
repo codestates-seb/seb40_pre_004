@@ -2,7 +2,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import useInput from '../hooks/useInput';
 import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePasswordForLogin } from '../api/validate';
 import { setRefreshToken } from '../storage/Cookie';
 import { useDispatch, useSelector } from 'react-redux';
@@ -99,7 +99,7 @@ const LoginForm = () => {
   const [passwordValidationResult, setPasswordValidationResult] =
     useState(null);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const token = useSelector((state) => state.authToken);
   console.log(token);
 
@@ -131,7 +131,7 @@ const LoginForm = () => {
             setRefreshToken(refreshToken);
             dispatch(SET_TOKEN({ memberId, accessToken }));
 
-            // navigate('/');
+            navigate('/');
           }
         })
         .catch((error) => {
