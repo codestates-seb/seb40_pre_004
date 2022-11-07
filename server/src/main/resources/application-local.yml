@@ -12,6 +12,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  redis:
+    host: localhost
+    port: 6379
 logging:
   level:
     org:
@@ -24,8 +27,8 @@ server:
       force-response: true
 mail:
   address:
-    admin: admin@gmail.com
+    admin: okip0428@gmail.com
 jwt:
-  secret: mintaek1234123412341234123412341234123412341234             # 민감한 정보는 시스템 환경 변수에서 로드한다.
-  access-token-expiration-minutes: 30
-  refresh-token-expiration-minutes: 420
+  secret-key: St5h23phd4V37SFvHXBY2Zwmfvkkgjecqib0Bxz5Eh2Ch4R5dz
+  access-token-expiration-minutes: 60
+  refresh-token-expiration-minutes: 360

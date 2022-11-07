@@ -35,10 +35,6 @@ public class AnswerController {
                 this.mapper = mapper;
         }
 
-/*
-        AnswerController 전체 흐름 구현(dto 클래스, 비즈니스 계층 미구현)
-*/
-
         @PostMapping
         public ResponseEntity postAnswer(@Valid @RequestBody AnswerPostDto postDto) {
 

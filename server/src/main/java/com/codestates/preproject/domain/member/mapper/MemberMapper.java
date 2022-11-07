@@ -1,5 +1,6 @@
 package com.codestates.preproject.domain.member.mapper;
 
+import com.codestates.preproject.domain.member.dto.LoginDto;
 import com.codestates.preproject.domain.member.dto.MemberPostDto;
 import com.codestates.preproject.domain.member.entity.Member;
 import com.codestates.preproject.domain.member.dto.MemberPatchDto;
@@ -10,6 +11,8 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
+
+    Member loginDtoToMember(LoginDto loginDto);
     Member memberPostDtoToMember(MemberPostDto memberPostDto);
 
     Member memberPatchDtoToMember(MemberPatchDto memberPatchDto);
