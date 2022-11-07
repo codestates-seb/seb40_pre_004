@@ -40,6 +40,7 @@ function DetailBar({ questionId }) {
           <div>
             <DetailView
               id={questionId}
+              title={item.title}
               content={item.body}
               tags={item.tags}
               userName={item.displayName}
