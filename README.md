@@ -1,12 +1,66 @@
 # 💻 Stack Overflow 클론 코딩
 
+개발자 질의응답 커뮤니티 Stack Overflow 클론 프로젝트<br>
+개발 기간: 22.10.20 - 22.11.07
+
+배포 주소: http://seb40-pre-004-stack-overflow.s3-website.ap-northeast-2.amazonaws.com/<br>
+API 문서: http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080/docs/index.html
+
+## 📋 목차
+
+1. [🍣 팀 소개](#-팀-소개)
+2. [🛠️ 기술 스택](#%EF%B8%8F-기술-스택)
+3. [☀️ 프로젝트 핵심 기능](#%EF%B8%8F-프로젝트-핵심-기능)
+4. [📃 DB 테이블 설계](#-db-테이블-설계)
+5. [✅ 커밋 메시지 규칙](#-커밋-메시지-규칙)
+
 ## 🍣 팀 소개
 
 안녕하세요. 팀 사조참치 입니다.
 
-- 팀장: 박종원 [@jwp9633](https://github.com/jwp9633)
-- 프론트엔드 팀원: 이혜린 [@hyeleeeeen](https://github.com/hyeleeeeen), 임성욱 [@aroowsVd](https://github.com/aroowsVd)
-- 백엔드 팀원: 박영기 [@park-yeong-ki](https://github.com/park-yeong-ki), 신현상 [@Dev-Sam32](https://github.com/Dev-Sam32), 조민택 [@MintaekCho](https://github.com/MintaekCho)
+|  이름  |   역할   |                       Github                       |
+| :----: | :------: | :------------------------------------------------: |
+| 박종원 | 팀장, FE |       [@jwp9633](https://github.com/jwp9633)       |
+| 이혜린 | 팀원, FE |    [@hyeleeeeen](https://github.com/hyeleeeeen)    |
+| 임성욱 | 팀원, FE |      [@aroowsVd](https://github.com/aroowsVd)      |
+| 박영기 | 팀원, BE | [@park-yeong-ki](https://github.com/park-yeong-ki) |
+| 신현상 | 팀원, BE |     [@Dev-Sam32](https://github.com/Dev-Sam32)     |
+| 조민택 | 팀원, BE |    [@MintaekCho](https://github.com/MintaekCho)    |
+
+## 🛠️ 기술 스택
+
+### 프론트엔드
+
+- <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
+- <img src="https://img.shields.io/badge/Redux Toolkit-764ABC?style=for-the-badge&logo=Redux&logoColor=white">
+- <img src="https://img.shields.io/badge/Styled Component-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+- <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white">
+
+### 백엔드
+
+- <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
+- <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
+- Spring Data JPA
+- Java
+- <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
+- <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=Redis&logoColor=white">
+
+## ☀️ 프로젝트 핵심 기능
+
+### 회원가입 / 로그인 / 로그아웃
+<img width="800" alt="회원가입" src="https://user-images.githubusercontent.com/47207736/200261670-3811eee1-e295-4953-b56d-5effba9868cf.png">
+<img width="800" alt="로그인" src="https://user-images.githubusercontent.com/47207736/200261876-cc7562b6-eaaf-4c5b-8a6b-7332fce48502.png">
+<img width="800" alt="로그아웃" src="https://user-images.githubusercontent.com/47207736/200271416-33c6650b-69a6-467c-8cb4-dfc6b6c91fbf.png">
+
+### 질문 조회 / 작성 / 수정 / 삭제
+
+### 답변 조회 / 작성
+
+### 댓글 조회 / 작성
+
+## 📃 DB 테이블 설계
+
+![db테이블](https://user-images.githubusercontent.com/107581387/200233111-9db7b04b-b5bb-4a28-a32e-6f0d0e79289e.png)
 
 ## ✅ 커밋 메시지 규칙
 
@@ -74,7 +128,3 @@
 해결: #123
 참고: #456, #789
 ```
-
-
-### DB테이블 설계 (변경될 수 있음)!
-[DB 테이블](https://user-images.githubusercontent.com/105726931/197666306-de8f6d80-e353-4ff5-bbac-de1fc9f2c0ec.svg)
