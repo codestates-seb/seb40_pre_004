@@ -178,6 +178,7 @@ function MainBar() {
               displayName={list.displayName}
               createdAt={list.createdAt}
               tags={list.tags}
+              answerCount={list.answerCount}
             />
           ))}
         </div>
