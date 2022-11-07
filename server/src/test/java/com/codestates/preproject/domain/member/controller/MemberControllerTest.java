@@ -79,7 +79,7 @@ class MemberControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        post("/v1/members")
+                        post("/members")
                                 .accept(MediaType.APPLICATION_JSON)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(content)
@@ -140,7 +140,7 @@ class MemberControllerTest {
 
         //when
         ResultActions actions = mockMvc.perform(
-                patch("/v1/members/{member-id}", memberId)
+                patch("/members/{member-id}", memberId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
@@ -197,7 +197,7 @@ class MemberControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        get("/v1/members/{member-id}", memberId)
+                        get("/members/{member-id}", memberId)
                                 .accept(MediaType.APPLICATION_JSON)
                 );
 
@@ -243,7 +243,7 @@ class MemberControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        get("/v1/members/?page={page}&size={size}", page, size)
+                        get("/members/?page={page}&size={size}", page, size)
                                 .accept(MediaType.APPLICATION_JSON)
                 );
 
@@ -282,7 +282,7 @@ class MemberControllerTest {
         //when
         ResultActions actions =
                 mockMvc.perform(
-                        delete("/v1/members/{member-id}", memberId)
+                        delete("/members/{member-id}", memberId)
                 );
 
         //then

@@ -45,17 +45,18 @@ const S_Nav = styled.ol`
   display: flex;
   justify-content: space-evenly;
   position: relative;
-  a {
+  button {
     display: flex;
     color: rgba(82, 89, 96);
     font-size: 13px;
     margin: 2px;
     padding: 6px 20px;
-  }
-  a:hover {
-    border-radius: 1000px;
-    color: black;
-    background-color: hsl(210, 8%, 90%);
+    background-color: #f8f9f9;
+    &:hover {
+      border-radius: 1000px;
+      color: black;
+      background-color: hsl(210, 8%, 90%);
+    }
   }
 `;
 
@@ -405,23 +406,22 @@ function Header() {
         <S_Nav>
           {!authenticated && (
             <li>
-              <a href="#;">About</a>
+              <button>About</button>
             </li>
           )}
           <S_NavDropdownWord>
-            <a
-              href="#;"
+            <button
               onClick={() => {
                 setView(!view);
               }}
             >
               Products
-            </a>
+            </button>
             {view && <Dropdown />}
           </S_NavDropdownWord>
           {!authenticated && (
             <li>
-              <a href="#;">For Teams</a>
+              <button>For Teams</button>
             </li>
           )}
         </S_Nav>
