@@ -104,7 +104,7 @@ function MainBar() {
   // axios 전체 리스트 Get
   useEffect(() => {
     async function getAllQuestions() {
-      const res = await axios.get('/v1/questions?page=1&size=10');
+      const res = await axios.get('/questions?page=1&size=10');
       setQList(res.data.data);
     }
     getAllQuestions();

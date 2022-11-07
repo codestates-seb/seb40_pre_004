@@ -15,7 +15,7 @@ function DetailBar({ questionId }) {
   // // axios 리스트 Get
   useEffect(() => {
     async function fetchItem() {
-      const res = await axios.get(`/v1/questions/${questionId}`);
+      const res = await axios.get(`/questions/${questionId}`);
       let data = res.data.data;
       setItem(data);
     }

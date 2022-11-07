@@ -208,7 +208,7 @@ const RegisterForm = () => {
       };
 
       axios
-        .post('v1/members', registerBody)
+        .post('/members', registerBody)
         .then((response) => {
           if (response.status === 201) {
             navigate('/register-success', { state: { email, password } });
@@ -224,7 +224,7 @@ const RegisterForm = () => {
             switch (error.response.data.message) {
               case 'LOGIN_SUCCESS':
                 axios
-                  .post('/v1/members/login', loginBody)
+                  .post('/members/login', loginBody)
                   .then((response) => {
                     if (response.status === 200) {
                       const accessToken = response.headers.authorization;
