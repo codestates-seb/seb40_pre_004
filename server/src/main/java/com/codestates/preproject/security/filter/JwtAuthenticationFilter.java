@@ -32,10 +32,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String refresh = request.getHeader("Refresh");
         String requestURI = request.getRequestURI();
 
-        if ((!Objects.isNull(access) && access.startsWith("Bearer ")) || requestURI.equals("/v1/members/reissue")) {
+        if ((!Objects.isNull(access) && access.startsWith("Bearer ")) || requestURI.equals("/members/reissue")) {
             try {
 
-                if (requestURI.equals("/v1/members/reissue")) {
+                if (requestURI.equals("/members/reissue")) {
                     String rtkSubject = jwtProvider.getSubject(refresh);
                     UserDetails userDetails = memberDetailsService.loadUserByUsername(rtkSubject);
                     Authentication token = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

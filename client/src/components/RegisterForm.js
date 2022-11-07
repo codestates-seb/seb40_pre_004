@@ -208,7 +208,7 @@ const RegisterForm = () => {
       };
 
       axios
-        .post('v1/members', registerBody)
+        .post('/members', registerBody)
         .then((response) => {
           if (response.status === 201) {
             navigate('/register-success', { state: { email, password } });
@@ -224,13 +224,12 @@ const RegisterForm = () => {
             switch (error.response.data.message) {
               case 'LOGIN_SUCCESS':
                 axios
-                  .post('/v1/auth/login', loginBody)
+                  .post('/members/login', loginBody)
                   .then((response) => {
                     if (response.status === 200) {
-                      const accessToken =
-                        response.headers.authorization.slice(7);
+                      const accessToken = response.headers.authorization;
                       const refreshToken = response.headers.refresh;
-                      const memberId = response.data;
+                      const memberId = response.data.data;
                       setRefreshToken(refreshToken);
                       dispatch(SET_TOKEN({ memberId, accessToken }));
 

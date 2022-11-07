@@ -394,7 +394,7 @@ function NewQuestion() {
     ) {
       axios
         .post(
-          '/v1/questions',
+          '/questions',
           {
             memberId,
             title,

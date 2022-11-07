@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { transDate } from '../api/time';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const S_CommentToggle = styled.div`
   color: hsl(210, 8%, 55%);
@@ -76,10 +77,18 @@ const S_CCreatedAt = styled.span`
 const Comment = ({ answer, setItem, id }) => {
   const [isEditing, setIsEditing] = useState(false); // input 숨기기
   const [createComment, setCreateComment] = useState(''); //코멘트입력값 저장
-  const { memberId, accessToken } = useSelector((state) => state.authToken);
+  const { authenticated, memberId, accessToken } = useSelector(
+    (state) => state.authToken
+  );
+
+  const navigate = useNavigate();
 
   function commentToggle() {
-    setIsEditing(!isEditing);
+    if (authenticated) {
+      setIsEditing(!isEditing);
+    } else {
+      navigate('/login');
+    }
   }
 
   const onChange = (e) => setCreateComment(e.target.value);
@@ -92,7 +101,7 @@ const Comment = ({ answer, setItem, id }) => {
 
     axios
       .post(
-        '/v1/comments',
+        '/comments',
         {
           memberId,
           answerId: answer.answerId,
@@ -106,7 +115,7 @@ const Comment = ({ answer, setItem, id }) => {
       )
       .then(() => {
         async function fetchItem() {
-          const res = await axios.get(`/v1/questions/${id}`);
+          const res = await axios.get(`/questions/${id}`);
           let data = res.data.data;
           setItem(data);
         }

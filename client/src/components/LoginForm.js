@@ -119,12 +119,12 @@ const LoginForm = () => {
       validatePasswordForLogin(password) === 'valid'
     ) {
       axios
-        .post('/v1/auth/login', body)
+        .post('/members/login', body)
         .then((response) => {
           if (response.status === 200) {
-            const accessToken = response.headers.authorization.slice(7);
+            const accessToken = response.headers.authorization;
             const refreshToken = response.headers.refresh;
-            const memberId = response.data;
+            const memberId = response.data.data;
             setRefreshToken(refreshToken);
             dispatch(SET_TOKEN({ memberId, accessToken }));
 
