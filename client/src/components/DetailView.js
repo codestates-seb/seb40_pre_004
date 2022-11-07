@@ -327,7 +327,7 @@ function DetailView({
         <S_Link2>email</S_Link2>, <S_Link>Twitter</S_Link>, or&nbsp;
         <S_Link2>Facebook.</S_Link2>
       </S_Word2>
-      <FormBox />
+      <FormBox setItem={setItem} id={id} />
       <S_Div>
         <S_Word2>Browse other questions tagged&nbsp;</S_Word2>
         <S_PostTagBox>
@@ -352,7 +352,7 @@ function DetailView({
   );
 }
 
-function FormBox(setItem, id) {
+function FormBox({ setItem, id }) {
   const [aText, setAtext] = useState('');
   const { memberId, accessToken } = useSelector((state) => state.authToken);
   const handleText = (value) => {

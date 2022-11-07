@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Comment from './Comment';
 import { dateDiff } from '../api/time';
+import DOMPurify from 'dompurify';
 
 const S_PostCell = styled.div`
   margin: 20px;
@@ -79,7 +80,11 @@ function Answer({ answer, id, setItem }) {
   return (
     <S_PostCell>
       <S_PostBody>
-        <S_PostContent>{answer.body}</S_PostContent>
+        <S_PostContent
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(answer.body), //본문 태그 출력 무시
+          }}
+        />
       </S_PostBody>
       <S_DFlex>
         <S_FlexItem>
