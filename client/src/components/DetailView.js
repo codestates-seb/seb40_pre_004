@@ -6,7 +6,7 @@ import CustomToolBar from './CustomToolbar';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import Answers from './Answers';
-import { getTime, diff } from '../api/time';
+import { time } from '../api/time';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 
@@ -204,8 +204,6 @@ function DetailView({
   memberId,
   setItem,
 }) {
-  const time = diff(new Date().getDate(), getTime(asked).getDate());
-
   return (
     <S_PostLayout>
       <S_Ad>
@@ -255,10 +253,10 @@ function DetailView({
           </S_FlexItem>
           <S_PostSignature>
             <S_Div>
-              {time === 0 ? (
+              {time(asked) === 0 ? (
                 <div>answered Today</div>
               ) : (
-                <div>answered {time} days ago</div>
+                <div>answered {time(asked)} days ago</div>
               )}
             </S_Div>
             <S_Div>
