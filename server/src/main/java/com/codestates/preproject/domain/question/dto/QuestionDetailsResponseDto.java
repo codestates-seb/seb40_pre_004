@@ -22,5 +22,6 @@ public class QuestionDetailsResponseDto {
     private List<String> tags;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private long views;
     private List<AnswerResponseDto> answers;
 }

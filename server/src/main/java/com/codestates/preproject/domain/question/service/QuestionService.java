@@ -54,7 +54,10 @@ public class QuestionService {
 
     public Question findQuestion(long questionId) {
 
-        return findVerifiedQuestion(questionId);
+        Question question = findVerifiedQuestion(questionId);
+        question.addViews();
+
+        return question;
     }
 
     public Page<Question> findQuestions(int page, int size) {

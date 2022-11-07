@@ -24,4 +24,5 @@ public class QuestionResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private long answerCount;
+    private long views;
 }

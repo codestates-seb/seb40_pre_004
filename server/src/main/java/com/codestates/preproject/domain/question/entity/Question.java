@@ -34,6 +34,13 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private List<String> tags = new ArrayList<>();
 
+    @Column(nullable = false)
+    private long views = 0L;
+
+    public void addViews() {
+        views++;
+    }
+
     @ManyToOne()
     @JoinColumn(name = "MEMBER_ID")
     private Member member;

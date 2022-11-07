@@ -69,7 +69,7 @@ class QuestionControllerTest {
         String content = gson.toJson(postDto);
 
         QuestionResponseDto responseDto = new QuestionResponseDto(1L, "제목1", "본문1",
-                1L, "회원 이름1", Arrays.asList("자바", "스프링", "mysql"), LocalDateTime.now(), LocalDateTime.now(), 1L);
+                1L, "회원 이름1", Arrays.asList("자바", "스프링", "mysql"), LocalDateTime.now(), LocalDateTime.now(), 1L, 0L);
 
         given(mapper.questionPostDtoToQuestion(Mockito.any(QuestionPostDto.class)))
                 .willReturn(new Question());
@@ -117,7 +117,8 @@ class QuestionControllerTest {
                                         fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("질문 태그"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
-                                        fieldWithPath("data.answerCount").type(JsonFieldType.NUMBER).description("답변 갯수")
+                                        fieldWithPath("data.answerCount").type(JsonFieldType.NUMBER).description("답변 갯수"),
+                                        fieldWithPath("data.views").type(JsonFieldType.NUMBER).description("조회수")
                                 )
                         )
                 ));
@@ -138,7 +139,7 @@ class QuestionControllerTest {
         String content = gson.toJson(patchDto);
 
         QuestionResponseDto responseDto = new QuestionResponseDto(1L, "제목 수정", "본문 수정",
-                1L, "회원 이름1", Arrays.asList("jpa", "orm"),time, LocalDateTime.now(), 1L);
+                1L, "회원 이름1", Arrays.asList("jpa", "orm"),time, LocalDateTime.now(), 1L, 1L);
 
         given(mapper.questionPatchDtoToQuestion(Mockito.any(QuestionPatchDto.class)))
                 .willReturn(new Question());
@@ -187,7 +188,8 @@ class QuestionControllerTest {
                                         fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("질문 태그"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
-                                        fieldWithPath("data.answerCount").type(JsonFieldType.NUMBER).description("답변 갯수")
+                                        fieldWithPath("data.answerCount").type(JsonFieldType.NUMBER).description("답변 갯수"),
+                                        fieldWithPath("data.views").type(JsonFieldType.NUMBER).description("조회수")
                                 )
                         )
                 ));
@@ -199,7 +201,7 @@ class QuestionControllerTest {
         long questionId = 1L;
 
         QuestionDetailsResponseDto responseDto = new QuestionDetailsResponseDto(1L, "제목1", "본문1",
-                1L, "회원 이름1", Arrays.asList("jpa", "orm"),LocalDateTime.now(), LocalDateTime.now(),
+                1L, "회원 이름1", Arrays.asList("jpa", "orm"), LocalDateTime.now(), LocalDateTime.now(), 2L,
                 List.of(new AnswerResponseDto(1L, "답변 내용", false,
                         "홍길동1", 1L, LocalDateTime.now(), LocalDateTime.now(), 1L,
                         List.of(new CommentResponseDto(1L, "댓글1", "홍길동1", LocalDateTime.now(), LocalDateTime.now(),1L),
@@ -236,6 +238,8 @@ class QuestionControllerTest {
                                         fieldWithPath("data.tags").type(JsonFieldType.ARRAY).description("질문 태그"),
                                         fieldWithPath("data.createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data.modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
+                                        fieldWithPath("data.views").type(JsonFieldType.NUMBER).description("조회수"),
+
 
                                         fieldWithPath("data.answers").type(JsonFieldType.ARRAY).description("질문 답변 정보"),
                                         fieldWithPath("data.answers[].answerId").type(JsonFieldType.NUMBER).description("질문 식별자"),
@@ -268,9 +272,9 @@ class QuestionControllerTest {
         List<Question> questions = List.of(new Question(), new Question(), new Question());
 
         List<QuestionResponseDto> responseDtos = List.of(
-                new QuestionResponseDto(3L, "제목3", "본문3", 2L, "회원 이름2", Arrays.asList("java", "spring", "mysql"),LocalDateTime.now(), LocalDateTime.now(), 1L),
-                new QuestionResponseDto(2L, "제목2", "본문2", 1L, "회원 이름1", Arrays.asList("jpa", "orm"),LocalDateTime.now(), LocalDateTime.now(), 2L),
-                new QuestionResponseDto(1L, "제목1", "본문1", 1L, "회원 이름1", Arrays.asList("html", "css", "js"),LocalDateTime.now(), LocalDateTime.now(), 1L)
+                new QuestionResponseDto(3L, "제목3", "본문3", 2L, "회원 이름2", Arrays.asList("java", "spring", "mysql"),LocalDateTime.now(), LocalDateTime.now(), 1L, 2L),
+                new QuestionResponseDto(2L, "제목2", "본문2", 1L, "회원 이름1", Arrays.asList("jpa", "orm"),LocalDateTime.now(), LocalDateTime.now(), 2L, 0L),
+                new QuestionResponseDto(1L, "제목1", "본문1", 1L, "회원 이름1", Arrays.asList("html", "css", "js"),LocalDateTime.now(), LocalDateTime.now(), 1L, 3L)
         );
 
         given(questionService.findQuestions(Mockito.anyInt(), Mockito.anyInt()))
@@ -306,6 +310,7 @@ class QuestionControllerTest {
                                         fieldWithPath("data[].createdAt").type(JsonFieldType.STRING).description("생성 날짜"),
                                         fieldWithPath("data[].modifiedAt").type(JsonFieldType.STRING).description("수정 날짜"),
                                         fieldWithPath("data[].answerCount").type(JsonFieldType.NUMBER).description("답변 갯수"),
+                                        fieldWithPath("data[].views").type(JsonFieldType.NUMBER).description("조회수"),
 
                                         fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
                                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 번호"),
