@@ -1301,6 +1301,11 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">수정 날짜</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.answerCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 갯수</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1308,7 +1313,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 292
+Content-Length: 317
 
 {
   "data" : {
@@ -1318,8 +1323,9 @@ Content-Length: 292
     "memberId" : 1,
     "displayName" : "회원 이름1",
     "tags" : [ "자바", "스프링", "mysql" ],
-    "createdAt" : "2022-11-07T13:42:51.38786",
-    "modifiedAt" : "2022-11-07T13:42:51.38787"
+    "createdAt" : "2022-11-07T16:16:12.880788",
+    "modifiedAt" : "2022-11-07T16:16:12.880798",
+    "answerCount" : 1
   }
 }</code></pre>
 </div>
@@ -1482,6 +1488,11 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">수정 날짜</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.answerCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 갯수</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1489,7 +1500,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 288
+Content-Length: 309
 
 {
   "data" : {
@@ -1499,8 +1510,9 @@ Content-Length: 288
     "memberId" : 1,
     "displayName" : "회원 이름1",
     "tags" : [ "jpa", "orm" ],
-    "createdAt" : "2022-11-07T13:42:51.403817",
-    "modifiedAt" : "2022-11-07T13:42:51.404199"
+    "createdAt" : "2022-11-07T16:16:12.8968",
+    "modifiedAt" : "2022-11-07T16:16:12.897038",
+    "answerCount" : 1
   }
 }</code></pre>
 </div>
@@ -1696,7 +1708,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1287
+Content-Length: 1288
 
 {
   "data" : {
@@ -1706,37 +1718,37 @@ Content-Length: 1287
     "memberId" : 1,
     "displayName" : "회원 이름1",
     "tags" : [ "jpa", "orm" ],
-    "createdAt" : "2022-11-07T13:42:51.416336",
-    "modifiedAt" : "2022-11-07T13:42:51.416346",
+    "createdAt" : "2022-11-07T16:16:12.907962",
+    "modifiedAt" : "2022-11-07T16:16:12.907972",
     "answers" : [ {
       "answerId" : 1,
       "body" : "답변 내용",
       "answerCheck" : false,
       "memberDisplayName" : "홍길동1",
       "memberId" : 1,
-      "createdAt" : "2022-11-07T13:42:51.416358",
-      "modifiedAt" : "2022-11-07T13:42:51.41636",
+      "createdAt" : "2022-11-07T16:16:12.907983",
+      "modifiedAt" : "2022-11-07T16:16:12.907985",
       "questionId" : 1,
       "comments" : [ {
         "commentId" : 1,
         "body" : "댓글1",
         "displayName" : "홍길동1",
-        "createdAt" : "2022-11-07T13:42:51.416363",
-        "modifiedAt" : "2022-11-07T13:42:51.416365",
+        "createdAt" : "2022-11-07T16:16:12.907988",
+        "modifiedAt" : "2022-11-07T16:16:12.90799",
         "answerId" : 1
       }, {
         "commentId" : 2,
         "body" : "댓글2",
         "displayName" : "홍길동1",
-        "createdAt" : "2022-11-07T13:42:51.416369",
-        "modifiedAt" : "2022-11-07T13:42:51.41637",
+        "createdAt" : "2022-11-07T16:16:12.907993",
+        "modifiedAt" : "2022-11-07T16:16:12.907995",
         "answerId" : 1
       }, {
         "commentId" : 3,
         "body" : "댓글3",
         "displayName" : "홍길동2",
-        "createdAt" : "2022-11-07T13:42:51.416372",
-        "modifiedAt" : "2022-11-07T13:42:51.416374",
+        "createdAt" : "2022-11-07T16:16:12.907997",
+        "modifiedAt" : "2022-11-07T16:16:12.907999",
         "answerId" : 2
       } ]
     } ]
@@ -1853,6 +1865,11 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">수정 날짜</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].answerCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 갯수</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">페이지 정보</p></td>
@@ -1884,7 +1901,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 926
+Content-Length: 994
 
 {
   "data" : [ {
@@ -1894,8 +1911,9 @@ Content-Length: 926
     "memberId" : 2,
     "displayName" : "회원 이름2",
     "tags" : [ "java", "spring", "mysql" ],
-    "createdAt" : "2022-11-07T13:42:51.370232",
-    "modifiedAt" : "2022-11-07T13:42:51.370247"
+    "createdAt" : "2022-11-07T16:16:12.86362",
+    "modifiedAt" : "2022-11-07T16:16:12.863642",
+    "answerCount" : 1
   }, {
     "questionId" : 2,
     "title" : "제목2",
@@ -1903,8 +1921,9 @@ Content-Length: 926
     "memberId" : 1,
     "displayName" : "회원 이름1",
     "tags" : [ "jpa", "orm" ],
-    "createdAt" : "2022-11-07T13:42:51.370267",
-    "modifiedAt" : "2022-11-07T13:42:51.370269"
+    "createdAt" : "2022-11-07T16:16:12.863663",
+    "modifiedAt" : "2022-11-07T16:16:12.863665",
+    "answerCount" : 2
   }, {
     "questionId" : 1,
     "title" : "제목1",
@@ -1912,8 +1931,9 @@ Content-Length: 926
     "memberId" : 1,
     "displayName" : "회원 이름1",
     "tags" : [ "html", "css", "js" ],
-    "createdAt" : "2022-11-07T13:42:51.370276",
-    "modifiedAt" : "2022-11-07T13:42:51.370278"
+    "createdAt" : "2022-11-07T16:16:12.863672",
+    "modifiedAt" : "2022-11-07T16:16:12.863673",
+    "answerCount" : 1
   } ],
   "pageInfo" : {
     "page" : 1,
@@ -2154,7 +2174,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
-Content-Length: 938
+Content-Length: 936
 
 {
   "data" : {
@@ -2163,29 +2183,29 @@ Content-Length: 938
     "answerCheck" : false,
     "memberDisplayName" : "홍길동2",
     "memberId" : 2,
-    "createdAt" : "2022-11-07T13:42:50.597288",
-    "modifiedAt" : "2022-11-07T13:42:50.597299",
+    "createdAt" : "2022-11-07T16:16:12.10264",
+    "modifiedAt" : "2022-11-07T16:16:12.102652",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 1,
       "body" : "댓글1",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.597301",
-      "modifiedAt" : "2022-11-07T13:42:50.597303",
+      "createdAt" : "2022-11-07T16:16:12.102654",
+      "modifiedAt" : "2022-11-07T16:16:12.102656",
       "answerId" : 1
     }, {
       "commentId" : 2,
       "body" : "댓글2",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.597307",
-      "modifiedAt" : "2022-11-07T13:42:50.597309",
+      "createdAt" : "2022-11-07T16:16:12.10266",
+      "modifiedAt" : "2022-11-07T16:16:12.102662",
       "answerId" : 1
     }, {
       "commentId" : 3,
       "body" : "댓글3",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-11-07T13:42:50.597311",
-      "modifiedAt" : "2022-11-07T13:42:50.597313",
+      "createdAt" : "2022-11-07T16:16:12.102664",
+      "modifiedAt" : "2022-11-07T16:16:12.102666",
       "answerId" : 2
     } ]
   }
@@ -2393,29 +2413,29 @@ Content-Length: 935
     "answerCheck" : true,
     "memberDisplayName" : "홍길동2",
     "memberId" : 2,
-    "createdAt" : "2022-11-07T13:42:50.45708",
-    "modifiedAt" : "2022-11-07T13:42:50.45711",
+    "createdAt" : "2022-11-07T16:16:11.966269",
+    "modifiedAt" : "2022-11-07T16:16:11.966283",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 1,
       "body" : "댓글1",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.457138",
-      "modifiedAt" : "2022-11-07T13:42:50.457141",
+      "createdAt" : "2022-11-07T16:16:11.966308",
+      "modifiedAt" : "2022-11-07T16:16:11.96631",
       "answerId" : 1
     }, {
       "commentId" : 2,
       "body" : "댓글2",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.457147",
-      "modifiedAt" : "2022-11-07T13:42:50.457149",
+      "createdAt" : "2022-11-07T16:16:11.966316",
+      "modifiedAt" : "2022-11-07T16:16:11.966318",
       "answerId" : 1
     }, {
       "commentId" : 3,
       "body" : "댓글3",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-11-07T13:42:50.457151",
-      "modifiedAt" : "2022-11-07T13:42:50.457153",
+      "createdAt" : "2022-11-07T16:16:11.96632",
+      "modifiedAt" : "2022-11-07T16:16:11.966322",
       "answerId" : 2
     } ]
   }
@@ -2568,7 +2588,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 935
+Content-Length: 937
 
 {
   "data" : {
@@ -2577,29 +2597,29 @@ Content-Length: 935
     "answerCheck" : true,
     "memberDisplayName" : "홍길동2",
     "memberId" : 2,
-    "createdAt" : "2022-11-07T13:42:50.583407",
-    "modifiedAt" : "2022-11-07T13:42:50.58342",
+    "createdAt" : "2022-11-07T16:16:12.087044",
+    "modifiedAt" : "2022-11-07T16:16:12.087056",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 1,
       "body" : "댓글1",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.583425",
-      "modifiedAt" : "2022-11-07T13:42:50.583427",
+      "createdAt" : "2022-11-07T16:16:12.087062",
+      "modifiedAt" : "2022-11-07T16:16:12.087064",
       "answerId" : 1
     }, {
       "commentId" : 2,
       "body" : "댓글2",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.58343",
-      "modifiedAt" : "2022-11-07T13:42:50.583432",
+      "createdAt" : "2022-11-07T16:16:12.087067",
+      "modifiedAt" : "2022-11-07T16:16:12.087069",
       "answerId" : 1
     }, {
       "commentId" : 3,
       "body" : "댓글3",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-11-07T13:42:50.583435",
-      "modifiedAt" : "2022-11-07T13:42:50.583437",
+      "createdAt" : "2022-11-07T16:16:12.087071",
+      "modifiedAt" : "2022-11-07T16:16:12.087073",
       "answerId" : 2
     } ]
   }
@@ -2733,7 +2753,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 2790
+Content-Length: 2788
 
 {
   "data" : [ {
@@ -2742,29 +2762,29 @@ Content-Length: 2790
     "answerCheck" : true,
     "memberDisplayName" : "홍길동2",
     "memberId" : 2,
-    "createdAt" : "2022-11-07T13:42:50.561922",
-    "modifiedAt" : "2022-11-07T13:42:50.561933",
+    "createdAt" : "2022-11-07T16:16:12.069157",
+    "modifiedAt" : "2022-11-07T16:16:12.069168",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 1,
       "body" : "댓글1",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.561936",
-      "modifiedAt" : "2022-11-07T13:42:50.561938",
+      "createdAt" : "2022-11-07T16:16:12.06917",
+      "modifiedAt" : "2022-11-07T16:16:12.069172",
       "answerId" : 1
     }, {
       "commentId" : 2,
       "body" : "댓글2",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.56194",
-      "modifiedAt" : "2022-11-07T13:42:50.561942",
+      "createdAt" : "2022-11-07T16:16:12.069175",
+      "modifiedAt" : "2022-11-07T16:16:12.069177",
       "answerId" : 1
     }, {
       "commentId" : 3,
       "body" : "댓글3",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-11-07T13:42:50.561944",
-      "modifiedAt" : "2022-11-07T13:42:50.561946",
+      "createdAt" : "2022-11-07T16:16:12.069179",
+      "modifiedAt" : "2022-11-07T16:16:12.069181",
       "answerId" : 2
     } ]
   }, {
@@ -2773,29 +2793,29 @@ Content-Length: 2790
     "answerCheck" : false,
     "memberDisplayName" : "홍길동3",
     "memberId" : 3,
-    "createdAt" : "2022-11-07T13:42:50.561952",
-    "modifiedAt" : "2022-11-07T13:42:50.561954",
+    "createdAt" : "2022-11-07T16:16:12.069186",
+    "modifiedAt" : "2022-11-07T16:16:12.069188",
     "questionId" : 1,
     "comments" : [ {
       "commentId" : 4,
       "body" : "댓글4",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.561957",
-      "modifiedAt" : "2022-11-07T13:42:50.561958",
+      "createdAt" : "2022-11-07T16:16:12.069191",
+      "modifiedAt" : "2022-11-07T16:16:12.069193",
       "answerId" : 2
     }, {
       "commentId" : 5,
       "body" : "댓글5",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.561961",
-      "modifiedAt" : "2022-11-07T13:42:50.561963",
+      "createdAt" : "2022-11-07T16:16:12.069196",
+      "modifiedAt" : "2022-11-07T16:16:12.069198",
       "answerId" : 3
     }, {
       "commentId" : 6,
       "body" : "댓글6",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-11-07T13:42:50.561966",
-      "modifiedAt" : "2022-11-07T13:42:50.561968",
+      "createdAt" : "2022-11-07T16:16:12.0692",
+      "modifiedAt" : "2022-11-07T16:16:12.069202",
       "answerId" : 3
     } ]
   }, {
@@ -2804,29 +2824,29 @@ Content-Length: 2790
     "answerCheck" : false,
     "memberDisplayName" : "홍길동3",
     "memberId" : 3,
-    "createdAt" : "2022-11-07T13:42:50.561971",
-    "modifiedAt" : "2022-11-07T13:42:50.561973",
+    "createdAt" : "2022-11-07T16:16:12.069206",
+    "modifiedAt" : "2022-11-07T16:16:12.069208",
     "questionId" : 2,
     "comments" : [ {
       "commentId" : 7,
       "body" : "댓글7",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.561976",
-      "modifiedAt" : "2022-11-07T13:42:50.561978",
+      "createdAt" : "2022-11-07T16:16:12.069211",
+      "modifiedAt" : "2022-11-07T16:16:12.069213",
       "answerId" : 1
     }, {
       "commentId" : 8,
       "body" : "댓글8",
       "displayName" : "홍길동1",
-      "createdAt" : "2022-11-07T13:42:50.561981",
-      "modifiedAt" : "2022-11-07T13:42:50.561982",
+      "createdAt" : "2022-11-07T16:16:12.069215",
+      "modifiedAt" : "2022-11-07T16:16:12.069217",
       "answerId" : 1
     }, {
       "commentId" : 9,
       "body" : "댓글9",
       "displayName" : "홍길동2",
-      "createdAt" : "2022-11-07T13:42:50.561985",
-      "modifiedAt" : "2022-11-07T13:42:50.561987",
+      "createdAt" : "2022-11-07T16:16:12.069219",
+      "modifiedAt" : "2022-11-07T16:16:12.069221",
       "answerId" : 2
     } ]
   } ]
@@ -3025,8 +3045,8 @@ Content-Length: 215
     "commentId" : 1,
     "body" : "댓글1",
     "displayName" : "홍길동1",
-    "createdAt" : "2022-11-07T13:42:50.856104",
-    "modifiedAt" : "2022-11-07T13:42:50.856131",
+    "createdAt" : "2022-11-07T16:16:12.367677",
+    "modifiedAt" : "2022-11-07T16:16:12.367688",
     "answerId" : 1
   }
 }</code></pre>
@@ -3178,8 +3198,8 @@ Content-Length: 215
     "commentId" : 1,
     "body" : "댓글2",
     "displayName" : "홍길동1",
-    "createdAt" : "2022-11-07T13:42:50.822279",
-    "modifiedAt" : "2022-11-07T13:42:50.822476",
+    "createdAt" : "2022-11-07T16:16:12.331908",
+    "modifiedAt" : "2022-11-07T16:16:12.332086",
     "answerId" : 1
   }
 }</code></pre>
@@ -3293,8 +3313,8 @@ Content-Length: 215
     "commentId" : 1,
     "body" : "댓글2",
     "displayName" : "홍길동1",
-    "createdAt" : "2022-11-07T13:42:50.870894",
-    "modifiedAt" : "2022-11-07T13:42:50.870911",
+    "createdAt" : "2022-11-07T16:16:12.378976",
+    "modifiedAt" : "2022-11-07T16:16:12.378989",
     "answerId" : 1
   }
 }</code></pre>
@@ -3389,22 +3409,22 @@ Content-Length: 623
     "commentId" : 1,
     "body" : "댓글1",
     "displayName" : "홍길동1",
-    "createdAt" : "2022-11-07T13:42:50.846731",
-    "modifiedAt" : "2022-11-07T13:42:50.846745",
+    "createdAt" : "2022-11-07T16:16:12.359064",
+    "modifiedAt" : "2022-11-07T16:16:12.359075",
     "answerId" : 1
   }, {
     "commentId" : 2,
     "body" : "댓글2",
     "displayName" : "홍길동1",
-    "createdAt" : "2022-11-07T13:42:50.846751",
-    "modifiedAt" : "2022-11-07T13:42:50.846753",
+    "createdAt" : "2022-11-07T16:16:12.359081",
+    "modifiedAt" : "2022-11-07T16:16:12.359083",
     "answerId" : 1
   }, {
     "commentId" : 3,
     "body" : "댓글3",
     "displayName" : "홍길동3",
-    "createdAt" : "2022-11-07T13:42:50.846757",
-    "modifiedAt" : "2022-11-07T13:42:50.846758",
+    "createdAt" : "2022-11-07T16:16:12.359086",
+    "modifiedAt" : "2022-11-07T16:16:12.359088",
     "answerId" : 2
   } ]
 }</code></pre>
@@ -3464,7 +3484,7 @@ Host: localhost:8080</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-11-07 13:42:37 +0900
+Last updated 2022-11-07 14:36:21 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

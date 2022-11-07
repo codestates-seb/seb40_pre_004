@@ -23,4 +23,5 @@ public class QuestionResponseDto {
     private List<String> tags;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
+    private long answerCount;
 }
