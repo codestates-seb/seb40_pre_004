@@ -52,4 +52,8 @@ public class Question extends Auditable {
     public void addAnswers(Answer answer) {
         answers.add(answer);
     }
+
+    public long getAnswerCount() {
+        return answers.stream().count();
+    }
 }
