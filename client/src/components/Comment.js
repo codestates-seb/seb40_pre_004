@@ -122,8 +122,6 @@ const Comment = ({ answer, setItem, id }) => {
       });
   };
 
-  console.log(answer);
-
   return (
     <>
       <S_Comment>
