@@ -369,7 +369,7 @@ function Header() {
       (accessToken === null || expireTime - new Date().getTime() < 30 * 1000)
     ) {
       axios
-        .get('/v1/members/reissue', {
+        .get('/members/reissue', {
           headers: {
             Refresh: refreshToken,
           },

@@ -83,7 +83,7 @@ const RegisterSuccess = () => {
     const body = { email, password };
 
     axios
-      .post('/v1/members/login', body)
+      .post('/members/login', body)
       .then((response) => {
         if (response.status === 200) {
           const accessToken = response.headers.authorization;

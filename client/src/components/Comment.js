@@ -101,7 +101,7 @@ const Comment = ({ answer, setItem, id }) => {
 
     axios
       .post(
-        '/v1/comments',
+        '/comments',
         {
           memberId,
           answerId: answer.answerId,
@@ -115,7 +115,7 @@ const Comment = ({ answer, setItem, id }) => {
       )
       .then(() => {
         async function fetchItem() {
-          const res = await axios.get(`/v1/questions/${id}`);
+          const res = await axios.get(`/questions/${id}`);
           let data = res.data.data;
           setItem(data);
         }
