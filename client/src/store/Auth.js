@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const TOKEN_TIME_OUT = 10 * 60 * 1000;
+const TOKEN_TIME_OUT = 10 * 60 * 1000; // 10분
 
 const initialState = {
   authenticated: false,
