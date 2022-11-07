@@ -77,4 +77,4 @@
 
 
 ### DB테이블 설계 (변경될 수 있음)!
-[DB 테이블](https://user-images.githubusercontent.com/105726931/197666306-de8f6d80-e353-4ff5-bbac-de1fc9f2c0ec.svg)
+![db테이블](https://user-images.githubusercontent.com/107581387/200233111-9db7b04b-b5bb-4a28-a32e-6f0d0e79289e.png)
