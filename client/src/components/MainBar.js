@@ -177,6 +177,7 @@ function MainBar() {
               title={list.title}
               displayName={list.displayName}
               createdAt={list.createdAt}
+              tags={list.tags}
             />
           ))}
         </div>
