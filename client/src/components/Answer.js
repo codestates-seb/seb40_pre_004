@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Comment from './Comment';
-import { time } from '../api/time';
+import { dateDiff } from '../api/time';
 
 const S_PostCell = styled.div`
   margin: 20px;
@@ -99,11 +99,7 @@ function Answer({ answer, id, setItem }) {
           Follow
         </S_FlexItem>
         <S_AnswerPostSignature>
-          {time(answer.createdAt) === 0 ? (
-            <div>answered Today</div>
-          ) : (
-            <div>answered {time(answer.createdAt)} days ago</div>
-          )}
+          {dateDiff(answer.createdAt)}
           <S_div>
             <S_Img>
               <img

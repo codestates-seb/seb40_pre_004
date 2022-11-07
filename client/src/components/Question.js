@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { isToday, transDate } from '../api/time';
 
 const S_QuestionSummary = styled.div`
   position: relative;
@@ -117,10 +118,17 @@ const S_UserCardInfo = styled.div`
     white-space: nowrap;
     min-width: 0;
     font-size: 12px;
-    a {
+    span {
       margin: 2px;
       color: hsl(206, 100%, 40%);
+      cursor: pointer;
     }
+  }
+  img {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
   }
 `;
 
@@ -180,11 +188,19 @@ function Question({ title, displayName, createdAt, id, tags }) {
           <S_UserCard>
             <S_UserCardInfo>
               <div>
-                <a href="/">{displayName}</a>
+                <img
+                  src="https://cdn.hellodd.com/news/photo/202005/71835_craw1.jpg"
+                  alt="고양이"
+                />
+              </div>
+              <div>
+                <span>{displayName}</span>
               </div>
             </S_UserCardInfo>
             <S_UserCardTheme>
-              <a href="/">{createdAt}</a>
+              <Link to={`/detail/${id}`}>
+                asked {isToday(createdAt) ? 'today' : transDate(createdAt)}
+              </Link>
             </S_UserCardTheme>
           </S_UserCard>
         </S_SummaryMeta>
