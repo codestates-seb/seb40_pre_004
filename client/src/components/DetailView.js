@@ -6,7 +6,9 @@ import CustomToolBar from './CustomToolbar';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import Answers from './Answers';
-import { getTime, diff } from '../api/time';
+import { time } from '../api/time';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const S_PostLayout = styled.div`
   margin: 20px;
@@ -202,8 +204,6 @@ function DetailView({
   memberId,
   setItem,
 }) {
-  const time = diff(new Date().getDate(), getTime(asked).getDate());
-
   return (
     <S_PostLayout>
       <S_Ad>
@@ -253,7 +253,11 @@ function DetailView({
           </S_FlexItem>
           <S_PostSignature>
             <S_Div>
-              <div>asked {time} days ago</div>
+              {time(asked) === 0 ? (
+                <div>answered Today</div>
+              ) : (
+                <div>answered {time(asked)} days ago</div>
+              )}
             </S_Div>
             <S_Div>
               <S_Img>
@@ -276,12 +280,7 @@ function DetailView({
         <S_Link2>email</S_Link2>, <S_Link>Twitter</S_Link>, or&nbsp;
         <S_Link2>Facebook.</S_Link2>
       </S_Word2>
-      <div>
-        <FormBox />
-      </div>
-      <div>
-        <S_Btn type="submit">Post Your Answer</S_Btn>
-      </div>
+      <FormBox />
       <S_Div>
         <S_Word2>Browse other questions tagged&nbsp;</S_Word2>
         <S_PostTagBox>
@@ -306,8 +305,9 @@ function DetailView({
   );
 }
 
-function FormBox() {
+function FormBox(setItem, id) {
   const [aText, setAtext] = useState('');
+  const { memberId, accessToken } = useSelector((state) => state.authToken);
   const handleText = (value) => {
     setAtext(value);
   };
@@ -332,24 +332,68 @@ function FormBox() {
     'background',
     'image',
   ];
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (setAtext === '') {
+      return;
+    }
+
+    axios
+      .post(
+        '/answers',
+        {
+          memberId,
+          questionId: id,
+          body: aText,
+        },
+        {
+          headers: {
+            Authorization: accessToken,
+          },
+        }
+      )
+      .then(() => {
+        async function fetchItem() {
+          const res = await axios.get(`/questions/${id}`);
+          let data = res.data.data;
+          setItem(data);
+        }
+        try {
+          fetchItem();
+          setAtext('');
+        } catch (err) {
+          console.error(err);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   {
     return (
-      <>
+      <form onSubmit={onSubmit}>
         <div>
-          <S_Word>Your Answer</S_Word>
+          <div>
+            <S_Word>Your Answer</S_Word>
+          </div>
+          <S_StackForm>
+            <S_PsRelativeBody>
+              <CustomToolBar />
+              <ReactQuill
+                modules={modules}
+                formats={formats}
+                value={aText}
+                onChange={handleText}
+              />
+            </S_PsRelativeBody>
+          </S_StackForm>
         </div>
-        <S_StackForm>
-          <S_PsRelativeBody>
-            <CustomToolBar />
-            <ReactQuill
-              modules={modules}
-              formats={formats}
-              value={aText}
-              onChange={handleText}
-            />
-          </S_PsRelativeBody>
-        </S_StackForm>
-      </>
+        <div>
+          <S_Btn>Post Your Answer</S_Btn>
+        </div>
+      </form>
     );
   }
 }

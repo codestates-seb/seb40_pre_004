@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { transDate } from '../api/time';
+import { transDate, isToday } from '../api/time';
 
 const S_H1 = styled.h1`
   font-size: 1.61538462rem;
@@ -66,11 +66,19 @@ function DetailHeadLine({ title, asked, modified }) {
       <S_Div2>
         <div>
           <S_Span>Asked </S_Span>
-          <S_Span2>{transDate(asked)}</S_Span2>
+          {isToday(asked) ? (
+            <S_Span2>today</S_Span2>
+          ) : (
+            <S_Span2>{transDate(asked)}</S_Span2>
+          )}
         </div>
         <div>
           <S_Span>Modified </S_Span>
-          <S_Span2>{transDate(modified)}</S_Span2>
+          {isToday(modified) ? (
+            <S_Span2>today</S_Span2>
+          ) : (
+            <S_Span2>{transDate(modified)}</S_Span2>
+          )}
         </div>
       </S_Div2>
     </S_DFlex>
