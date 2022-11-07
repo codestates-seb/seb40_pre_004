@@ -48,19 +48,28 @@ API 문서: http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080/
 ## ☀️ 프로젝트 핵심 기능
 
 ### 회원가입 / 로그인 / 로그아웃
+
 <img width="800" alt="회원가입" src="https://user-images.githubusercontent.com/47207736/200261670-3811eee1-e295-4953-b56d-5effba9868cf.png">
 <img width="800" alt="로그인" src="https://user-images.githubusercontent.com/47207736/200261876-cc7562b6-eaaf-4c5b-8a6b-7332fce48502.png">
 <img width="800" alt="로그아웃" src="https://user-images.githubusercontent.com/47207736/200271416-33c6650b-69a6-467c-8cb4-dfc6b6c91fbf.png">
 
 ### 질문 조회 / 작성 / 수정 / 삭제
 
+<img width="800" alt="질문 상세 조회" src="https://user-images.githubusercontent.com/47207736/200305046-8b1e2652-de76-457a-a2ef-a0a1604974ac.png">
+<img width="800" alt="질문 작성" src="https://user-images.githubusercontent.com/47207736/200305370-39c0edd4-245d-4ae6-be7d-3c57ab93ae78.png">
+
 ### 답변 조회 / 작성
+
+<img width="800" alt="답변 조회 및 작성" src="https://user-images.githubusercontent.com/47207736/200305638-4dde4909-c2c2-4136-8c06-add4c024b792.png">
 
 ### 댓글 조회 / 작성
 
+<img width="800" alt="답변 조회 및 작성" src="https://user-images.githubusercontent.com/47207736/200305888-f581b53d-123a-47ec-bdae-372d116716d7.png">
+
+
 ## 📃 DB 테이블 설계
 
-![db테이블](https://user-images.githubusercontent.com/107581387/200233111-9db7b04b-b5bb-4a28-a32e-6f0d0e79289e.png)
+<img width="800" alt="DB 테이블" src="https://user-images.githubusercontent.com/107581387/200233111-9db7b04b-b5bb-4a28-a32e-6f0d0e79289e.png">
 
 ## ✅ 커밋 메시지 규칙
 
