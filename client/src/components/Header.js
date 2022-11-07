@@ -605,10 +605,24 @@ function Dropdown2() {
 
 function Dropdown3() {
   const dispatch = useDispatch();
+  const { accessToken } = useSelector((state) => state.authToken);
 
   const logOutHandler = () => {
-    dispatch(DELETE_TOKEN());
-    removeCookieToken();
+    axios
+      .get('/members/logout', {
+        headers: {
+          Authorization: accessToken,
+        },
+      })
+      .then((response) => {
+        if (response.status === 204) {
+          dispatch(DELETE_TOKEN());
+          removeCookieToken();
+        } else {
+          console.log(response);
+        }
+      })
+      .catch((error) => console.log('Failed to log out', error));
   };
 
   return (
