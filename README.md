@@ -39,7 +39,7 @@ API 문서: http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080/
 ### 백엔드
 
 - <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
-- Spring Security
+- <img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
 - Spring Data JPA
 - Java
 - MySQL
