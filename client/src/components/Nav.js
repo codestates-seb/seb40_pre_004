@@ -159,7 +159,6 @@ const S_TeamsAd = styled.div`
 
 function Nav() {
   const [active, setActive] = useState('Home');
-
   return (
     <S_LeftSidebar>
       <S_SidebarContainer>

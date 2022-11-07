@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_TOKEN, DELETE_TOKEN } from '../store/Auth';
-import { removeCookieToken } from '../storage/Cookie';
+import { getCookieToken, removeCookieToken } from '../storage/Cookie';
 
 const S_Header = styled.header`
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
@@ -363,26 +363,34 @@ function Header() {
 
   useEffect(() => {
     // access token 재발급
-    if (accessToken === null || new Date().getTime() - expireTime < 30 * 1000) {
+    const refreshToken = getCookieToken();
+
+    if (
+      refreshToken &&
+      (accessToken === null || expireTime - new Date().getTime() < 30 * 1000)
+    ) {
       axios
-        .get('/url-is-not-defined')
+        .get('/members/reissue', {
+          headers: {
+            Refresh: refreshToken,
+          },
+        })
         .then((response) => {
-          if (response.status === 201) {
-            const accessToken = response.headers.authorization.slice(7);
-            const memberId = response.data;
+          if (response.status === 200) {
+            const accessToken = response.headers.authorization;
+            const memberId = response.data.data;
             dispatch(SET_TOKEN({ memberId, accessToken }));
           } else {
-            console.log(response);
+            console.log('Other success response', response);
           }
         })
         .catch((error) => {
           if (error.response.status === 403) {
             dispatch(DELETE_TOKEN());
             removeCookieToken();
+            console.log('Bad reissue request with wrong refresh token', error);
           } else {
-            console.log(
-              '백엔드 access token 재발급 로직이 구현되지 않아서 발생하는 오류입니다.'
-            );
+            console.log('Other bad reissue request', error);
           }
         });
     }

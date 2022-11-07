@@ -83,12 +83,12 @@ const RegisterSuccess = () => {
     const body = { email, password };
 
     axios
-      .post('/v1/auth/login', body)
+      .post('/v1/members/login', body)
       .then((response) => {
         if (response.status === 200) {
-          const accessToken = response.headers.authorization.slice(7);
+          const accessToken = response.headers.authorization;
           const refreshToken = response.headers.refresh;
-          const memberId = response.data;
+          const memberId = response.data.data;
           setRefreshToken(refreshToken);
           dispatch(SET_TOKEN({ memberId, accessToken }));
 
