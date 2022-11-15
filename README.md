@@ -47,6 +47,10 @@ API 문서: http://ec2-43-201-141-158.ap-northeast-2.compute.amazonaws.com:8080/
 
 ## ☀️ 프로젝트 핵심 기능
 
+### 메인페이지
+
+<img width="800" alt="회원가입" src="https://user-images.githubusercontent.com/47207736/201952797-8298aca9-e54d-4b43-927f-0c51c1a16af5.png">
+
 ### 회원가입 / 로그인 / 로그아웃
 
 <img width="800" alt="회원가입" src="https://user-images.githubusercontent.com/47207736/200261670-3811eee1-e295-4953-b56d-5effba9868cf.png">
